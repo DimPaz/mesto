@@ -4,15 +4,18 @@
 /* fonts */
 @import url(../fonts/fonts.css);
 
-/* блок page */
+/* page */
 @import url(../blocks/page/page.css);
 
-/* блок link */
+/* link */
 @import url(../blocks/link/link.css);
 
-/*Header*/
+/* Header */
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/__line/header__line.css);
 
+/* logo */
 @import url(../blocks/logo/logo.css);
 
+/* profile */
+@import url(../blocks/profile/profile.css);
