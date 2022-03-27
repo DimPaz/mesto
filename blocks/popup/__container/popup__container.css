@@ -1,4 +1,4 @@
-.popup__content {
+.popup__container {
   max-width: 430px;
   height: 330px;
   background: #fff;
@@ -12,13 +12,13 @@
 }
 
 @media screen and (max-width: 468px) {
-  .popup__content {
+  .popup__container {
     max-width: calc(100% - 38px);
   }
 }
 
 @media screen and (max-width: 435px) {
-  .popup__content {
+  .popup__container {
     padding: 25px 22px;
   }
 }

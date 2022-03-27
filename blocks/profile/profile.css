@@ -9,7 +9,7 @@
 
 @media screen and (max-width: 934px) {
   .profile {
-    max-width: calc(100% - 38px);
+    max-width: 581px;
     grid-template-columns: min-content 1fr;
     grid-template-rows: repeat(2, 1fr) min-content;
   }
