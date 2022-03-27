@@ -1,0 +1,11 @@
+.element__group {
+  width: 100%;
+  max-width: 242px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+}
