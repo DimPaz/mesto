@@ -103,18 +103,19 @@
       </footer>
 
       <div class="popup">
-        <div class="popup__container">
+        <form class="popup__container">
           <button class="popup__close-btn opacity" type="button"></button>
           <h3 class="popup__title">Редактировать профиль</h3>
-          <p class="popup__text">Жак-Ив Кусто</p>
+          <input class="popup__text" type="text" placeholder="name">
+          <hr class="popup__line"></hr>          
+          <input class="popup__text" type="text" placeholder="profession">
           <hr class="popup__line"></hr>
-          <p class="popup__text">Исследователь океана</p>
-          <hr class="popup__line"></hr>
-          <button class="popup__save-btn" type="button">Сохранить</button>
-        </div>
+          <button class="popup__save-btn" type="submit">Сохранить</button>
+        </form>
       </div>
 
     </div>
     <script src="./scripts/index.js"></script>
   </body>
 </html>
+        
