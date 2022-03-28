@@ -21,7 +21,26 @@ function closeOnOverlayClick(event) {
 }
 popupWindow.addEventListener("click", closeOnOverlayClick);
 
+// let formElement = document.querySelector(".popup__container");
+// let nameInput = formElement.querySelector(".input-name");
+// let jobInput = formElement.querySelector(".input-job");
 
-let formElement = document.querySelector(".popup__container");
-let nameInput = formElement.querySelector(".popup__container");
-let jobInput = formElement.querySelector(".popup__container");
+// function formSubmitHandler (evt) {
+//   evt.preventDefault();
+//   console.log('name', nameInput.textContent);
+//   console.log('job',jobInput.textContent);
+// formElement.addEventListener("click", formSubmitHandler);
+
+// function formSubmitHandler (evt) {
+// evt.preventDefault();
+
+// Получите значение полей jobInput и nameInput из свойства value
+
+// Выберите элементы, куда должны быть вставлены значения полей
+
+// Вставьте новые значения с помощью textContent
+// }
+
+// Прикрепляем обработчик к форме:
+// он будет следить за событием “submit” - «отправка»
+// formElement.addEventListener('submit', formSubmitHandler);
