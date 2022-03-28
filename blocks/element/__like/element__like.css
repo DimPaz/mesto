@@ -2,4 +2,9 @@
   width: 22px;
   height: 19px;
   background-image: url(../../../images/element/like-disabled.svg);
+  transition: opacity 0.3s linear;
+}
+
+.element__like:hover {
+  opacity: 0.5;
 }

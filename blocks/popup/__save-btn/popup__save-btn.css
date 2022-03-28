@@ -13,6 +13,11 @@
   font-size: 18px;
   line-height: 1.22;
   cursor: pointer;
+  transition: opacity 0.3s linear;
+}
+
+.popup__save-btn:hover {
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 435px) {

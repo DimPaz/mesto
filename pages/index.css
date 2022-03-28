@@ -7,8 +7,8 @@
 /* page */
 @import url(../blocks/page/page.css);
 
-/* link */
-@import url(../blocks/link/link.css);
+/* opacity */
+@import url(../blocks/opacity/opacity.css);
 
 /* Header */
 @import url(../blocks/header/header.css);
