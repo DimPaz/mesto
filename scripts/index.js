@@ -9,3 +9,4 @@ function openPopupWindow() {
 profileEditBtn.addEventListener("click", openPopupWindow);
 
 console.log(document.querySelector(".popup_opened"));
+console.log("dfdfderrer");
