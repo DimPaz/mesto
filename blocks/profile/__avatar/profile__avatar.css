@@ -5,7 +5,7 @@
   grid-row-start: 1;
   grid-row-end: 3;
   margin-right: 30px;
-  object-fit:cover;
+  object-fit: cover;
 }
 @media screen and (max-width: 675px) {
   .profile__avatar {

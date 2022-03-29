@@ -24,8 +24,8 @@ popupCloseBtn.addEventListener("click", closePopupWindow); // закрыть pop
 
 // закрыть popup на overlay
 function closeOnOverlayClick(event) {
-  //console.log("Event.target", event.target); // самый глубокий элемент, на котором произошло событие.
-  //console.log("Event.carrentTarget", event.currentTarget); // элемент, на котором в данный момент сработал обработчик (до которого «доплыло» событие)
+  // console.log("Event.target", event.target); // самый глубокий элемент, на котором произошло событие.
+  // console.log("Event.carrentTarget", event.currentTarget); // элемент, на котором в данный момент сработал обработчик (до которого «доплыло» событие)
   if (event.target === event.currentTarget) {
     closePopupWindow();
   }
@@ -41,12 +41,20 @@ function formSubmitHandler(event) {
 }
 formElement.addEventListener("submit", formSubmitHandler);
 
-// кнопка лайка
-const cardElement = document.querySelector(".elements");
-const cardLike = document.querySelector(".element__like");
+// // кнопка лайка
+// const cardElement = document.querySelector(".elements");
+// const cardLike = document.querySelector(".element__like");
 
-function likeActiv() {
-  cardLike.classList.toggle("element__like_active");
-}
+// function likeActiv(event) {
+//   console.log("event.target", event.target);
+//   console.log("Event.carrentTarget", event.currentTarget);
+//   if (event.target === event.currentTarget) {
+//     console.log("Равно")
+//     cardLike.innerHTML = '<img src="./images/element/like-active.svg" alt="like">';
+//   } else {
+//     console.log("не Равно")
+//     cardLike.innerHTML = '<img src="./images/element/like-disabled.svg" alt="like">';
+//   }
+// }
 
-cardLike.addEventListener("click", likeActiv);
+// cardLike.addEventListener("click", likeActiv, true);
