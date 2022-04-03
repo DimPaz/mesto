@@ -26,7 +26,7 @@
             </div>
             <p class="profile__profession">Певец</p>
           </div>
-          <button class="profile__add-btn opacity"></button>
+          <button class="profile__add-btn opacity" type="button"></button>
         </section>
         <section class="elements">
           <article class="element">
@@ -126,7 +126,8 @@
       </footer>
       <div class="popup">
         <div class="popup__container">
-          <form name="form" action="#" method="get">
+          <form class="popup__form" name="form" action="#" method="get">
+            <button class="popup__close-btn opacity" type="button"></button>
             <h3 class="popup__title">Редактировать профиль</h3>
             <input
               class="popup__text popup__text_input_name"
@@ -143,7 +144,6 @@
               value="Профессия"
             />
             <button class="popup__save-btn" type="submit">Сохранить</button>
-            <button class="popup__close-btn opacity" type="button"></button>
           </form>
         </div>
       </div>
