@@ -2,7 +2,8 @@
   max-width: 410px;
   font-weight: 500;
   font-size: 42px;
-  line-height: 1.14;
+  line-height: 0.75;
+  font-variant: small-caps;
   margin: 0;
   text-overflow: ellipsis;
   white-space: nowrap;

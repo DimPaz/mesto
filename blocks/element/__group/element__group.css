@@ -4,8 +4,5 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: absolute;
-  bottom: 28px;
-  left: 50%;
-  transform: translateX(-50%);
+  margin: 25px 0;
 }
