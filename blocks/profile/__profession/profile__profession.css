@@ -3,7 +3,7 @@
   max-width: 410px;
   font-weight: 400;
   font-size: 18px;
-  margin: 16px 0 0;
+  margin: 7px 0 0;
   padding: 0;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -21,10 +21,6 @@
     text-align: center;
     font-size: 14px;
     line-height: 1.21;
-    grid-column-start: 1;
-    grid-column-end: 2;
-    grid-row-start: 3;
-    grid-row-end: 4;
     margin: 7px 0 0;
   }
 }

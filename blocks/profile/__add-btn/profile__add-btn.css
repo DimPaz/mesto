@@ -10,10 +10,6 @@
   border-radius: 2px;
   outline: none;
   padding: 0;
-  grid-column-start: -1;
-  grid-column-end: -2;
-  grid-row-start: 1;
-  grid-row-end: 3;
   cursor: pointer;
 }
 
@@ -24,15 +20,11 @@
     max-width: 282px;
     grid-column-start: 1;
     grid-column-end: 3;
-    grid-row-start: 3;
-    grid-row-end: 4;
-    margin: 33px auto 0;
+    margin: 32px auto 0;
   }
 }
 @media screen and (max-width: 675px) {
   .profile__add-btn {
     grid-column-end: 2;
-    grid-row-start: 4;
-    grid-row-end: 5;
   }
 }

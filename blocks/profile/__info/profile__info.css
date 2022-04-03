@@ -7,10 +7,6 @@
   .profile__info {
     font-size: 27px;
     line-height: 1.22;
-    grid-column-start: 1;
-    grid-column-end: 2;
-    grid-row-start: 2;
-    grid-row-end: 3;
     margin: 27px 0 0 28px;
   }
 }
