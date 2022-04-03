@@ -6,7 +6,7 @@
   right: -40px;
   padding: 0;
   margin: 0;
-  background-image: url(../../../images/element/close_icon.svg);
+  background-image: url(../../../images/element/close_btn.svg);
   background-color: transparent;
   background-repeat: no-repeat;
   background-position: center;
@@ -16,7 +16,7 @@
 
 @media screen and (max-width: 580px) {
   .popup__close-btn {
-    background-image: url(../../../images/element/close_icon_small.svg);
+    background-image: url(../../../images/element/close_btn_small.svg);
     width: 20px;
     height: 20px;
     top: -36px;
