@@ -19,9 +19,9 @@ function closePopupWindow() {
 }
 // закрыть popup на overlay
 // function closeOnOverlayClick(event) {
-  // console.log("Event.target", event.target); // самый глубокий элемент, на котором произошло событие.
-  // console.log("Event.carrentTarget", event.currentTarget); // элемент, на котором в данный момент сработал обработчик (до которого «доплыло» событие)
-  // if (event.target === event.currentTarget) {
+// console.log("Event.target", event.target); // самый глубокий элемент, на котором произошло событие.
+// console.log("Event.carrentTarget", event.currentTarget); // элемент, на котором в данный момент сработал обработчик (до которого «доплыло» событие)
+// if (event.target === event.currentTarget) {
 //     closePopupWindow();
 //   }
 // }
@@ -38,3 +38,5 @@ profileEditBtn.addEventListener("click", openPopupWindow); // открыть pop
 popupCloseBtn.addEventListener("click", closePopupWindow); // закрыть popup
 // popupWindow.addEventListener("click", closeOnOverlayClick); // закрыть popup на overlay
 formElement.addEventListener("submit", formSubmitHandler); //ввод name и job
+
+// popupWindow.addEventListener("click", closeOnOverlayClick); // закрыть popup на overlay
