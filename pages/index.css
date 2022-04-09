@@ -59,5 +59,10 @@
 @import url(../blocks/popup/__card-name/popup__card-name.css);
 @import url(../blocks/popup/__save-btn/popup__save-btn.css);
 
+@import url(../blocks/popup/_type/popup_type_profile.css);
+@import url(../blocks/popup/_type/popup_type_card.css);
+@import url(../blocks/popup/_type/popup_type_image.css);
+
+
 
 @import url(../blocks/none.css);
