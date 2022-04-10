@@ -8,7 +8,11 @@ const cardEditBtn = document.querySelector(".profile__add-btn"); // кнопка
 const popupWindowCard = document.querySelector(".popup_type_card"); // попап карты
 const popupWindowImage = document.querySelector(".popup_type_image"); // попап картинки
 
-const popupCloseBtn = document.querySelector(".popup__close-btn");
+const popupCloseBtn = document.querySelector(".popup__close-btn_type_profile");
+const popupCloseBtnCard = document.querySelector(".popup__close-btn_type_card");
+const popupCloseBtnImage = document.querySelector(
+  ".popup__close-btn_type_image"
+);
 
 const formElement = document.querySelector(".popup__container");
 const nameInput = formElement.querySelector(".popup__text_input_name");
@@ -18,7 +22,7 @@ const profileProfession = document.querySelector(".profile__profession");
 
 // закрыть попап
 function closePopupWindow() {
-  popupWindow.classList.remove("popup_opened");
+  document.querySelector(".popup_opened").classList.remove("popup_opened");
 }
 
 //ввод name и job
@@ -26,9 +30,12 @@ function formSubmitHandler(event) {
   event.preventDefault();
   profileName.textContent = nameInput.value;
   profileProfession.textContent = jobInput.value;
-  closePopupWindow();
+  closePopupWindow(); 
 }
+
 popupCloseBtn.addEventListener("click", closePopupWindow); // закрыть popup profile
+popupCloseBtnCard.addEventListener("click", closePopupWindow); // закрыть popup Card
+popupCloseBtnImage.addEventListener("click", closePopupWindow); // закрыть popup Image
 // popupWindow.addEventListener("click", closeOnOverlayClick); // закрыть popup на overlay
 formElement.addEventListener("submit", formSubmitHandler); //ввод name и job
 
