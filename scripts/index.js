@@ -9,6 +9,7 @@ const popupWindowCard = document.querySelector(".popup_type_card"); // попа�
 const popupWindowImage = document.querySelector(".popup_type_image"); // попап картинки
 
 const popupCloseBtn = document.querySelector(".popup__close-btn");
+
 const formElement = document.querySelector(".popup__container");
 const nameInput = formElement.querySelector(".popup__text_input_name");
 const jobInput = formElement.querySelector(".popup__text_input_job");
@@ -19,6 +20,7 @@ const profileProfession = document.querySelector(".profile__profession");
 function closePopupWindow() {
   popupWindow.classList.remove("popup_opened");
 }
+
 //ввод name и job
 function formSubmitHandler(event) {
   event.preventDefault();
@@ -26,21 +28,23 @@ function formSubmitHandler(event) {
   profileProfession.textContent = jobInput.value;
   closePopupWindow();
 }
+popupCloseBtn.addEventListener("click", closePopupWindow); // закрыть popup profile
+// popupWindow.addEventListener("click", closeOnOverlayClick); // закрыть popup на overlay
+formElement.addEventListener("submit", formSubmitHandler); //ввод name и job
+
 //открыть попапы
 function openModal(modalNode) {
   modalNode.classList.add("popup_opened");
 }
 
-// и вызов тогда будет такой
+// открыть попап профиль
 profileEditBtn.addEventListener("click", () => {
   nameInput.value = profileName.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
   jobInput.value = profileProfession.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
   openModal(popupWindow);
 });
+// открыть попап добавление карточек
 cardEditBtn.addEventListener("click", () => openModal(popupWindowCard));
-popupCloseBtn.addEventListener("click", closePopupWindow); // закрыть popup profile
-// popupWindow.addEventListener("click", closeOnOverlayClick); // закрыть popup на overlay
-formElement.addEventListener("submit", formSubmitHandler); //ввод name и job
 
 // закрыть popup на overlay
 // function closeOnOverlayClick(event) {
@@ -89,6 +93,7 @@ function getElement(item) {
   title.textContent = item.name; // добавляем имя карточки
   const picture = getElementsCards.querySelector(".element__picture");
   picture.src = item.link; // добавляем картинку для карточки
+  // открыть попап image
   picture.addEventListener("click", () => {
     const popupCardImage = document.querySelector(".popup__card-image");
     const popupCardName = document.querySelector(".popup__card-name");
