@@ -21,15 +21,15 @@
           />
           <div class="profile__group">
             <div class="profile__info">
-              <h1 class="profile__name">Эрик Бишоп</h1>
+              <h1 class="profile__name">Жак-Ив Кусто</h1>
               <button class="profile__edit-btn opacity" type="button"></button>
             </div>
-            <p class="profile__profession">Певец</p>
+            <p class="profile__profession">Исследователь океана</p>
           </div>
           <button class="profile__add-btn opacity" type="button"></button>
         </section>
         <section class="elements">
-          <article class="element">
+          <!-- <article class="element">
             <img
               class="element__picture"
               src="./images/cards/canada.jpg"
@@ -148,7 +148,7 @@
                 aria-label="Нравится"
               ></button>
             </div>
-          </article>
+          </article> -->
         </section>
       </main>
       <footer class="footer">
@@ -217,6 +217,25 @@
         </div>
       </div>
     </div>
+
+    <template class="template-cards">
+      <article class="element">
+        <img class="element__picture" src="" alt="стрит фото" />
+        <div class="element__group">
+          <button
+            class="element__trash"
+            type="button"
+            aria-label="Убрать в корзину"
+          ></button>
+          <h2 class="element__text"></h2>
+          <button
+            class="element__like"
+            type="button"
+            aria-label="Нравится"
+          ></button>
+        </div>
+      </article>
+    </template>
     <script src="./scripts/index.js"></script>
   </body>
 </html>
