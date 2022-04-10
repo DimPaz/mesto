@@ -1,8 +1,15 @@
 // открытие-закрытие popup
-const profileEditBtn = document.querySelector(".profile__edit-btn");
-const popupWindow = document.querySelector(".popup_type_profile");
-const cardEditBtn = document.querySelector(".profile__add-btn"); //N
-const popupWindowCard = document.querySelector(".popup_type_card"); //N
+const profileEditBtn = document.querySelector(".profile__edit-btn"); // кнопка редактирования профиля
+const popupWindow = document.querySelector(".popup_type_profile"); // попап профиля
+const cardEditBtn = document.querySelector(".profile__add-btn"); // кнопка добавления новой карточки
+const popupWindowCard = document.querySelector(".popup_type_card"); // попап карты
+const imageEditBtn = document.querySelector(".element__picture"); // кнопка для открытия картинки
+const popupWindowImage = document.querySelector(".popup_type_image"); // попап картинки
+console.log(profileEditBtn);
+console.log(popupWindow);
+console.log(imageEditBtn);
+console.log(popupWindowImage);
+
 const popupCloseBtn = document.querySelector(".popup__close-btn");
 const formElement = document.querySelector(".popup__container");
 const nameInput = formElement.querySelector(".popup__text_input_name");
@@ -10,18 +17,13 @@ const jobInput = formElement.querySelector(".popup__text_input_job");
 const profileName = document.querySelector(".profile__name");
 const profileProfession = document.querySelector(".profile__profession");
 
-// открытие-закрытие popup profile
-function openPopupWindow() {
-  nameInput.value = profileName.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
-  jobInput.value = profileProfession.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
+// // открытие-закрытие popup profile
+// function openPopupWindow() {
+//   nameInput.value = profileName.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
+//   jobInput.value = profileProfession.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
 
-  popupWindow.classList.add("popup_opened");
-}
-
-// открытие-закрытие popup card
-function openPopupCardWindow() {
-  popupWindowCard.classList.add("popup_opened");
-}
+//   popupWindow.classList.add("popup_opened");
+// }
 
 // закрыть попап
 function closePopupWindow() {
@@ -35,10 +37,27 @@ function formSubmitHandler(event) {
   closePopupWindow();
 }
 
+function openModal(modalNode) {
+  modalNode.classList.add("popup_opened");
+  // nameInput.value = profileName.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
+  // jobInput.value = profileProfession.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
+}
+
+// вызов
+profileEditBtn.addEventListener("click", () =>
+  // nameInput.value = profileName.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
+  // jobInput.value = profileProfession.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
+
+  openModal(popupWindow)
+);
+cardEditBtn.addEventListener("click", () => openModal(popupWindowCard));
+// imageEditBtn.addEventListener('click', () => openModal(popupWindowImage));
+
 // слушатели
-profileEditBtn.addEventListener("click", openPopupWindow); // открыть popup profile
-cardEditBtn.addEventListener("click", openPopupCardWindow); // открыть popup card//N
-// popupWindowImage.addEventListener("click", openPopupImageWindow); // открыть popup image//N
+// profileEditBtn.addEventListener("click", openPopupWindow); // открыть popup profile
+// cardEditBtn.addEventListener("click", openPopupCardWindow); // открыть popup card
+// imageEditBtn.addEventListener("click", openPopupCardWindow); // открыть popup card
+
 popupCloseBtn.addEventListener("click", closePopupWindow); // закрыть popup profile
 
 // popupWindow.addEventListener("click", closeOnOverlayClick); // закрыть popup на overlay
@@ -80,22 +99,22 @@ const initialCards = [
   },
 ];
 
-const listContainer = document.querySelector(".elements");
-const elementsCards = document.querySelector(".template-cards");
-console.log(elementsCards);
-
+const listContainer = document.querySelector(".elements"); // выбираем elements, куда будет вставляться template
+const elementsCards = document.querySelector(".template-cards"); // выбираем нужный template
+// Добавление карторчек
 function addCards() {
-  const cards = initialCards.map(getElement);
-  listContainer.prepend(...cards);
+  const cards = initialCards.map(getElement); // выполняем функцию для каждой пары (ключ, значение)
+  // console.log(cards);
+  listContainer.prepend(...cards); //добавляем карты в НАЧАЛО списка
+  // console.log(listContainer);
 }
-
 function getElement(item) {
-  const getElementsCards = elementsCards.content.cloneNode(true);
+  const getElementsCards = elementsCards.content.cloneNode(true); // клонируем template со всем содержимым
   const title = getElementsCards.querySelector(".element__text");
-  title.textContent = item.name;
+  title.textContent = item.name; // добавляем имя карточки
   const picture = getElementsCards.querySelector(".element__picture");
-  picture.src = item.link;
+  picture.src = item.link; // добавляем картинку для карточки
+  // imageEditBtn.addEventListener('click', () => openModal(popupWindowImage));
   return getElementsCards;
 }
-
 addCards();
