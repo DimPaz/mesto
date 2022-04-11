@@ -139,3 +139,5 @@ function deleteCard(evt) {
 function likeCard(evt) {
   evt.target.classList.toggle("element__like_active");
 }
+
+//проверка
