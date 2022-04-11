@@ -1,5 +1,6 @@
 .popup_opened {
-  position: fixed; /*перенес из popup*/
+  position: fixed; /*перенес из popup  */
+  z-index: 1;
   /* display: block; */
   visibility: visible;
   height: 100%;

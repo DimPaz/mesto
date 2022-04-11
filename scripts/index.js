@@ -1,18 +1,18 @@
 //добавление карт
 const listContainer = document.querySelector(".elements"); // выбираем elements, куда будет вставляться template
 const elementsCards = document.querySelector(".template-cards"); // выбираем нужный template
-// открытие-закрытие popup
+// открыть popup
 const profileEditBtn = document.querySelector(".profile__edit-btn"); // кнопка редактирования профиля
 const popupWindow = document.querySelector(".popup_type_profile"); // попап профиля
 const cardEditBtn = document.querySelector(".profile__add-btn"); // кнопка добавления новой карточки
 const popupWindowCard = document.querySelector(".popup_type_card"); // попап карты
 const popupWindowImage = document.querySelector(".popup_type_image"); // попап картинки
-
-const popupCloseBtn = document.querySelector(".popup__close-btn_type_profile");
-const popupCloseBtnCard = document.querySelector(".popup__close-btn_type_card");
+// закрыть popup
+const popupCloseBtn = document.querySelector(".popup__close-btn_type_profile"); // кнопка попап profile
+const popupCloseBtnCard = document.querySelector(".popup__close-btn_type_card"); // кнопка попап card
 const popupCloseBtnImage = document.querySelector(
   ".popup__close-btn_type_image"
-);
+); // кнопка попап image
 
 const formElement = document.querySelector(".popup__container");
 const nameInput = formElement.querySelector(".popup__text_input_name");
@@ -30,7 +30,7 @@ function formSubmitHandler(event) {
   event.preventDefault();
   profileName.textContent = nameInput.value;
   profileProfession.textContent = jobInput.value;
-  closePopupWindow(); 
+  closePopupWindow();
 }
 
 popupCloseBtn.addEventListener("click", closePopupWindow); // закрыть popup profile
@@ -108,6 +108,34 @@ function getElement(item) {
     popupCardName.textContent = item.name; // добавили нужную подпись для попапа
     openModal(popupWindowImage);
   });
+
+  // удаление карточек
+  // const trashButton = getElementsCards.querySelector(".element__trash");
+  // trashButton.addEventListener("click", function () {
+  //   const listItem = trashButton.closest(".element");
+  //   listItem.remove();
+  // });
+
+  // удаление карточек, запуск слушителя
+  const trashButton = getElementsCards.querySelector(".element__trash");
+  trashButton.addEventListener("click", deleteCard);
+
+  // like карточки, запуск слушителя
+  const elementLike = getElementsCards.querySelector(".element__like");
+  elementLike.addEventListener("click", likeCard);
+
   return getElementsCards;
 }
 addCards();
+
+//функция удаления карточки
+function deleteCard(evt) {
+  // console.log(evt);
+  // console.log(evt.target);
+  const deleteCardItem = evt.target.closest(".element");
+  deleteCardItem.remove();
+}
+//функция like карточки
+function likeCard(evt) {
+  evt.target.classList.toggle("element__like_active");
+}
