@@ -14,7 +14,8 @@ const popupCloseBtnImage = document.querySelector(
   ".popup__close-btn_type_image"
 ); // кнопка попап image
 
-const formElement = document.querySelector(".popup__container");
+const formElement = document.querySelector(".popup_type_profile"); //для сабмита profile
+const formElementСard = document.querySelector(".popup_type_card"); //для сабмита card
 const nameInput = formElement.querySelector(".popup__text_input_name");
 const jobInput = formElement.querySelector(".popup__text_input_job");
 const profileName = document.querySelector(".profile__name");
@@ -33,11 +34,25 @@ function formSubmitHandler(event) {
   closePopupWindow();
 }
 
+//ввод signature и link
+function formSubmitHandlerCard(event) {
+  event.preventDefault();
+
+  closePopupWindow();
+}
+// console.log(initialCards);
+// initialCards.push({
+//   name: "Холмогорский район",
+//   link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
+// });
+// console.log(initialCards);
+
 popupCloseBtn.addEventListener("click", closePopupWindow); // закрыть popup profile
 popupCloseBtnCard.addEventListener("click", closePopupWindow); // закрыть popup Card
 popupCloseBtnImage.addEventListener("click", closePopupWindow); // закрыть popup Image
 // popupWindow.addEventListener("click", closeOnOverlayClick); // закрыть popup на overlay
 formElement.addEventListener("submit", formSubmitHandler); //ввод name и job
+formElementСard.addEventListener("submit", formSubmitHandlerCard); //ввод signature и link
 
 //открыть попапы
 function openModal(modalNode) {
@@ -139,5 +154,3 @@ function deleteCard(evt) {
 function likeCard(evt) {
   evt.target.classList.toggle("element__like_active");
 }
-
-//проверка
