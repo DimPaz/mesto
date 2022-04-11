@@ -1,9 +1,7 @@
 .popup_opened {
-  position: fixed; /*перенес из popup  */
-  z-index: 1;
-  /* display: block; */
-  visibility: visible;
-  height: 100%;
+  /* z-index: 1; */
+  display: block;
   opacity: 1;
-  transition-delay: 0s, 0s;
+  transition: opacity 0.8s, visibility 0s;
+  visibility: visible;
 }

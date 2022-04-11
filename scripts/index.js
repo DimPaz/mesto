@@ -34,19 +34,6 @@ function formSubmitHandler(event) {
   closePopupWindow();
 }
 
-//ввод signature и link
-function formSubmitHandlerCard(event) {
-  event.preventDefault();
-
-  closePopupWindow();
-}
-// console.log(initialCards);
-// initialCards.push({
-//   name: "Холмогорский район",
-//   link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-// });
-// console.log(initialCards);
-
 popupCloseBtn.addEventListener("click", closePopupWindow); // закрыть popup profile
 popupCloseBtnCard.addEventListener("click", closePopupWindow); // закрыть popup Card
 popupCloseBtnImage.addEventListener("click", closePopupWindow); // закрыть popup Image
@@ -104,12 +91,13 @@ const initialCards = [
   },
 ];
 
-// Добавление карторчек
+// Создание карторчек при открытии страницы
 function addCards() {
   const cards = initialCards.map(getElement); // выполняем функцию для каждой пары (ключ, значение)
   listContainer.prepend(...cards); //добавляем карты в НАЧАЛО списка
 }
 function getElement(item) {
+  console.log(item);
   const getElementsCards = elementsCards.content.cloneNode(true); // клонируем template со всем содержимым
   const title = getElementsCards.querySelector(".element__text");
   title.textContent = item.name; // добавляем имя карточки
@@ -124,13 +112,6 @@ function getElement(item) {
     openModal(popupWindowImage);
   });
 
-  // удаление карточек
-  // const trashButton = getElementsCards.querySelector(".element__trash");
-  // trashButton.addEventListener("click", function () {
-  //   const listItem = trashButton.closest(".element");
-  //   listItem.remove();
-  // });
-
   // удаление карточек, запуск слушителя
   const trashButton = getElementsCards.querySelector(".element__trash");
   trashButton.addEventListener("click", deleteCard);
@@ -143,6 +124,25 @@ function getElement(item) {
 }
 addCards();
 
+const signatureInput = formElementСard.querySelector(
+  ".popup__text_input_signature"
+);
+const imageInput = formElementСard.querySelector(".popup__text_input_image");
+
+//ввод signature и link========================================================
+function formSubmitHandlerCard(event) {
+  event.preventDefault();
+  let initialNewCard = [
+    {
+      name: signatureInput.value,
+      link: imageInput.value,
+    },
+  ];
+  const addNewCard = initialNewCard.map(getElement);
+  listContainer.prepend(addNewCard);
+  closePopupWindow();
+}
+//=============================================================================
 //функция удаления карточки
 function deleteCard(evt) {
   // console.log(evt);
