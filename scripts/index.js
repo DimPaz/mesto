@@ -10,7 +10,9 @@ const popupWindowImage = document.querySelector(".popup_type_image"); // поп�
 // закрыть popup
 const popupCloseBtn = document.querySelector(".popup__close-btn_type_profile"); // кнопка попап profile
 const popupCloseBtnCard = document.querySelector(".popup__close-btn_type_card"); // кнопка попап card
-const popupCloseBtnImage = document.querySelector(".popup__close-btn_type_image"); // кнопка попап image
+const popupCloseBtnImage = document.querySelector(
+  ".popup__close-btn_type_image"
+); // кнопка попап image
 //переменные ддя сабмита profile
 const formElement = document.querySelector(".popup_type_profile");
 const nameInput = formElement.querySelector(".popup__text_input_name");
@@ -19,33 +21,35 @@ const profileName = document.querySelector(".profile__name");
 const profileProfession = document.querySelector(".profile__profession");
 //переменные ддя сабмита card
 const formElementСard = document.querySelector(".popup_type_card");
-const signatureInput = formElementСard.querySelector(".popup__text_input_signature");
+const signatureInput = formElementСard.querySelector(
+  ".popup__text_input_signature"
+);
 const imageInput = formElementСard.querySelector(".popup__text_input_image");
 //массив для создания стартовых карточек
 const initialCards = [
   {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
+    name: "Ергаки",
+    link: "https://images.unsplash.com/photo-1594539364250-81a8bcb51531?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=999&q=80",
   },
   {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
+    name: "Эсто-Садок",
+    link: "https://images.unsplash.com/photo-1612274059446-5c480106b1cb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
   },
   {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
+    name: "Тункинский парк",
+    link: "https://images.unsplash.com/photo-1445299329339-8b8f48ab53b9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80",
   },
   {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
+    name: "Чуйский тракт",
+    link: "https://images.unsplash.com/photo-1634876371588-d38b1c44271c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80",
   },
   {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
+    name: "Золотая Долина",
+    link: "https://images.unsplash.com/photo-1608661649288-d4a3e7ec4838?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
   },
   {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
+    name: "Мутно́вская сопка",
+    link: "https://images.unsplash.com/photo-1610575860170-28799a092c39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1331&q=80",
   },
 ];
 
@@ -95,16 +99,16 @@ initialAddCards();
 //функция ввод signature и link
 function formSubmitHandlerCard(event) {
   event.preventDefault();
-  let initialNewCard = [
+  let newCard = [
     {
       name: signatureInput.value,
       link: imageInput.value,
     },
   ];
-  const addPopupCard = initialNewCard.map(getElement);
+  const addPopupCard = newCard.map(getElement);
   addCards(addPopupCard);
-  signatureInput.value = "";
-  imageInput.value = "";
+  // signatureInput.value = "";
+  // imageInput.value = "";
   closePopupWindow();
 }
 
@@ -147,7 +151,11 @@ profileEditBtn.addEventListener("click", () => {
 });
 
 //открыть попап добавление карточек
-cardEditBtn.addEventListener("click", () => openModal(popupWindowCard));
+cardEditBtn.addEventListener("click", () => {
+  signatureInput.value = ""; //обнуление значений в инпуте название
+  imageInput.value = ""; //обнуление значений в инпуте ссылка на картинку
+  openModal(popupWindowCard);
+});
 
 //функция закрыть popup на overlay
 // function closeOnOverlayClick(event) {
