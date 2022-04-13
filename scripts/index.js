@@ -59,15 +59,15 @@ function initialAddCards() {
   addCards(cards);
 }
 
-//функция добавляем карты в начало списка (из массива и из попапа)
+//функция добавляем карты в начало списка из массива
 function addCards(element) {
   listContainer.prepend(...element);
 }
 
 // функция формируем template
 function getElement(item) {
-  console.log(item.name);
-  console.log(item.link);
+  // console.log(item.name);
+  // console.log(item.link);
   const cardElement = elementsCards.content.cloneNode(true); // клонируем template со всем содержимым
   const title = cardElement.querySelector(".element__text");
   title.textContent = item.name; // добавляем имя карточки
@@ -99,19 +99,14 @@ initialAddCards();
 //функция ввод signature и link
 function handleCardFormSubmit(event) {
   event.preventDefault();
-  const newCard = [
-    {
-      name: signatureInput.value,
-      link: imageInput.value,
-    },
-  ];
-  const addPopupCard = newCard.map(getElement);
-  addCards(addPopupCard);
-  // const newCard = {"name: " signatureInput.value + imageInput.value};
-  // console.log(newCard)
-  // // const addPopupCard = newCard.map(getElement);
-  // addCards(addPopupCard);
-
+  const newCard = {
+    name: signatureInput.value,
+    link: imageInput.value,
+  };
+  // console.log(newCard);
+  const addPopupCard = getElement(newCard);
+  // console.log(addPopupCard);
+  listContainer.prepend(addPopupCard); //добавляем карту в начало списка из попапа
   document.getElementById("cardPopupForm").reset(); //обнуление значений в инпуте название и ссылка на картинку
   //signatureInput.value = ""; //обнуление значений в инпуте название
   //imageInput.value = ""; //обнуление значений в инпуте ссылка на картинку
