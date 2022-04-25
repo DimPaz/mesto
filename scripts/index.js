@@ -172,3 +172,44 @@ imageCloseBtn.addEventListener("click", closePopupWindow); // закрыть pop
 // popupWindow.addEventListener("click", closeOnOverlayClick); // закрыть popup на overlay
 profileForm.addEventListener("submit", handleProfileFormSubmit); //ввод name и job
 cardForm.addEventListener("submit", handleCardFormSubmit); //ввод signature и link
+
+// 5 ПР
+
+// Вынесем все необходимые элементы формы в константы
+const formElement = document.querySelector(".form");
+const formInput = formElement.querySelector(".form__input");
+console.log(formInput.id); // "name-input"
+const formError = formElement.querySelector(`.${formInput.id}-error`); //Выбираем элемент ошибки на основе уникального класса
+console.log(formError);
+
+// Функция, которая добавляет класс с ошибкой
+const showInputError = (element, errorMessage) => {
+  element.classList.add("form__input_type_error"); // Показываем красную линию ошибки
+  formError.textContent = errorMessage; //текст браузерных ошибок
+  formError.classList.add("form__input-error_active"); // Показываем сообщение об ошибке
+};
+
+// Функция, которая удаляет класс с ошибкой
+const hideInputError = (element) => {
+  element.classList.remove("form__input_type_error"); // Скрываем красную линию ошибки
+  formError.classList.remove("form__input-error_active"); // Скрываем сообщение об ошибке
+  formError.textContent = ""; // Очистим ошибку
+};
+
+// Функция, которая проверяет валидность поля
+const isValid = () => {
+  if (!formInput.validity.valid) {
+    // Если поле не проходит валидацию, покажем ошибку
+    showInputError(formInput, formInput.validationMessage); // formInput & сообщение об ошибке
+  } else {
+    // Если проходит, скроем
+    hideInputError(formInput);
+  }
+};
+
+formElement.addEventListener("submit", function (evt) {
+  evt.preventDefault(); // Отменим стандартное поведение по сабмиту
+});
+
+// Вызовем функцию isValid на каждый ввод символа
+formInput.addEventListener("input", isValid);

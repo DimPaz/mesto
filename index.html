@@ -36,26 +36,36 @@
 
       <div class="popup popup_type_profile">
         <div class="popup__container">
-          <form class="popup__form" name="form" action="#" method="get">
+          <form class="form popup__form" name="form" action="#" method="get" novalidate>
             <button
               class="popup__close-btn popup__close-btn_type_profile opacity"
               type="button"
             ></button>
             <h3 class="popup__title">Редактировать профиль</h3>
             <input
-              class="popup__text popup__text_input_name"
+              id="name-input"
+              class="popup__text popup__text_input_name form__input"
               type="text"
               name="name"
               placeholder="Имя"
               value="Имя"
+              minlength="2"
+              maxlength="40"
+              required              
             />
+            <span class="name-input-error form__input-error form__input-error_active"></span> 
             <input
-              class="popup__text popup__text_input_job"
+              id="job-input"
+              class="popup__text popup__text_input_job form__input"
               type="text"
               name="job"
               placeholder="Профессия"
               value="Профессия"
+              minlength="2"
+              maxlength="200"
+              required
             />
+            <!-- <span class="job-input-error form__input-error">Введите адрес сайта.</span>  -->
             <button class="popup__save-btn" type="submit">Сохранить</button>
           </form>
         </div>
@@ -64,7 +74,7 @@
       <div class="popup popup_type_card">
         <div class="popup__container">
           <form
-            class="popup__form"
+            class="form popup__form"
             id="cardPopupForm"
             name="form"
             action="#"
@@ -76,19 +86,27 @@
             ></button>
             <h3 class="popup__title">Новое место</h3>
             <input
-              class="popup__text popup__text_input_signature"
+              id="signature-input"
+              class="popup__text popup__text_input_signature form__input"
               type="text"
               name="signature"
               placeholder="Название"
               value=""
+              minlength="2"
+              maxlength="30"
+              required
             />
+            <!-- <span class="signature-input-error form__input-error">Вы пропустили это поле.</span>  -->
             <input
-              class="popup__text popup__text_input_image"
-              type="text"
+              id="link-image-input"
+              class="popup__text popup__text_input_image form__input"
+              type="url"
               name="link-image"
               placeholder="Ссылка на картинку"
               value=""
+              required
             />
+            <!-- <span class="link-image-input-error form__input-error">Вы пропустили это поле.</span>  -->
             <button class="popup__save-btn" type="submit">Создать</button>
           </form>
         </div>

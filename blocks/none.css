@@ -1,3 +1,43 @@
 .none {
   display: none;
 }
+.form {
+}
+.form__input {
+}
+/* .form__input:invalid {
+  border-bottom: 1px solid red; 
+} 
+.form__input:valid {
+  border-bottom: 1px solid green;
+} */
+
+.form__input_type_error {
+  border-bottom-color: red;
+}
+
+.form__input-error {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.25;
+  color: #ff0000;
+  opacity: 0;
+  transition: 0.3s;
+}
+.form__input-error_active {
+  opacity: 1;
+}
+
+.name-input-error {
+  /* max-width: 100%;
+  min-height: 12px;
+  background: rgb(255, 0, 0);
+  color: red; */
+
+}
+.job-input-error {
+  /* max-width: 100%;
+  min-height: 12px;
+  background: rgb(255, 0, 0);
+  color: red; */
+}
