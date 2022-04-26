@@ -1,9 +1,9 @@
 // Вынесем все необходимые элементы формы в константы
 const formElement = document.querySelector(".form"); //html-элемент формы, в которой находится проверяемое поле ввода. Он нужен для поиска элемента ошибки в форме.
 const formInput = formElement.querySelector(".form__input");
-console.log(formInput.id); // "name-input"
+// console.log(formInput.id); // "name-input"
 const formError = formElement.querySelector(`.${formInput.id}-error`); //Выбираем элемент ошибки на основе уникального класса
-console.log(formError);
+// console.log(formError);
 
 // Функция, которая добавляет класс с ошибкой
 const showInputError = (formElement, inputElement, errorMessage) => {

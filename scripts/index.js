@@ -158,17 +158,18 @@ profileEditBtn.addEventListener("click", () => {
 cardEditBtn.addEventListener("click", () => openModal(cardPopup));
 
 //функция закрыть popup на overlay
-// function closeOnOverlayClick(event) {
-// console.log("Event.target", event.target); // самый глубокий элемент, на котором произошло событие.
-// console.log("Event.carrentTarget", event.currentTarget); // элемент, на котором в данный момент сработал обработчик (до которого «доплыло» событие)
-// if (event.target === event.currentTarget) {
-//     closePopupWindow();
-//   }
-// }
+const popupWindow = document.querySelector(".popup__container"); // кнопка попап image
+function closeOnOverlayClick(event) {
+  console.log("Event.target", event.target); // самый глубокий элемент, на котором произошло событие.
+  console.log("Event.carrentTarget", event.currentTarget); // элемент, на котором в данный момент сработал обработчик (до которого «доплыло» событие)
+  if (event.target === event.currentTarget) {
+    closePopupWindow();
+  }
+}
 
 profileCloseBtn.addEventListener("click", closePopupWindow); // закрыть popup profile
 cardCloseBtn.addEventListener("click", closePopupWindow); // закрыть popup Card
 imageCloseBtn.addEventListener("click", closePopupWindow); // закрыть popup Image
-// popupWindow.addEventListener("click", closeOnOverlayClick); // закрыть popup на overlay
+popupWindow.addEventListener("click", closeOnOverlayClick); // закрыть popup на overlay
 profileForm.addEventListener("submit", handleProfileFormSubmit); //ввод name и job
 cardForm.addEventListener("submit", handleCardFormSubmit); //ввод signature и link
