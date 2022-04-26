@@ -34,13 +34,32 @@ const isValid = (formElement, inputElement) => {
   }
 };
 
+//проверка на валидность полей попапа
+const hasInvalidInput = (inputList) => {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
+};
+
+// функция переключения кнопки
+const toggleButtonState = (inputList, buttonElement) => {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add("popup__save-btn_inactive"); // сделать кнопку неактивной
+  } else {
+    buttonElement.classList.remove("popup__save-btn_inactive"); // сделать кнопку активной
+  }
+};
+
 // Добавление обработчиков всем полям формы
 const setEventListeners = (formElement) => {
   const inputList = Array.from(formElement.querySelectorAll(".form__input")); //делаем массив
+  const buttonElement = formElement.querySelector(".popup__save-btn");
+  toggleButtonState(inputList, buttonElement); //функция переключения кнопки
   // Обойдём все элементы полученной коллекции
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", () => {
       isValid(formElement, inputElement); // передаем форму и проверяемый элемент
+      toggleButtonState(inputList, buttonElement); //функция переключения кнопки
     });
   });
 };

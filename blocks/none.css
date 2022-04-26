@@ -2,7 +2,7 @@
   display: none;
 }
 
-.form__field{
+.form__field {
   position: relative;
 }
 
@@ -10,12 +10,6 @@
 }
 .form__input {
 }
-/* .form__input:invalid {
-  border-bottom: 1px solid red; 
-} 
-.form__input:valid {
-  border-bottom: 1px solid green;
-} */
 
 .form__input_type_error {
   border-bottom-color: red;
@@ -27,7 +21,7 @@
   line-height: 1.2;
   color: #ff0000;
   opacity: 0;
-  transition: 0.3s;  
+  transition: 0.3s;
   position: absolute;
   left: 0;
   top: 17px;
@@ -37,15 +31,15 @@
 }
 
 .name-input-error {
-  /* max-width: 100%;
-  min-height: 12px;
-  background: rgb(255, 0, 0);
-  color: red; */
-
 }
 .job-input-error {
-  /* max-width: 100%;
-  min-height: 12px;
-  background: rgb(255, 0, 0);
-  color: red; */
+}
+
+.popup__save-btn_inactive {
+  border: 1px solid #000000;
+  background: transparent;
+  color: #000000;
+  opacity: 0.2;
+  pointer-events: none;
+  user-select: none;
 }
