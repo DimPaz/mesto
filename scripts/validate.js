@@ -24,13 +24,13 @@ const hideInputError = (formElement, inputElement) => {
 // Функция, которая проверяет валидность поля
 const isValid = (formElement, inputElement) => {
   // элемент формы, в которой находится проверяемое поле ввода & проверяемое поле ввода
-  if (!inputElement.validity.valid) {
+  if (inputElement.validity.valid) {
+    // Если проходит, скроем
+    hideInputError(formElement, inputElement);
+  } else {
     // получаем параметром форму, в которой находится проверяемое поле, и само это поле
     // Если поле не проходит валидацию, покажем ошибку
     showInputError(formElement, inputElement, inputElement.validationMessage);
-  } else {
-    // Если проходит, скроем
-    hideInputError(formElement, inputElement);
   }
 };
 
@@ -48,7 +48,6 @@ const setEventListeners = (formElement) => {
 // Добавление обработчиков всем формам
 const enableValidation = () => {
   const formList = Array.from(document.querySelectorAll(".form"));
-  console.log(formList);
   formList.forEach((formElement) => {
     formElement.addEventListener("submit", (evt) => {
       evt.preventDefault(); // У каждой формы отменим стандартное поведение

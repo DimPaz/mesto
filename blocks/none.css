@@ -1,6 +1,11 @@
 .none {
   display: none;
 }
+
+.form__field{
+  position: relative;
+}
+
 .form {
 }
 .form__input {
@@ -19,10 +24,13 @@
 .form__input-error {
   font-weight: 400;
   font-size: 12px;
-  line-height: 1.25;
+  line-height: 1.2;
   color: #ff0000;
   opacity: 0;
-  transition: 0.3s;
+  transition: 0.3s;  
+  position: absolute;
+  left: 0;
+  top: 17px;
 }
 .form__input-error_active {
   opacity: 1;
