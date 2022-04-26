@@ -15,6 +15,7 @@ const profileCloseBtn = document.querySelector(
 ); // кнопка попап profile
 const cardCloseBtn = document.querySelector(".popup__close-btn_type_card"); // кнопка попап card
 const imageCloseBtn = document.querySelector(".popup__close-btn_type_image"); // кнопка попап image
+const OnOverlayBtn = document.querySelectorAll(".popup__container"); // область overlay попап
 //переменные ддя сабмита profile
 const profileForm = document.querySelector(".popup_type_profile");
 const nameInput = profileForm.querySelector(".popup__text_input_name");
@@ -147,6 +148,15 @@ function closePopupWindow() {
   }
 }
 
+//функция закрыть попапы на overLay
+OnOverlayBtn.forEach((elem) => {
+  elem.addEventListener("click", (event) => {
+    if (event.target === event.currentTarget) {
+      closePopupWindow();
+    }
+  });
+});
+
 //открыть попап профиль
 profileEditBtn.addEventListener("click", () => {
   nameInput.value = nameProfile.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
@@ -158,18 +168,19 @@ profileEditBtn.addEventListener("click", () => {
 cardEditBtn.addEventListener("click", () => openModal(cardPopup));
 
 //функция закрыть popup на overlay
-const popupWindow = document.querySelector(".popup__container"); // кнопка попап image
-function closeOnOverlayClick(event) {
-  console.log("Event.target", event.target); // самый глубокий элемент, на котором произошло событие.
-  console.log("Event.carrentTarget", event.currentTarget); // элемент, на котором в данный момент сработал обработчик (до которого «доплыло» событие)
-  if (event.target === event.currentTarget) {
-    closePopupWindow();
-  }
-}
+// const popupWindow = document.querySelector(".popup__container"); // кнопка попап image
+// function closeOnOverlayClick(event) {
+//   console.log("Event.target", event.target); // самый глубокий элемент, на котором произошло событие.
+//   console.log("Event.carrentTarget", event.currentTarget); // элемент, на котором в данный момент сработал обработчик (до которого «доплыло» событие)
+//   if (event.target === event.currentTarget) {
+//     closePopupWindow();
+//   }
+// }
 
 profileCloseBtn.addEventListener("click", closePopupWindow); // закрыть popup profile
 cardCloseBtn.addEventListener("click", closePopupWindow); // закрыть popup Card
 imageCloseBtn.addEventListener("click", closePopupWindow); // закрыть popup Image
-popupWindow.addEventListener("click", closeOnOverlayClick); // закрыть popup на overlay
+// OnOverlayBtn.addEventListener("click", closeOnOverlayWindow); // закрыть popup на overlay
+// popupWindow.addEventListener("click", closeOnOverlayClick); // закрыть popup на overlay
 profileForm.addEventListener("submit", handleProfileFormSubmit); //ввод name и job
 cardForm.addEventListener("submit", handleCardFormSubmit); //ввод signature и link
