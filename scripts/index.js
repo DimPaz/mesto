@@ -109,8 +109,6 @@ function handleCardFormSubmit(event) {
   // console.log(addPopupCard);
   listContainer.prepend(addPopupCard); //добавляем карту в начало списка из попапа
   document.getElementById("cardPopupForm").reset(); //обнуление значений в инпуте название и ссылка на картинку
-  //signatureInput.value = ""; //обнуление значений в инпуте название
-  //imageInput.value = ""; //обнуление значений в инпуте ссылка на картинку
   closePopupWindow();
 }
 
@@ -148,13 +146,22 @@ function closePopupWindow() {
   }
 }
 
-//функция закрыть попапы на overLay
+// закрыть попапы на overLay
 OnOverlayBtn.forEach((elem) => {
   elem.addEventListener("click", (event) => {
     if (event.target === event.currentTarget) {
       closePopupWindow();
     }
   });
+});
+
+// закрыть попапы на esc
+document.addEventListener("keydown", function (evt) {
+  // console.log(evt);
+  if (evt.key === "Escape") {
+    // alert('закрой попап');
+    closePopupWindow();
+  }
 });
 
 //открыть попап профиль
@@ -167,20 +174,8 @@ profileEditBtn.addEventListener("click", () => {
 //открыть попап добавление карточек
 cardEditBtn.addEventListener("click", () => openModal(cardPopup));
 
-//функция закрыть popup на overlay
-// const popupWindow = document.querySelector(".popup__container"); // кнопка попап image
-// function closeOnOverlayClick(event) {
-//   console.log("Event.target", event.target); // самый глубокий элемент, на котором произошло событие.
-//   console.log("Event.carrentTarget", event.currentTarget); // элемент, на котором в данный момент сработал обработчик (до которого «доплыло» событие)
-//   if (event.target === event.currentTarget) {
-//     closePopupWindow();
-//   }
-// }
-
 profileCloseBtn.addEventListener("click", closePopupWindow); // закрыть popup profile
 cardCloseBtn.addEventListener("click", closePopupWindow); // закрыть popup Card
 imageCloseBtn.addEventListener("click", closePopupWindow); // закрыть popup Image
-// OnOverlayBtn.addEventListener("click", closeOnOverlayWindow); // закрыть popup на overlay
-// popupWindow.addEventListener("click", closeOnOverlayClick); // закрыть popup на overlay
 profileForm.addEventListener("submit", handleProfileFormSubmit); //ввод name и job
 cardForm.addEventListener("submit", handleCardFormSubmit); //ввод signature и link
