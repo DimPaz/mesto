@@ -2,12 +2,13 @@
 const formElement = document.querySelector(".form"); //html-элемент формы, в которой находится проверяемое поле ввода. Он нужен для поиска элемента ошибки в форме.
 const formInput = formElement.querySelector(".form__input");
 // console.log(formInput.id); // "name-input"
-const formError = formElement.querySelector(`.${formInput.id}-error`); //Выбираем элемент ошибки на основе уникального класса
+const formError = formElement.querySelector(`#${formInput.id}-error`); //Выбираем элемент ошибки на основе уникального класса
 // console.log(formError);
 
 // Функция, которая добавляет класс с ошибкой
 const showInputError = (formElement, inputElement, errorMessage) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`); // Находим элемент ошибки внутри самой функции
+  const errorElement = formElement.querySelector(`#${inputElement.id}-error`); // Находим элемент ошибки внутри самой функции
+  // console.log(errorElement);
   inputElement.classList.add("form__input_type_error"); // Показываем красную линию ошибки
   errorElement.textContent = errorMessage; //текст браузерных ошибок
   errorElement.classList.add("form__input-error_active"); // Показываем сообщение об ошибке
@@ -15,7 +16,8 @@ const showInputError = (formElement, inputElement, errorMessage) => {
 
 // Функция, которая удаляет класс с ошибкой
 const hideInputError = (formElement, inputElement) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`); // Находим элемент ошибки
+  const errorElement = formElement.querySelector(`#${inputElement.id}-error`); // Находим элемент ошибки
+  // console.log(errorElement);
   inputElement.classList.remove("form__input_type_error"); // Скрываем красную линию ошибки
   errorElement.classList.remove("form__input-error_active"); // Скрываем сообщение об ошибке
   errorElement.textContent = ""; // Очистим ошибку

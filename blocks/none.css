@@ -2,17 +2,15 @@
   display: none;
 }
 
+
+.form {
+}
+
 .form__field {
   position: relative;
 }
 
-.form {
-}
 .form__input {
-}
-
-.form__input_type_error {
-  border-bottom-color: red;
 }
 
 .form__input-error {
@@ -30,9 +28,8 @@
   opacity: 1;
 }
 
-.name-input-error {
-}
-.job-input-error {
+.form__input_type_error {
+  border-bottom-color: red;
 }
 
 .popup__save-btn_inactive {
