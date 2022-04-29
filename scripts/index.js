@@ -67,8 +67,6 @@ function addCards(element) {
 
 // функция формируем template
 function getElement(item) {
-  // console.log(item.name);
-  // console.log(item.link);
   const cardElement = elementsCards.content.cloneNode(true); // клонируем template со всем содержимым
   const title = cardElement.querySelector(".element__text");
   title.textContent = item.name; // добавляем имя карточки
@@ -84,11 +82,11 @@ function getElement(item) {
     openModal(imagePopup);
   });
 
-  // удаление карточек, запуск слушителя
+  // удаление карточек, запуск слушателя
   const trashButton = cardElement.querySelector(".element__trash");
   trashButton.addEventListener("click", deleteCard);
 
-  // like карточки, запуск слушителя
+  // like карточки, запуск слушателя
   const elementLike = cardElement.querySelector(".element__like");
   elementLike.addEventListener("click", likeCard);
 
@@ -104,9 +102,7 @@ function handleCardFormSubmit(event) {
     name: signatureInput.value,
     link: imageInput.value,
   };
-  // console.log(newCard);
   const addPopupCard = getElement(newCard);
-  // console.log(addPopupCard);
   listContainer.prepend(addPopupCard); //добавляем карту в начало списка из попапа
   document.getElementById("cardPopupForm").reset(); //обнуление значений в инпуте название и ссылка на картинку
   closePopupWindow();
@@ -148,7 +144,7 @@ function closePopupWindow() {
 
 // закрыть попапы на overLay
 OnOverlayBtn.forEach((elem) => {
-  elem.addEventListener("click", (event) => {
+  elem.addEventListener("mousedown", (event) => {
     if (event.target === event.currentTarget) {
       closePopupWindow();
     }
@@ -157,9 +153,7 @@ OnOverlayBtn.forEach((elem) => {
 
 // закрыть попапы на esc
 document.addEventListener("keydown", function (evt) {
-  // console.log(evt);
   if (evt.key === "Escape") {
-    // alert('закрой попап');
     closePopupWindow();
   }
 });
@@ -168,12 +162,33 @@ document.addEventListener("keydown", function (evt) {
 profileEditBtn.addEventListener("click", () => {
   nameInput.value = nameProfile.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
   jobInput.value = professionProfile.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
+  clearInputError();
   openModal(profilePopup);
 });
 
 //открыть попап добавление карточек
-cardEditBtn.addEventListener("click", () => openModal(cardPopup));
+cardEditBtn.addEventListener("click", () => {
+  clearInputError();
+  openModal(cardPopup);
+});
 
+//функция скрыть ошибки при открытии попапа
+function clearInputError() {
+  const styleInputError = Array.from(
+    document.querySelectorAll(".form__input_type_error")
+  );
+  styleInputError.forEach((styleError) => {
+    styleError.classList.remove(config.markErrorClass); // Скрываем красную линию ошибки при открытии
+  });
+  const textInputError = Array.from(
+    document.querySelectorAll(".form__input-error")
+  );
+  textInputError.forEach((textError) => {
+    textError.textContent = ""; // Скрываем текст ошибки при открытии
+  });
+}
+
+//слушатели
 profileCloseBtn.addEventListener("click", closePopupWindow); // закрыть popup profile
 cardCloseBtn.addEventListener("click", closePopupWindow); // закрыть popup Card
 imageCloseBtn.addEventListener("click", closePopupWindow); // закрыть popup Image
