@@ -26,6 +26,12 @@ const professionProfile = document.querySelector(".profile__profession");
 const cardForm = document.querySelector(".popup_type_card");
 const signatureInput = cardForm.querySelector(".popup__text_input_signature");
 const imageInput = cardForm.querySelector(".popup__text_input_image");
+//переменные для проверки состояния кнопки во время открытия профиля
+const formElement = document.querySelector("#cardPopupForm");
+const inputList = Array.from(
+  formElement.querySelectorAll(config.inputSelector)
+);
+const buttonElement = formElement.querySelector(config.submitButtonSelector);
 //массив для создания стартовых карточек
 const initialCards = [
   {
@@ -169,6 +175,7 @@ profileEditBtn.addEventListener("click", () => {
 //открыть попап добавление карточек
 cardEditBtn.addEventListener("click", () => {
   clearInputError();
+  toggleButtonState(config, inputList, buttonElement);
   openModal(cardPopup);
 });
 

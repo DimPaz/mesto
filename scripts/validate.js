@@ -9,12 +9,10 @@ const config = {
 // Добавление обработчиков всем формам
 const enableValidation = ({ formSelector, ...config }) => {
   const formList = Array.from(document.querySelectorAll(formSelector));
-  // console.log(formList);
   formList.forEach((formElement) => {
     formElement.addEventListener("submit", (evt) => {
       evt.preventDefault(); // У каждой формы отменим стандартное поведение
     });
-    // console.log(formElement);
     setEventListeners(config, formElement);
   });
 };
@@ -75,7 +73,6 @@ const hasInvalidInput = (inputList) => {
 
 // функция переключения кнопки актив/неактив
 function toggleButtonState(config, inputList, buttonElement) {
-  // console.log(inputList);
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add(config.inactiveButtonClass); // сделать кнопку неактивной
   } else {
