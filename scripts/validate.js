@@ -9,10 +9,12 @@ const config = {
 // Добавление обработчиков всем формам
 const enableValidation = ({ formSelector, ...config }) => {
   const formList = Array.from(document.querySelectorAll(formSelector));
+  // console.log(formList);
   formList.forEach((formElement) => {
     formElement.addEventListener("submit", (evt) => {
       evt.preventDefault(); // У каждой формы отменим стандартное поведение
     });
+    // console.log(formElement);
     setEventListeners(config, formElement);
   });
 };
@@ -47,6 +49,7 @@ const isValid = (config, formElement, inputElement) => {
     hideInputError(config, formElement, inputElement); // Если проходит, скроем
   }
 };
+
 // Функция, которая добавляет класс с ошибкой
 const showInputError = (config, formElement, inputElement, errorMessage) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`); // Находим элемент ошибки внутри самой функции
@@ -72,6 +75,7 @@ const hasInvalidInput = (inputList) => {
 
 // функция переключения кнопки актив/неактив
 function toggleButtonState(config, inputList, buttonElement) {
+  // console.log(inputList);
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add(config.inactiveButtonClass); // сделать кнопку неактивной
   } else {

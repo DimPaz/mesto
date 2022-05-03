@@ -143,7 +143,9 @@ function closePopupWindow(modalNode) {
 onOverlayBtn.forEach((elem) => {
   elem.addEventListener("mousedown", (event) => {
     if (event.target === event.currentTarget) {
-      closePopupWindow(document.querySelector(".popup_opened"));
+      if (!(document.querySelector(".popup_opened") === null)) {
+        closePopupWindow(document.querySelector(".popup_opened"));
+      }
     }
   });
 });
