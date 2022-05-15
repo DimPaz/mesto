@@ -1,3 +1,5 @@
+import { Card } from "./card.js";
+
 //добавление карт
 const listContainer = document.querySelector(".elements"); // выбираем elements, куда будет вставляться template
 const elementsCards = document.querySelector(".template-cards"); // выбираем нужный template
@@ -61,46 +63,11 @@ const initialCards = [
 ];
 
 //создание карточек
-function initialAddCards() {
-  const cards = initialCards.map(getCards); // выполняем функцию для каждой пары (ключ, значение)
-  addCards(cards);
-}
-
-//функция добавляем карты в начало списка из массива
-function addCards(element) {
-  listContainer.prepend(...element);
-}
-
-// функция формируем template
-function getCards(elemCard) {
-  const cardElement = elementsCards.content.cloneNode(true); // клонируем template со всем содержимым
-  const title = cardElement.querySelector(".element__text");
-  title.textContent = elemCard.name; // добавляем имя карточки
-  const picture = cardElement.querySelector(".element__picture");
-  picture.src = elemCard.link; // добавляем картинку для карточки
-  picture.alt = elemCard.name; // добавляем alt для карточки
-
-  // открыть попап image
-  picture.addEventListener("click", () => {
-    imageCardPopup.src = elemCard.link; // добавили нужную картинку для попапа
-    imageCardPopup.alt = picture.alt; // добавили alt для картинки попапа
-    nameCardPopup.textContent = elemCard.name; // добавили нужную подпись для попапа
-    openModal(imagePopup);
-  });
-
-  // удаление карточек, запуск слушателя
-  const trashButton = cardElement.querySelector(".element__trash");
-  trashButton.addEventListener("click", deleteCard);
-
-  // like карточки, запуск слушателя
-  const elementLike = cardElement.querySelector(".element__like");
-  elementLike.addEventListener("click", likeCard);
-
-  return cardElement;
-}
-
-initialAddCards();
-
+initialCards.forEach((item) => {
+  const card = new Card(item, elementsCards);
+  const cardElement = card.getView();
+  addCards(cardElement);
+});
 //функция ввод signature и link
 function handleCardFormSubmit(event) {
   event.preventDefault();
@@ -108,11 +75,46 @@ function handleCardFormSubmit(event) {
     name: signatureInput.value,
     link: imageInput.value,
   };
-  const addPopupCard = getCards(newCard);
-  listContainer.prepend(addPopupCard); //добавляем карту в начало списка из попапа
+  const addPopupCard = new Card(newCard, elementsCards);
+  const cardElementNew = addPopupCard.getView();
+  listContainer.prepend(cardElementNew); //добавляем карту в начало списка из попапа
   document.getElementById("cardPopupForm").reset(); //обнуление значений в инпуте название и ссылка на картинку
   closePopupWindow(cardPopup);
 }
+//функция добавляем карты в начало списка из массива
+function addCards(element) {
+  listContainer.append(element);
+}
+
+// функция формируем template
+// function getCards(elemCard) {
+//   const cardElement = elementsCards.content.cloneNode(true); // клонируем template со всем содержимым
+//   const title = cardElement.querySelector(".element__text");
+//   title.textContent = elemCard.name; // добавляем имя карточки
+//   const picture = cardElement.querySelector(".element__picture");
+//   picture.src = elemCard.link; // добавляем картинку для карточки
+//   picture.alt = elemCard.name; // добавляем alt для карточки
+
+// открыть попап image
+// picture.addEventListener("click", () => {
+//   imageCardPopup.src = elemCard.link; // добавили нужную картинку для попапа
+//   imageCardPopup.alt = picture.alt; // добавили alt для картинки попапа
+//   nameCardPopup.textContent = elemCard.name; // добавили нужную подпись для попапа
+//   openModal(imagePopup);
+// });
+
+// удаление карточек, запуск слушателя
+// const trashButton = cardElement.querySelector(".element__trash");
+// trashButton.addEventListener("click", deleteCard);
+
+// like карточки, запуск слушателя
+//   const elementLike = cardElement.querySelector(".element__like");
+//   elementLike.addEventListener("click", likeCard);
+
+//   return cardElement;
+// }
+
+// initialAddCards();
 
 //функция ввод name и job
 function handleProfileFormSubmit(event) {
@@ -123,15 +125,15 @@ function handleProfileFormSubmit(event) {
 }
 
 //функция удаления карточки
-function deleteCard(evt) {
-  const deleteCardItem = evt.target.closest(".element");
-  deleteCardItem.remove();
-}
+// function deleteCard(evt) {
+//   const deleteCardItem = evt.target.closest(".element");
+//   deleteCardItem.remove();
+// }
 
 //функция like карточки
-function likeCard(evt) {
-  evt.target.classList.toggle("element__like_active");
-}
+// function likeCard(evt) {
+//   evt.target.classList.toggle("element__like_active");
+// }
 
 //функция открыть попапы
 function openModal(modalNode) {
