@@ -1,4 +1,5 @@
-import { Card } from "./card.js";
+import { Card } from "./Card.js";
+import { config, FormValidator } from "./FormValidator.js";
 export { openModal };
 
 //добавление карт
@@ -62,6 +63,12 @@ const initialCards = [
     link: "https://images.unsplash.com/photo-1610575860170-28799a092c39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1331&q=80",
   },
 ];
+
+const form = document.querySelectorAll(config.formSelector);
+form.forEach((item) => {
+  const cardFormValidator = new FormValidator(config, item);
+  cardFormValidator.enableValidation();
+});
 
 //создание карточек
 initialCards.forEach((item) => {
@@ -176,7 +183,7 @@ profileEditBtn.addEventListener("click", () => {
 //открыть попап добавление карточек
 cardEditBtn.addEventListener("click", () => {
   clearInputError();
-  toggleButtonState(config, inputList, buttonElement);
+  // toggleButtonState(config, inputList, buttonElement);
   openModal(cardPopup);
 });
 
