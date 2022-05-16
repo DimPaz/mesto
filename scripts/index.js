@@ -1,4 +1,5 @@
 import { Card } from "./card.js";
+export { openModal };
 
 //добавление карт
 const listContainer = document.querySelector(".elements"); // выбираем elements, куда будет вставляться template

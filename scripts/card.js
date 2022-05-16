@@ -1,3 +1,4 @@
+import { openModal } from "./index.js";
 export class Card {
   _name;
   _link;
@@ -26,8 +27,7 @@ export class Card {
     document.querySelector(".popup__card-image").alt =
       this._veiw.querySelector(".element__picture").alt; // добавили alt для картинки попапа
     document.querySelector(".popup__card-name").textContent = this._name; // добавили нужную подпись для попапа
-    document.querySelector(".popup_type_image").classList.add("popup_opened");
-    document.addEventListener("keydown", onEscBtn);
+    openModal(document.querySelector(".popup_type_image"));
   }
 
   //публичный метод формируем template
