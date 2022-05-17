@@ -1,4 +1,4 @@
-import { Card } from "../scripts/card.js";
+import { Card } from "./Card.js";
 import { config, FormValidator } from "./FormValidator.js";
 
 //добавление карт
