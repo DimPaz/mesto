@@ -1,6 +1,5 @@
 import { Card } from "./Card.js";
 import { config, FormValidator } from "./FormValidator.js";
-export { openModal };
 
 //добавление карт
 const listContainer = document.querySelector(".elements"); // выбираем elements, куда будет вставляться template
@@ -11,8 +10,6 @@ const cardEditBtn = document.querySelector(".profile__add-btn"); // кнопка
 const profilePopup = document.querySelector(".popup_type_profile"); // попап профиля
 const cardPopup = document.querySelector(".popup_type_card"); // попап карты
 const imagePopup = document.querySelector(".popup_type_image"); // попап картинки
-const imageCardPopup = document.querySelector(".popup__card-image"); // картинка в попапе
-const nameCardPopup = document.querySelector(".popup__card-name"); // наименование в попапе
 // закрыть popup
 const profileCloseBtn = document.querySelector(
   ".popup__close-btn_type_profile"
@@ -30,12 +27,6 @@ const professionProfile = document.querySelector(".profile__profession");
 const cardForm = document.querySelector(".popup_type_card");
 const signatureInput = cardForm.querySelector(".popup__text_input_signature");
 const imageInput = cardForm.querySelector(".popup__text_input_image");
-//переменные для проверки состояния кнопки во время открытия профиля
-const formElement = document.querySelector("#cardPopupForm");
-const inputList = Array.from(
-  formElement.querySelectorAll(config.inputSelector)
-);
-const buttonElement = formElement.querySelector(config.submitButtonSelector);
 //массив для создания стартовых карточек
 const initialCards = [
   {
@@ -64,12 +55,6 @@ const initialCards = [
   },
 ];
 
-const form = document.querySelectorAll(config.formSelector);
-form.forEach((item) => {
-  const cardFormValidator = new FormValidator(config, item);
-  cardFormValidator.enableValidation();
-});
-
 //создание карточек
 initialCards.forEach((item) => {
   const card = new Card(item, elementsCards);
@@ -94,36 +79,6 @@ function addCards(element) {
   listContainer.append(element);
 }
 
-// функция формируем template
-// function getCards(elemCard) {
-//   const cardElement = elementsCards.content.cloneNode(true); // клонируем template со всем содержимым
-//   const title = cardElement.querySelector(".element__text");
-//   title.textContent = elemCard.name; // добавляем имя карточки
-//   const picture = cardElement.querySelector(".element__picture");
-//   picture.src = elemCard.link; // добавляем картинку для карточки
-//   picture.alt = elemCard.name; // добавляем alt для карточки
-
-// открыть попап image
-// picture.addEventListener("click", () => {
-//   imageCardPopup.src = elemCard.link; // добавили нужную картинку для попапа
-//   imageCardPopup.alt = picture.alt; // добавили alt для картинки попапа
-//   nameCardPopup.textContent = elemCard.name; // добавили нужную подпись для попапа
-//   openModal(imagePopup);
-// });
-
-// удаление карточек, запуск слушателя
-// const trashButton = cardElement.querySelector(".element__trash");
-// trashButton.addEventListener("click", deleteCard);
-
-// like карточки, запуск слушателя
-//   const elementLike = cardElement.querySelector(".element__like");
-//   elementLike.addEventListener("click", likeCard);
-
-//   return cardElement;
-// }
-
-// initialAddCards();
-
 //функция ввод name и job
 function handleProfileFormSubmit(event) {
   event.preventDefault();
@@ -132,22 +87,25 @@ function handleProfileFormSubmit(event) {
   closePopupWindow(profilePopup);
 }
 
-//функция удаления карточки
-// function deleteCard(evt) {
-//   const deleteCardItem = evt.target.closest(".element");
-//   deleteCardItem.remove();
-// }
-
-//функция like карточки
-// function likeCard(evt) {
-//   evt.target.classList.toggle("element__like_active");
-// }
-
 //функция открыть попапы
-function openModal(modalNode) {
+export function openModal(modalNode) {
   modalNode.classList.add("popup_opened");
   document.addEventListener("keydown", onEscBtn);
 }
+
+//открыть попап профиль
+profileEditBtn.addEventListener("click", () => {
+  nameInput.value = nameProfile.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
+  jobInput.value = professionProfile.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
+  clearInputError();
+  openModal(profilePopup);
+});
+
+//открыть попап добавление карточек
+cardEditBtn.addEventListener("click", () => {
+  clearInputError();
+  openModal(cardPopup);
+});
 
 //функция закрыть попапы
 function closePopupWindow(modalNode) {
@@ -172,19 +130,11 @@ function onEscBtn(evt) {
   }
 }
 
-//открыть попап профиль
-profileEditBtn.addEventListener("click", () => {
-  nameInput.value = nameProfile.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
-  jobInput.value = professionProfile.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
-  clearInputError();
-  openModal(profilePopup);
-});
-
-//открыть попап добавление карточек
-cardEditBtn.addEventListener("click", () => {
-  clearInputError();
-  // toggleButtonState(config, inputList, buttonElement);
-  openModal(cardPopup);
+//валидация форм
+const form = document.querySelectorAll(config.formSelector);
+form.forEach((item) => {
+  const cardFormValidator = new FormValidator(config, item);
+  cardFormValidator.enableValidation();
 });
 
 //функция скрыть ошибки при открытии попапа
@@ -204,6 +154,10 @@ function clearInputError() {
 }
 
 //слушатели
+
+profileForm.addEventListener("submit", handleProfileFormSubmit); //ввод name и job
+cardForm.addEventListener("submit", handleCardFormSubmit); //ввод signature и link
+
 profileCloseBtn.addEventListener("click", function () {
   closePopupWindow(profilePopup);
 }); // закрыть popup profile
@@ -215,6 +169,3 @@ cardCloseBtn.addEventListener("click", function () {
 imageCloseBtn.addEventListener("click", function () {
   closePopupWindow(imagePopup);
 }); // закрыть popup Image
-
-profileForm.addEventListener("submit", handleProfileFormSubmit); //ввод name и job
-cardForm.addEventListener("submit", handleCardFormSubmit); //ввод signature и link

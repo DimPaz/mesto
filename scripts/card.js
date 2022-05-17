@@ -1,4 +1,5 @@
 import { openModal } from "./index.js";
+
 export class Card {
   _name;
   _link;

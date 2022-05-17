@@ -22,18 +22,19 @@ export class FormValidator {
     this._formElement = formElement;
   }
 
+  // приватный метод отмена стандартного поведения форм
   _submitHandler = (evt) => {
     evt.preventDefault();
   };
 
-  //проверка на валидность полей попапа
+  //приватный метод проверка на валидность полей попапа
   _hasInvalidInput = (inputList) => {
     return inputList.some((inputElement) => {
       return !inputElement.validity.valid;
     });
   };
 
-  // функция переключения кнопки актив/неактив
+  // приватный метод переключения кнопки актив/неактив
   _toggleButtonState(inputList, buttonElement) {
     if (this._hasInvalidInput(inputList)) {
       buttonElement.classList.add(config.inactiveButtonClass); // сделать кнопку неактивной
@@ -42,13 +43,13 @@ export class FormValidator {
     }
   }
 
-  // функция, которая проверяет валидность поля
+  // приватный метод проверяет валидность поля
   _isValid = (formElement, inputElement) => {
     // элемент формы, в которой находится проверяемое поле ввода & проверяемое поле ввода
     if (!inputElement.validity.valid) {
       // получаем параметром форму, в которой находится проверяемое поле, и само это поле
       this._showInputError(
-        this._formElement,
+        formElement,
         inputElement,
         inputElement.validationMessage
       ); // Если поле не проходит валидацию, покажем ошибку
@@ -57,7 +58,7 @@ export class FormValidator {
     }
   };
 
-  // Функция, которая добавляет класс с ошибкой
+  // приватный метод добавляет класс с ошибкой
   _showInputError = (formElement, inputElement, errorMessage) => {
     const errorElement = formElement.querySelector(`#${inputElement.id}-error`); // Находим элемент ошибки внутри самой функции
     inputElement.classList.add(config.markErrorClass); // Показываем красную линию ошибки
@@ -65,7 +66,7 @@ export class FormValidator {
     errorElement.classList.add(config.activeErrorClass); // Показываем сообщение об ошибке
   };
 
-  // Функция, которая удаляет класс с ошибкой
+  // приватный метод удаляет класс с ошибкой
   _hideInputError = (formElement, inputElement) => {
     const errorElement = formElement.querySelector(`#${inputElement.id}-error`); // Находим элемент ошибки
     inputElement.classList.remove(config.markErrorClass); // Скрываем красную линию ошибки
@@ -73,6 +74,7 @@ export class FormValidator {
     errorElement.textContent = ""; // Очистим ошибку
   };
 
+  //приватный метод добавления обработчиков всем полям формы
   _setEventListeners = () => {
     this._inputList = Array.from(
       this._formElement.querySelectorAll(config.inputSelector)
@@ -89,6 +91,7 @@ export class FormValidator {
     });
   };
 
+  //публичный метод включает валидацию формы
   enableValidation() {
     this._formElement.addEventListener("submit", this._submitHandler);
     this._setEventListeners();
