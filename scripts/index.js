@@ -126,7 +126,7 @@ function clearInputError() {
   const styleInputError = Array.from(
     document.querySelectorAll(".form__input_type_error")
   );
-  // console.log(document.querySelectorAll(".form__input_type_error"));
+  // console.log(styleInputError);
   styleInputError.forEach((styleError) => {
     styleError.classList.remove(config.markErrorClass); // Скрываем красную линию ошибки при открытии
   });

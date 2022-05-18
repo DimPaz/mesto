@@ -17,7 +17,7 @@ export class FormValidator {
     this._activeErrorClass = config.activeErrorClass;
     this._formElement = formElement;
   }
-  
+
   // приватный метод отмена стандартного поведения форм
   _submitHandler = (evt) => {
     evt.preventDefault();
