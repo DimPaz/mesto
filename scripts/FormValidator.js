@@ -8,10 +8,6 @@ export const config = {
 };
 
 export class FormValidator {
-  _config;
-  _formElement;
-  _inputList;
-
   constructor(config, formElement) {
     this._formSelector = config.formSelector;
     this._inputSelector = config.inputSelector;
@@ -21,7 +17,7 @@ export class FormValidator {
     this._activeErrorClass = config.activeErrorClass;
     this._formElement = formElement;
   }
-
+  
   // приватный метод отмена стандартного поведения форм
   _submitHandler = (evt) => {
     evt.preventDefault();

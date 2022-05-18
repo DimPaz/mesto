@@ -1,9 +1,10 @@
 import { Card } from "./Card.js";
 import { config, FormValidator } from "./FormValidator.js";
+import { openModal, closePopupWindow } from "./utils.js";
 
 //добавление карт
 const listContainer = document.querySelector(".elements"); // выбираем elements, куда будет вставляться template
-const elementsCards = document.querySelector(".template-cards"); // выбираем нужный template
+const elementCard = document.querySelector(".template-cards"); // выбираем нужный template
 // открыть popup
 const profileEditBtn = document.querySelector(".profile__edit-btn"); // кнопка редактирования профиля
 const cardEditBtn = document.querySelector(".profile__add-btn"); // кнопка добавления новой карточки
@@ -25,6 +26,7 @@ const nameProfile = document.querySelector(".profile__name");
 const professionProfile = document.querySelector(".profile__profession");
 //переменные ддя сабмита card
 const cardForm = document.querySelector(".popup_type_card");
+const cardFormInput = document.getElementById("cardPopupForm");
 const signatureInput = cardForm.querySelector(".popup__text_input_signature");
 const imageInput = cardForm.querySelector(".popup__text_input_image");
 //массив для создания стартовых карточек
@@ -57,9 +59,7 @@ const initialCards = [
 
 //создание карточек
 initialCards.forEach((item) => {
-  const card = new Card(item, elementsCards);
-  const cardElement = card.getView();
-  addCards(cardElement);
+  addCards(createСard(item));
 });
 //функция ввод signature и link
 function handleCardFormSubmit(event) {
@@ -68,11 +68,14 @@ function handleCardFormSubmit(event) {
     name: signatureInput.value,
     link: imageInput.value,
   };
-  const addPopupCard = new Card(newCard, elementsCards);
-  const cardElementNew = addPopupCard.getView();
-  listContainer.prepend(cardElementNew); //добавляем карту в начало списка из попапа
-  document.getElementById("cardPopupForm").reset(); //обнуление значений в инпуте название и ссылка на картинку
+  listContainer.prepend(createСard(newCard)); //добавляем карту в начало списка из попапа
+  cardFormInput.reset(); //обнуление значений в инпуте название и ссылка на картинку
   closePopupWindow(cardPopup);
+}
+//создание экземпляра карточки и генерация объекта
+function createСard(item) {
+  const card = new Card(item, elementCard);
+  return card.getView();
 }
 //функция добавляем карты в начало списка из массива
 function addCards(element) {
@@ -87,12 +90,6 @@ function handleProfileFormSubmit(event) {
   closePopupWindow(profilePopup);
 }
 
-//функция открыть попапы
-export function openModal(modalNode) {
-  modalNode.classList.add("popup_opened");
-  document.addEventListener("keydown", onEscBtn);
-}
-
 //открыть попап профиль
 profileEditBtn.addEventListener("click", () => {
   nameInput.value = nameProfile.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
@@ -104,14 +101,9 @@ profileEditBtn.addEventListener("click", () => {
 //открыть попап добавление карточек
 cardEditBtn.addEventListener("click", () => {
   clearInputError();
+  // тут поменять знач кнопки акт/неакт
   openModal(cardPopup);
 });
-
-//функция закрыть попапы
-function closePopupWindow(modalNode) {
-  modalNode.classList.remove("popup_opened");
-  document.removeEventListener("keydown", onEscBtn);
-}
 
 // закрыть попапы на overLay
 onOverlayBtn.forEach((elem) => {
@@ -121,14 +113,6 @@ onOverlayBtn.forEach((elem) => {
     }
   });
 });
-
-// закрыть конкретный попап на esc
-function onEscBtn(evt) {
-  if (evt.key === "Escape") {
-    const popupActive = document.querySelector(".popup_opened");
-    closePopupWindow(popupActive);
-  }
-}
 
 //валидация форм
 const form = document.querySelectorAll(config.formSelector);
@@ -142,6 +126,7 @@ function clearInputError() {
   const styleInputError = Array.from(
     document.querySelectorAll(".form__input_type_error")
   );
+  // console.log(document.querySelectorAll(".form__input_type_error"));
   styleInputError.forEach((styleError) => {
     styleError.classList.remove(config.markErrorClass); // Скрываем красную линию ошибки при открытии
   });
