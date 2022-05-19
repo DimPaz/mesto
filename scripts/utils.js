@@ -3,7 +3,7 @@ export const imageCardPopup = document.querySelector(".popup__card-image"); // �
 //функция открыть попапы
 export function openModal(modalNode) {
   modalNode.classList.add("popup_opened");
-  document.addEventListener("keydown", onEscBtn);
+  document.addEventListener("keydown", onEscBtn); 
 }
 
 // закрыть конкретный попап на esc

@@ -16,6 +16,22 @@ export class FormValidator {
     this._markErrorClass = config.markErrorClass;
     this._activeErrorClass = config.activeErrorClass;
     this._formElement = formElement;
+    this._textInputError = Array.from(
+      document.querySelectorAll(".form__input-error")
+    );
+  }
+
+  //функция скрыть ошибки при открытии попапа
+  clearInputError() {
+    const styleInputError = Array.from(
+      document.querySelectorAll(".form__input_type_error")
+    );
+    styleInputError.forEach((styleError) => {
+      styleError.classList.remove(this._markErrorClass); // Скрываем красную линию ошибки при открытии
+    });
+    this._textInputError.forEach((textError) => {
+      textError.textContent = ""; // Скрываем текст ошибки при открытии
+    });
   }
 
   // приватный метод отмена стандартного поведения форм
@@ -33,9 +49,9 @@ export class FormValidator {
   // приватный метод переключения кнопки актив/неактив
   _toggleButtonState(inputList, buttonElement) {
     if (this._hasInvalidInput(inputList)) {
-      buttonElement.classList.add(config.inactiveButtonClass); // сделать кнопку неактивной
+      buttonElement.classList.add(this._inactiveButtonClass); // сделать кнопку неактивной
     } else {
-      buttonElement.classList.remove(config.inactiveButtonClass); // сделать кнопку активной
+      buttonElement.classList.remove(this._inactiveButtonClass); // сделать кнопку активной
     }
   }
 
@@ -57,26 +73,26 @@ export class FormValidator {
   // приватный метод добавляет класс с ошибкой
   _showInputError = (formElement, inputElement, errorMessage) => {
     const errorElement = formElement.querySelector(`#${inputElement.id}-error`); // Находим элемент ошибки внутри самой функции
-    inputElement.classList.add(config.markErrorClass); // Показываем красную линию ошибки
+    inputElement.classList.add(this._markErrorClass); // Показываем красную линию ошибки
     errorElement.textContent = errorMessage; //текст браузерных ошибок
-    errorElement.classList.add(config.activeErrorClass); // Показываем сообщение об ошибке
+    errorElement.classList.add(this._activeErrorClass); // Показываем сообщение об ошибке
   };
 
   // приватный метод удаляет класс с ошибкой
   _hideInputError = (formElement, inputElement) => {
     const errorElement = formElement.querySelector(`#${inputElement.id}-error`); // Находим элемент ошибки
-    inputElement.classList.remove(config.markErrorClass); // Скрываем красную линию ошибки
-    errorElement.classList.remove(config.activeErrorClass); // Скрываем сообщение об ошибке
+    inputElement.classList.remove(this._markErrorClass); // Скрываем красную линию ошибки
+    errorElement.classList.remove(this._activeErrorClass); // Скрываем сообщение об ошибке
     errorElement.textContent = ""; // Очистим ошибку
   };
 
   //приватный метод добавления обработчиков всем полям формы
   _setEventListeners = () => {
     this._inputList = Array.from(
-      this._formElement.querySelectorAll(config.inputSelector)
+      this._formElement.querySelectorAll(this._inputSelector)
     ); //делаем массив
     this._buttonElement = this._formElement.querySelector(
-      config.submitButtonSelector
+      this._submitButtonSelector
     );
     this._toggleButtonState(this._inputList, this._buttonElement);
     this._inputList.forEach((inputElement) => {

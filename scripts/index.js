@@ -9,8 +9,10 @@ const elementCard = document.querySelector(".template-cards"); // выбирае
 const profileEditBtn = document.querySelector(".profile__edit-btn"); // кнопка редактирования профиля
 const cardEditBtn = document.querySelector(".profile__add-btn"); // кнопка добавления новой карточки
 const profilePopup = document.querySelector(".popup_type_profile"); // попап профиля
-const cardPopup = document.querySelector(".popup_type_card"); // попап карты
+const cardPopup = document.querySelector(".popup_type_card"); // попап карт
 const imagePopup = document.querySelector(".popup_type_image"); // попап картинки
+const editPopupForm = profilePopup.querySelector("#editPopupForm"); // форма профиля
+const cardPopupForm = cardPopup.querySelector("#cardPopupForm"); // форма карт
 // закрыть popup
 const profileCloseBtn = document.querySelector(
   ".popup__close-btn_type_profile"
@@ -94,13 +96,14 @@ function handleProfileFormSubmit(event) {
 profileEditBtn.addEventListener("click", () => {
   nameInput.value = nameProfile.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
   jobInput.value = professionProfile.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
-  clearInputError();
+  // clearInputError();
+  editFormValidator.clearInputError();
   openModal(profilePopup);
 });
 
 //открыть попап добавление карточек
 cardEditBtn.addEventListener("click", () => {
-  clearInputError();
+  cardFormValidator.clearInputError();
   // тут поменять знач кнопки акт/неакт
   openModal(cardPopup);
 });
@@ -114,29 +117,30 @@ onOverlayBtn.forEach((elem) => {
   });
 });
 
-//валидация форм
-const form = document.querySelectorAll(config.formSelector);
-form.forEach((item) => {
-  const cardFormValidator = new FormValidator(config, item);
-  cardFormValidator.enableValidation();
-});
+//валидация формы profile
+const editFormValidator = new FormValidator(config, editPopupForm);
+editFormValidator.enableValidation();
 
-//функция скрыть ошибки при открытии попапа
-function clearInputError() {
-  const styleInputError = Array.from(
-    document.querySelectorAll(".form__input_type_error")
-  );
-  // console.log(styleInputError);
-  styleInputError.forEach((styleError) => {
-    styleError.classList.remove(config.markErrorClass); // Скрываем красную линию ошибки при открытии
-  });
-  const textInputError = Array.from(
-    document.querySelectorAll(".form__input-error")
-  );
-  textInputError.forEach((textError) => {
-    textError.textContent = ""; // Скрываем текст ошибки при открытии
-  });
-}
+//валидация формы card
+const cardFormValidator = new FormValidator(config, cardPopupForm);
+cardFormValidator.enableValidation();
+
+// //функция скрыть ошибки при открытии попапа
+// function clearInputError() {
+//   const styleInputError = Array.from(
+//     document.querySelectorAll(".form__input_type_error")
+//   );
+//   // console.log(styleInputError);
+//   styleInputError.forEach((styleError) => {
+//     styleError.classList.remove(config.markErrorClass); // Скрываем красную линию ошибки при открытии
+//   });
+//   const textInputError = Array.from(
+//     document.querySelectorAll(".form__input-error")
+//   );
+//   textInputError.forEach((textError) => {
+//     textError.textContent = ""; // Скрываем текст ошибки при открытии
+//   });
+// }
 
 //слушатели
 
