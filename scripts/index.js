@@ -1,6 +1,7 @@
 import { Card } from "./Card.js";
-import { config, FormValidator } from "./FormValidator.js";
-import { openModal, closePopupWindow } from "./utils.js";
+import { initialCards } from "./initialCards.js";
+import { FormValidator } from "./FormValidator.js";
+import { config, openModal, closePopupWindow } from "./utils.js";
 
 //добавление карт
 const listContainer = document.querySelector(".elements"); // выбираем elements, куда будет вставляться template
@@ -31,33 +32,6 @@ const cardForm = document.querySelector(".popup_type_card");
 const cardFormInput = document.getElementById("cardPopupForm");
 const signatureInput = cardForm.querySelector(".popup__text_input_signature");
 const imageInput = cardForm.querySelector(".popup__text_input_image");
-//массив для создания стартовых карточек
-const initialCards = [
-  {
-    name: "Ергаки",
-    link: "https://images.unsplash.com/photo-1594539364250-81a8bcb51531?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=999&q=80",
-  },
-  {
-    name: "Эсто-Садок",
-    link: "https://images.unsplash.com/photo-1612274059446-5c480106b1cb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-  },
-  {
-    name: "Тункинский парк",
-    link: "https://images.unsplash.com/photo-1445299329339-8b8f48ab53b9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80",
-  },
-  {
-    name: "Чуйский тракт",
-    link: "https://images.unsplash.com/photo-1634876371588-d38b1c44271c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80",
-  },
-  {
-    name: "Золотая Долина",
-    link: "https://images.unsplash.com/photo-1608661649288-d4a3e7ec4838?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-  },
-  {
-    name: "Мутно́вская сопка",
-    link: "https://images.unsplash.com/photo-1610575860170-28799a092c39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1331&q=80",
-  },
-];
 
 //создание карточек
 initialCards.forEach((item) => {
@@ -96,15 +70,13 @@ function handleProfileFormSubmit(event) {
 profileEditBtn.addEventListener("click", () => {
   nameInput.value = nameProfile.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
   jobInput.value = professionProfile.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
-  // clearInputError();
-  editFormValidator.clearInputError();
+  editFormValidator.resetErrors();
   openModal(profilePopup);
 });
 
 //открыть попап добавление карточек
 cardEditBtn.addEventListener("click", () => {
-  cardFormValidator.clearInputError();
-  // тут поменять знач кнопки акт/неакт
+  cardFormValidator.resetErrors();
   openModal(cardPopup);
 });
 
@@ -124,23 +96,6 @@ editFormValidator.enableValidation();
 //валидация формы card
 const cardFormValidator = new FormValidator(config, cardPopupForm);
 cardFormValidator.enableValidation();
-
-// //функция скрыть ошибки при открытии попапа
-// function clearInputError() {
-//   const styleInputError = Array.from(
-//     document.querySelectorAll(".form__input_type_error")
-//   );
-//   // console.log(styleInputError);
-//   styleInputError.forEach((styleError) => {
-//     styleError.classList.remove(config.markErrorClass); // Скрываем красную линию ошибки при открытии
-//   });
-//   const textInputError = Array.from(
-//     document.querySelectorAll(".form__input-error")
-//   );
-//   textInputError.forEach((textError) => {
-//     textError.textContent = ""; // Скрываем текст ошибки при открытии
-//   });
-// }
 
 //слушатели
 

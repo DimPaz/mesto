@@ -1,12 +1,3 @@
-export const config = {
-  formSelector: ".form",
-  inputSelector: ".form__input",
-  submitButtonSelector: ".popup__save-btn",
-  inactiveButtonClass: "popup__save-btn_inactive",
-  markErrorClass: "form__input_type_error",
-  activeErrorClass: "form__input-error_active",
-};
-
 export class FormValidator {
   constructor(config, formElement) {
     this._formSelector = config.formSelector;
@@ -19,10 +10,16 @@ export class FormValidator {
     this._textInputError = Array.from(
       document.querySelectorAll(".form__input-error")
     );
+    this._inputList = Array.from(
+      this._formElement.querySelectorAll(this._inputSelector)
+    ); //делаем массив
+    this._buttonElement = this._formElement.querySelector(
+      this._submitButtonSelector
+    );
   }
 
-  //функция скрыть ошибки при открытии попапа
-  clearInputError() {
+  //публичный метод сброс ошибок при открытии попапа
+  resetErrors() {
     const styleInputError = Array.from(
       document.querySelectorAll(".form__input_type_error")
     );
@@ -32,6 +29,7 @@ export class FormValidator {
     this._textInputError.forEach((textError) => {
       textError.textContent = ""; // Скрываем текст ошибки при открытии
     });
+    this._toggleButtonState(this._inputList, this._buttonElement);
   }
 
   // приватный метод отмена стандартного поведения форм
@@ -50,8 +48,10 @@ export class FormValidator {
   _toggleButtonState(inputList, buttonElement) {
     if (this._hasInvalidInput(inputList)) {
       buttonElement.classList.add(this._inactiveButtonClass); // сделать кнопку неактивной
+      buttonElement.disabled = true;
     } else {
       buttonElement.classList.remove(this._inactiveButtonClass); // сделать кнопку активной
+      buttonElement.disabled = false;
     }
   }
 
@@ -88,12 +88,6 @@ export class FormValidator {
 
   //приватный метод добавления обработчиков всем полям формы
   _setEventListeners = () => {
-    this._inputList = Array.from(
-      this._formElement.querySelectorAll(this._inputSelector)
-    ); //делаем массив
-    this._buttonElement = this._formElement.querySelector(
-      this._submitButtonSelector
-    );
     this._toggleButtonState(this._inputList, this._buttonElement);
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {

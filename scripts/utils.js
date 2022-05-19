@@ -1,9 +1,18 @@
-export const imageCardPopup = document.querySelector(".popup__card-image"); // картинка в попапе
+const config = {
+  formSelector: ".form",
+  inputSelector: ".form__input",
+  submitButtonSelector: ".popup__save-btn",
+  inactiveButtonClass: "popup__save-btn_inactive",
+  markErrorClass: "form__input_type_error",
+  activeErrorClass: "form__input-error_active",
+};
+
+const imageCardPopup = document.querySelector(".popup__card-image"); // картинка в попапе
 
 //функция открыть попапы
-export function openModal(modalNode) {
+function openModal(modalNode) {
   modalNode.classList.add("popup_opened");
-  document.addEventListener("keydown", onEscBtn); 
+  document.addEventListener("keydown", onEscBtn);
 }
 
 // закрыть конкретный попап на esc
@@ -14,7 +23,9 @@ function onEscBtn(evt) {
   }
 }
 //функция закрыть попапы
-export function closePopupWindow(modalNode) {
+function closePopupWindow(modalNode) {
   modalNode.classList.remove("popup_opened");
   document.removeEventListener("keydown", onEscBtn);
 }
+
+export { config, imageCardPopup, openModal, closePopupWindow };
