@@ -9,6 +9,9 @@ export class FormValidator {
     this._markErrorClass = config.markErrorClass;
     this._activeErrorClass = config.activeErrorClass;
     this._formElement = formElement;
+    this._styleInputError = Array.from(
+      this._formElement.querySelectorAll(this._inputSelector)
+    );
     this._textInputError = Array.from(
       this._formElement.querySelectorAll(this._errorInputSelector)
     );
@@ -18,14 +21,10 @@ export class FormValidator {
     this._buttonElement = this._formElement.querySelector(
       this._submitButtonSelector
     );
-    this._styleInputError = Array.from(
-      this._formElement.querySelectorAll(this._activeErrorSelector)
-    );
   }
 
   //публичный метод сброс ошибок при открытии попапа
   resetErrors() {
-    console.log(this._styleInputError);
     this._styleInputError.forEach((styleError) => {
       styleError.classList.remove(this._markErrorClass); // Скрываем красную линию ошибки при открытии
     });
