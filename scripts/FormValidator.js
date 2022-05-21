@@ -18,18 +18,14 @@ export class FormValidator {
     this._buttonElement = this._formElement.querySelector(
       this._submitButtonSelector
     );
-    this._activeStyleInputError = this._activeErrorSelector;
+    this._styleInputError = Array.from(
+      this._formElement.querySelectorAll(this._activeErrorSelector)
+    );
   }
 
   //публичный метод сброс ошибок при открытии попапа
   resetErrors() {
-    // this._styleInputError = Array.from(
-    //   this._formElement.querySelectorAll(this._activeErrorSelector)
-    // );
-
-    this._styleInputError = Array.from(
-      this._formElement.querySelectorAll(this._activeStyleInputError)
-    );
+    console.log(this._styleInputError);
     this._styleInputError.forEach((styleError) => {
       styleError.classList.remove(this._markErrorClass); // Скрываем красную линию ошибки при открытии
     });
