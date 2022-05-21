@@ -11,7 +11,6 @@ const profileEditBtn = document.querySelector(".profile__edit-btn"); // кноп
 const cardEditBtn = document.querySelector(".profile__add-btn"); // кнопка добавления новой карточки
 const profilePopup = document.querySelector(".popup_type_profile"); // попап профиля
 const cardPopup = document.querySelector(".popup_type_card"); // попап карт
-const imagePopup = document.querySelector(".popup_type_image"); // попап картинки
 const editPopupForm = profilePopup.querySelector("#editPopupForm"); // форма профиля
 const cardPopupForm = cardPopup.querySelector("#cardPopupForm"); // форма карт
 // закрыть popup

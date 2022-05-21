@@ -3,27 +3,34 @@ export class FormValidator {
     this._formSelector = config.formSelector;
     this._inputSelector = config.inputSelector;
     this._submitButtonSelector = config.submitButtonSelector;
+    this._errorInputSelector = config.errorInputSelector;
+    this._activeErrorSelector = config.activeErrorSelector;
     this._inactiveButtonClass = config.inactiveButtonClass;
     this._markErrorClass = config.markErrorClass;
     this._activeErrorClass = config.activeErrorClass;
     this._formElement = formElement;
     this._textInputError = Array.from(
-      document.querySelectorAll(".form__input-error")
+      this._formElement.querySelectorAll(this._errorInputSelector)
     );
     this._inputList = Array.from(
       this._formElement.querySelectorAll(this._inputSelector)
-    ); //делаем массив
+    );
     this._buttonElement = this._formElement.querySelector(
       this._submitButtonSelector
     );
+    this._activeStyleInputError = this._activeErrorSelector;
   }
 
   //публичный метод сброс ошибок при открытии попапа
   resetErrors() {
-    const styleInputError = Array.from(
-      document.querySelectorAll(".form__input_type_error")
+    // this._styleInputError = Array.from(
+    //   this._formElement.querySelectorAll(this._activeErrorSelector)
+    // );
+
+    this._styleInputError = Array.from(
+      this._formElement.querySelectorAll(this._activeStyleInputError)
     );
-    styleInputError.forEach((styleError) => {
+    this._styleInputError.forEach((styleError) => {
       styleError.classList.remove(this._markErrorClass); // Скрываем красную линию ошибки при открытии
     });
     this._textInputError.forEach((textError) => {

@@ -2,12 +2,16 @@ const config = {
   formSelector: ".form",
   inputSelector: ".form__input",
   submitButtonSelector: ".popup__save-btn",
+  errorInputSelector: ".form__input-error",
+  activeErrorSelector: ".form__input_type_error",
   inactiveButtonClass: "popup__save-btn_inactive",
   markErrorClass: "form__input_type_error",
   activeErrorClass: "form__input-error_active",
 };
 
 const imageCardPopup = document.querySelector(".popup__card-image"); // картинка в попапе
+const nameCardPopup = document.querySelector(".popup__card-name"); // имя карточки в попапе
+const imagePopup = document.querySelector(".popup_type_image"); // попап картинки
 
 //функция открыть попапы
 function openModal(modalNode) {
@@ -28,4 +32,11 @@ function closePopupWindow(modalNode) {
   document.removeEventListener("keydown", onEscBtn);
 }
 
-export { config, imageCardPopup, openModal, closePopupWindow };
+export {
+  config,
+  imageCardPopup,
+  nameCardPopup,
+  imagePopup,
+  openModal,
+  closePopupWindow,
+};

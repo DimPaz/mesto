@@ -1,4 +1,9 @@
-import { openModal, imageCardPopup } from "./utils.js";
+import {
+  openModal,
+  imageCardPopup,
+  nameCardPopup,
+  imagePopup,
+} from "./utils.js";
 
 export class Card {
   constructor(title, tamplate) {
@@ -22,8 +27,8 @@ export class Card {
   _openModalImage() {
     imageCardPopup.src = this._link; // добавили нужную картинку для попапа
     imageCardPopup.alt = this._name; // добавили alt для картинки попапа
-    document.querySelector(".popup__card-name").textContent = this._name; // добавили нужную подпись для попапа
-    openModal(document.querySelector(".popup_type_image"));
+    nameCardPopup.textContent = this._name; // добавили нужную подпись для попапа
+    openModal(imagePopup);
   }
 
   //публичный метод формируем template
