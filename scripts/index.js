@@ -1,8 +1,15 @@
 import { Card } from "./Card.js";
 import { Section } from "./Section.js";
+import { Popup } from "./Popup.js";
 import { initialCards } from "./initialCards.js";
 import { FormValidator } from "./FormValidator.js";
-import { config, openModal, closePopupWindow, imagePopup, listContainer } from "./utils.js";
+import {
+  config,
+  // openModal,
+  // closePopupWindow,
+  imagePopup,
+  listContainer,
+} from "./utils.js";
 
 //добавление карт
 const elementCard = document.querySelector(".template-cards"); // выбираем нужный template
@@ -19,7 +26,7 @@ const profileCloseBtn = document.querySelector(
 ); // кнопка попап profile
 const cardCloseBtn = document.querySelector(".popup__close-btn_type_card"); // кнопка попап card
 const imageCloseBtn = document.querySelector(".popup__close-btn_type_image"); // кнопка попап image
-const onOverlayBtn = document.querySelectorAll(".popup__container"); // область overlay попап
+// const onOverlayBtn = document.querySelectorAll(".popup__container"); // область overlay попап
 //переменные ддя сабмита profile
 const profileForm = document.querySelector(".popup_type_profile");
 const nameInput = profileForm.querySelector(".popup__text_input_name");
@@ -34,10 +41,20 @@ const imageInput = cardForm.querySelector(".popup__text_input_image");
 
 //========================================
 
+const popupProfile = new Popup(profilePopup);
+const popupCard = new Popup(cardPopup);
+const popupImage = new Popup(imagePopup);
+
+export function openImagePopap() {
+  popupImage.open();
+}
+//========================================
+
 const cardList = new Section(
   {
     items: initialCards,
-    renderer: (item) => { //создание экземпляра карточки и генерация объекта
+    renderer: (item) => {
+      //создание экземпляра карточки и генерация объекта
       const card = new Card(item, elementCard);
       return card.getView();
     },
@@ -46,6 +63,8 @@ const cardList = new Section(
 );
 
 cardList.renderer();
+
+//========================================
 
 //функция ввод signature и link
 function handleCardFormSubmit(event) {
@@ -56,17 +75,17 @@ function handleCardFormSubmit(event) {
   };
   listContainer.prepend(renderer(newCard)); //добавляем карту в начало списка из попапа
   cardFormInput.reset(); //обнуление значений в инпуте название и ссылка на картинку
-  closePopupWindow(cardPopup);
+  // close(cardPopup);
+  popupCard.close();
 }
-
-//========================================
 
 //функция ввод name и job
 function handleProfileFormSubmit(event) {
   event.preventDefault();
   nameProfile.textContent = nameInput.value;
   professionProfile.textContent = jobInput.value;
-  closePopupWindow(profilePopup);
+  // close(profilePopup);
+  popupProfile.close();
 }
 
 //открыть попап профиль
@@ -74,22 +93,14 @@ profileEditBtn.addEventListener("click", () => {
   nameInput.value = nameProfile.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
   jobInput.value = professionProfile.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
   editFormValidator.resetErrors();
-  openModal(profilePopup);
+  popupProfile.open();
 });
 
 //открыть попап добавление карточек
 cardEditBtn.addEventListener("click", () => {
   cardFormValidator.resetErrors();
-  openModal(cardPopup);
-});
-
-// закрыть попапы на overLay
-onOverlayBtn.forEach((elem) => {
-  elem.addEventListener("mousedown", (event) => {
-    if (event.target === event.currentTarget) {
-      closePopupWindow(document.querySelector(".popup_opened"));
-    }
-  });
+  // open(cardPopup);
+  popupCard.open();
 });
 
 //валидация формы profile
@@ -104,15 +115,3 @@ cardFormValidator.enableValidation();
 
 profileForm.addEventListener("submit", handleProfileFormSubmit); //ввод name и job
 cardForm.addEventListener("submit", handleCardFormSubmit); //ввод signature и link
-
-profileCloseBtn.addEventListener("click", function () {
-  closePopupWindow(profilePopup);
-}); // закрыть popup profile
-
-cardCloseBtn.addEventListener("click", function () {
-  closePopupWindow(cardPopup);
-}); // закрыть popup Card
-
-imageCloseBtn.addEventListener("click", function () {
-  closePopupWindow(imagePopup);
-}); // закрыть popup Image
