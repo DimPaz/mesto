@@ -12,6 +12,7 @@ const config = {
 const imageCardPopup = document.querySelector(".popup__card-image"); // картинка в попапе
 const nameCardPopup = document.querySelector(".popup__card-name"); // имя карточки в попапе
 const imagePopup = document.querySelector(".popup_type_image"); // попап картинки
+const listContainer = document.querySelector(".elements"); // выбираем elements, куда будет вставляться template
 
 //функция открыть попапы
 function openModal(modalNode) {
@@ -39,4 +40,5 @@ export {
   imagePopup,
   openModal,
   closePopupWindow,
+  listContainer,
 };

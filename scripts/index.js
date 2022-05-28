@@ -1,11 +1,10 @@
-// import { Card } from "./Card.js";
+import { Card } from "./Card.js";
 import { Section } from "./Section.js";
 import { initialCards } from "./initialCards.js";
 import { FormValidator } from "./FormValidator.js";
-import { config, openModal, closePopupWindow, imagePopup } from "./utils.js";
+import { config, openModal, closePopupWindow, imagePopup, listContainer } from "./utils.js";
 
 //добавление карт
-const listContainer = document.querySelector(".elements"); // выбираем elements, куда будет вставляться template
 const elementCard = document.querySelector(".template-cards"); // выбираем нужный template
 // открыть popup
 const profileEditBtn = document.querySelector(".profile__edit-btn"); // кнопка редактирования профиля
@@ -33,35 +32,32 @@ const cardFormInput = document.getElementById("cardPopupForm");
 const signatureInput = cardForm.querySelector(".popup__text_input_signature");
 const imageInput = cardForm.querySelector(".popup__text_input_image");
 
-//==============================
-// //создание карточек
-// initialCards.forEach((item) => {
-//   addCards(createСard(item));
-// });
-// //функция ввод signature и link
-// function handleCardFormSubmit(event) {
-//   event.preventDefault();
-//   const newCard = {
-//     name: signatureInput.value,
-//     link: imageInput.value,
-//   };
-//   listContainer.prepend(createСard(newCard)); //добавляем карту в начало списка из попапа
-//   cardFormInput.reset(); //обнуление значений в инпуте название и ссылка на картинку
-//   closePopupWindow(cardPopup);
-// }
-// //создание экземпляра карточки и генерация объекта
-// function createСard(item) {
-//   const card = new Card(item, elementCard);
-//   return card.getView();
-// }
-// //функция добавляем карты в начало списка из массива
-// function addCards(element) {
-//   listContainer.append(element);
-// }
 //========================================
 
-const cardList = new Section(initialCards, elementCard);
+const cardList = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => { //создание экземпляра карточки и генерация объекта
+      const card = new Card(item, elementCard);
+      return card.getView();
+    },
+  },
+  elementCard
+);
+
 cardList.renderer();
+
+//функция ввод signature и link
+function handleCardFormSubmit(event) {
+  event.preventDefault();
+  const newCard = {
+    name: signatureInput.value,
+    link: imageInput.value,
+  };
+  listContainer.prepend(renderer(newCard)); //добавляем карту в начало списка из попапа
+  cardFormInput.reset(); //обнуление значений в инпуте название и ссылка на картинку
+  closePopupWindow(cardPopup);
+}
 
 //========================================
 
@@ -107,7 +103,7 @@ cardFormValidator.enableValidation();
 //слушатели
 
 profileForm.addEventListener("submit", handleProfileFormSubmit); //ввод name и job
-// cardForm.addEventListener("submit", handleCardFormSubmit); //ввод signature и link
+cardForm.addEventListener("submit", handleCardFormSubmit); //ввод signature и link
 
 profileCloseBtn.addEventListener("click", function () {
   closePopupWindow(profilePopup);
