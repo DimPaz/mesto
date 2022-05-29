@@ -25,14 +25,14 @@ export class Card {
       .querySelector(".element__like")
       .classList.toggle("element__like_active");
   }
-  //приватный метод открыть попап image
-  _openModalImage() {
-    imageCardPopup.src = this._link; // добавили нужную картинку для попапа
-    imageCardPopup.alt = this._name; // добавили alt для картинки попапа
-    nameCardPopup.textContent = this._name; // добавили нужную подпись для попапа
-    // open(imagePopup);
-    openImagePopap();
-  }
+  // //приватный метод открыть попап image
+  // _openModalImage() {
+  //   imageCardPopup.src = this._link; // добавили нужную картинку для попапа
+  //   imageCardPopup.alt = this._name; // добавили alt для картинки попапа
+  //   nameCardPopup.textContent = this._name; // добавили нужную подпись для попапа
+  //   // open(imagePopup);
+  //   openImagePopap();
+  // }
 
   //публичный метод формируем template
   getView() {
@@ -54,10 +54,10 @@ export class Card {
     this._view.querySelector(".element__like").addEventListener("click", () => {
       this._likeCard();
     });
-    // открыть попап image, запуск слушателя
-    this._picture.addEventListener("click", () => {
-      this._openModalImage();
-    });
+    // // открыть попап image, запуск слушателя
+    // this._picture.addEventListener("click", () => {
+    //   this._openModalImage();
+    // });
 
     return this._view;
   }

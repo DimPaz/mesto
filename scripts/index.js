@@ -1,6 +1,7 @@
 import { Card } from "./Card.js";
 import { Section } from "./Section.js";
 import { Popup } from "./Popup.js";
+import { PopupWithImage } from "./PopupWithImage.js";
 import { initialCards } from "./initialCards.js";
 import { FormValidator } from "./FormValidator.js";
 import {
@@ -38,6 +39,11 @@ const cardForm = document.querySelector(".popup_type_card");
 const cardFormInput = document.getElementById("cardPopupForm");
 const signatureInput = cardForm.querySelector(".popup__text_input_signature");
 const imageInput = cardForm.querySelector(".popup__text_input_image");
+
+//========================================
+const imageOpenWindow = new PopupWithImage (elementCard);
+imageOpenWindow.open();
+
 
 //========================================
 
