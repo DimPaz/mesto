@@ -5,7 +5,8 @@ import {
   // imagePopup,
 } from "./utils.js";
 
-import { openImagePopap } from "./index.js";
+// import { openImagePopap } from "./index.js";
+import { handleImageClick } from "./index.js";
 
 export class Card {
   constructor(title, tamplate) {
@@ -25,6 +26,7 @@ export class Card {
       .querySelector(".element__like")
       .classList.toggle("element__like_active");
   }
+
   // //приватный метод открыть попап image
   // _openModalImage() {
   //   imageCardPopup.src = this._link; // добавили нужную картинку для попапа
@@ -33,7 +35,6 @@ export class Card {
   //   // open(imagePopup);
   //   openImagePopap();
   // }
-
   //публичный метод формируем template
   getView() {
     this._view = this._tamplate.content
@@ -54,10 +55,12 @@ export class Card {
     this._view.querySelector(".element__like").addEventListener("click", () => {
       this._likeCard();
     });
-    // // открыть попап image, запуск слушателя
-    // this._picture.addEventListener("click", () => {
-    //   this._openModalImage();
-    // });
+    // открыть попап image, запуск слушателя
+    this._picture.addEventListener("click", () => {
+      handleImageClick ();
+      // this._openModalImage();
+    });
+
 
     return this._view;
   }

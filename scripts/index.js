@@ -10,6 +10,8 @@ import {
   // closePopupWindow,
   imagePopup,
   listContainer,
+  imageCardPopup,
+  nameCardPopup,
 } from "./utils.js";
 
 //добавление карт
@@ -41,19 +43,21 @@ const signatureInput = cardForm.querySelector(".popup__text_input_signature");
 const imageInput = cardForm.querySelector(".popup__text_input_image");
 
 //========================================
-const imageOpenWindow = new PopupWithImage (elementCard);
-imageOpenWindow.open();
-
+const imageOpenWindow = new PopupWithImage (imagePopup, imageCardPopup, nameCardPopup);
+// imageOpenWindow.open();
+export function handleImageClick () {
+  imageOpenWindow.open();
+} 
 
 //========================================
 
 const popupProfile = new Popup(profilePopup);
 const popupCard = new Popup(cardPopup);
-const popupImage = new Popup(imagePopup);
+// const popupImage = new Popup(imagePopup);
 
-export function openImagePopap() {
-  popupImage.open();
-}
+// export function openImagePopap() {
+//   popupImage.open();
+// }
 //========================================
 
 const cardList = new Section(
