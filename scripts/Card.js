@@ -57,7 +57,7 @@ export class Card {
     });
     // открыть попап image, запуск слушателя
     this._picture.addEventListener("click", () => {
-      handleImageClick ();
+      handleImageClick (this._name, this._link);
       // this._openModalImage();
     });
 

@@ -45,8 +45,8 @@ const imageInput = cardForm.querySelector(".popup__text_input_image");
 //========================================
 const imageOpenWindow = new PopupWithImage (imagePopup, imageCardPopup, nameCardPopup);
 // imageOpenWindow.open();
-export function handleImageClick () {
-  imageOpenWindow.open();
+export function handleImageClick (name, link) {
+  imageOpenWindow.open(name, link);
 } 
 
 //========================================
