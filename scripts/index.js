@@ -2,12 +2,11 @@ import { Card } from "./Card.js";
 import { Section } from "./Section.js";
 import { Popup } from "./Popup.js";
 import { PopupWithImage } from "./PopupWithImage.js";
+import { PopupWithForm } from "./PopupWithForm.js";
 import { initialCards } from "./initialCards.js";
 import { FormValidator } from "./FormValidator.js";
 import {
   config,
-  // openModal,
-  // closePopupWindow,
   imagePopup,
   listContainer,
   imageCardPopup,
@@ -29,7 +28,6 @@ const profileCloseBtn = document.querySelector(
 ); // кнопка попап profile
 const cardCloseBtn = document.querySelector(".popup__close-btn_type_card"); // кнопка попап card
 const imageCloseBtn = document.querySelector(".popup__close-btn_type_image"); // кнопка попап image
-// const onOverlayBtn = document.querySelectorAll(".popup__container"); // область overlay попап
 //переменные ддя сабмита profile
 const profileForm = document.querySelector(".popup_type_profile");
 const nameInput = profileForm.querySelector(".popup__text_input_name");
@@ -43,23 +41,28 @@ const signatureInput = cardForm.querySelector(".popup__text_input_signature");
 const imageInput = cardForm.querySelector(".popup__text_input_image");
 
 //========================================
-const imageOpenWindow = new PopupWithImage (imagePopup, imageCardPopup, nameCardPopup);
-// imageOpenWindow.open();
-export function handleImageClick (name, link) {
+
+const cardOpenWindow = new PopupWithForm(cardPopup);
+const popupCard = new Popup(cardPopup);
+
+//========================================
+
+const imageOpenWindow = new PopupWithImage(
+  imagePopup,
+  imageCardPopup,
+  nameCardPopup
+);
+export function handleImageClick(name, link) {
   imageOpenWindow.open(name, link);
-} 
+}
 
 //========================================
 
 const popupProfile = new Popup(profilePopup);
-const popupCard = new Popup(cardPopup);
-// const popupImage = new Popup(imagePopup);
 
-// export function openImagePopap() {
-//   popupImage.open();
-// }
 //========================================
 
+// отрисовка карт на странице
 const cardList = new Section(
   {
     items: initialCards,
@@ -85,7 +88,6 @@ function handleCardFormSubmit(event) {
   };
   listContainer.prepend(renderer(newCard)); //добавляем карту в начало списка из попапа
   cardFormInput.reset(); //обнуление значений в инпуте название и ссылка на картинку
-  // close(cardPopup);
   popupCard.close();
 }
 
@@ -94,7 +96,6 @@ function handleProfileFormSubmit(event) {
   event.preventDefault();
   nameProfile.textContent = nameInput.value;
   professionProfile.textContent = jobInput.value;
-  // close(profilePopup);
   popupProfile.close();
 }
 
@@ -109,7 +110,6 @@ profileEditBtn.addEventListener("click", () => {
 //открыть попап добавление карточек
 cardEditBtn.addEventListener("click", () => {
   cardFormValidator.resetErrors();
-  // open(cardPopup);
   popupCard.open();
 });
 

@@ -22,7 +22,6 @@ export class Popup {
     this._popupSelector
       .querySelector(".popup__close-btn")
       .addEventListener("click", () => {
-        // close(imagePopup);
         this.close();
       });
   }

@@ -12,7 +12,7 @@ export class PopupWithImage extends Popup {
   open(name, link) {
     this._imageCardPopup.src = link; // добавили нужную картинку для попапа
     this._imageCardPopup.alt = name; // добавили alt для картинки попапа
-    this._nameCardPopup.textContent = name;
+    this._nameCardPopup.textContent = name; // добавили нужную подпись для попапа
     super.open();
   }
 }
