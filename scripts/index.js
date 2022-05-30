@@ -1,8 +1,9 @@
 import { Card } from "./Card.js";
 import { Section } from "./Section.js";
-import { Popup } from "./Popup.js";
+// import { Popup } from "./Popup.js";
 import { PopupWithImage } from "./PopupWithImage.js";
 import { PopupWithForm } from "./PopupWithForm.js";
+import { UserInfo } from "./UserInfo.js";
 import { initialCards } from "./initialCards.js";
 import { FormValidator } from "./FormValidator.js";
 import {
@@ -42,8 +43,10 @@ const imageInput = cardForm.querySelector(".popup__text_input_image");
 
 //========================================
 
-const cardOpenWindow = new PopupWithForm(cardPopup);
-const popupCard = new Popup(cardPopup);
+const popupCard = new PopupWithForm(cardPopup, {
+  handleFormSubmit: () => {
+  },
+});
 
 //========================================
 
@@ -58,7 +61,7 @@ export function handleImageClick(name, link) {
 
 //========================================
 
-const popupProfile = new Popup(profilePopup);
+const popupProfile = new UserInfo(profilePopup);
 
 //========================================
 
@@ -79,17 +82,23 @@ cardList.renderer();
 
 //========================================
 
-//функция ввод signature и link
-function handleCardFormSubmit(event) {
-  event.preventDefault();
-  const newCard = {
-    name: signatureInput.value,
-    link: imageInput.value,
-  };
-  listContainer.prepend(renderer(newCard)); //добавляем карту в начало списка из попапа
-  cardFormInput.reset(); //обнуление значений в инпуте название и ссылка на картинку
-  popupCard.close();
-}
+// //функция ввод signature и link
+// function handleCardFormSubmit(event) {
+//   event.preventDefault();
+//   const newCard = {
+//     name: signatureInput.value,
+//     link: imageInput.value,
+//   };
+//   listContainer.prepend(renderer(newCard)); //добавляем карту в начало списка из попапа
+//   cardFormInput.reset(); //обнуление значений в инпуте название и ссылка на картинку
+//   popupCard.close();
+// }
+
+//открыть попап добавление карточек
+cardEditBtn.addEventListener("click", () => {
+  cardFormValidator.resetErrors();
+  popupCard.open();
+});
 
 //функция ввод name и job
 function handleProfileFormSubmit(event) {
@@ -107,12 +116,6 @@ profileEditBtn.addEventListener("click", () => {
   popupProfile.open();
 });
 
-//открыть попап добавление карточек
-cardEditBtn.addEventListener("click", () => {
-  cardFormValidator.resetErrors();
-  popupCard.open();
-});
-
 //валидация формы profile
 const editFormValidator = new FormValidator(config, editPopupForm);
 editFormValidator.enableValidation();
@@ -124,4 +127,4 @@ cardFormValidator.enableValidation();
 //слушатели
 
 profileForm.addEventListener("submit", handleProfileFormSubmit); //ввод name и job
-cardForm.addEventListener("submit", handleCardFormSubmit); //ввод signature и link
+// cardForm.addEventListener("submit", handleCardFormSubmit); //ввод signature и link
