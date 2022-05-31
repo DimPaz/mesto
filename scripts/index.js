@@ -9,13 +9,14 @@ import { FormValidator } from "./FormValidator.js";
 import {
   config,
   imagePopup,
-  listContainer,
+  // listContainer,
   imageCardPopup,
   nameCardPopup,
 } from "./utils.js";
 
 //добавление карт
-const elementCard = document.querySelector(".template-cards"); // выбираем нужный template
+const templateCards = document.querySelector(".template-cards"); // выбираем нужный template
+const listContainer = document.querySelector(".elements"); // выбираем elements, куда будет вставляться template
 // открыть popup
 const profileEditBtn = document.querySelector(".profile__edit-btn"); // кнопка редактирования профиля
 const cardEditBtn = document.querySelector(".profile__add-btn"); // кнопка добавления новой карточки
@@ -43,27 +44,29 @@ const imageInput = cardForm.querySelector(".popup__text_input_image");
 
 //========================================
 
-const popupCard = new PopupWithForm(cardPopup, {
-  handleFormSubmit: (newCard) => {
-    const card = new Card(newCard, elementCard);
-    listContainer.prepend(card.getView());
-  },
-});
+const popupProfile = new UserInfo(profilePopup);
 
 //========================================
 
-const imageOpenWindow = new PopupWithImage(
+const popupImage = new PopupWithImage(
   imagePopup,
   imageCardPopup,
   nameCardPopup
 );
-export function handleImageClick(name, link) {
-  imageOpenWindow.open(name, link);
+
+function handleCardClick(name, link) {
+  popupImage.open(name, link);
 }
 
 //========================================
 
-const popupProfile = new UserInfo(profilePopup);
+const popupCard = new PopupWithForm(cardPopup, {
+  handleFormSubmit: (item) => {
+    const card = creatingCardInstance(item);
+    // const card = new Card(newCard, templateCards);
+    listContainer.prepend(card.getView());
+  },
+});
 
 //========================================
 
@@ -71,30 +74,21 @@ const popupProfile = new UserInfo(profilePopup);
 const cardList = new Section(
   {
     items: initialCards,
-    renderer: (item) => {
-      //создание экземпляра карточки и генерация объекта
-      const card = new Card(item, elementCard);
-      return card.getView();
+    renderItems: (item) => {
+      const card = creatingCardInstance(item);
+      cardList.addCards(card.getView());
     },
   },
-  elementCard
+  listContainer
 );
-
 cardList.renderer();
 
-//========================================
+//создание экземпляра карточки и генерация объекта
+function creatingCardInstance(item) {
+  return new Card(item, templateCards, handleCardClick);
+}
 
-// //функция ввод signature и link
-// function handleCardFormSubmit(event) {
-//   event.preventDefault();
-//   const newCard = {
-//     name: signatureInput.value,
-//     link: imageInput.value,
-//   };
-//   listContainer.prepend(renderer(newCard)); //добавляем карту в начало списка из попапа
-//   cardFormInput.reset(); //обнуление значений в инпуте название и ссылка на картинку
-//   popupCard.close();
-// }
+//========================================
 
 //открыть попап добавление карточек
 cardEditBtn.addEventListener("click", () => {

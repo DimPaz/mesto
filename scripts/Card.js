@@ -1,18 +1,9 @@
-import {
-  // openModal,
-  // imageCardPopup,
-  // nameCardPopup,
-  // imagePopup,
-} from "./utils.js";
-
-// import { openImagePopap } from "./index.js";
-import { handleImageClick } from "./index.js";
-
 export class Card {
-  constructor(title, tamplate) {
+  constructor(title, tamplate, clickImagePopup) {
     this._name = title.name;
     this._link = title.link;
     this._tamplate = tamplate;
+    this._clickImagePopup = clickImagePopup;
   }
 
   //приватный метод удаления карточки
@@ -40,7 +31,7 @@ export class Card {
     // удаление карточек, запуск слушателя
     this._view
       .querySelector(".element__trash")
-      .addEventListener("click", () => { 
+      .addEventListener("click", () => {
         this._deleteCard();
       });
     // like карточки, запуск слушателя
@@ -49,9 +40,8 @@ export class Card {
     });
     // открыть попап image, запуск слушателя
     this._picture.addEventListener("click", () => {
-      handleImageClick (this._name, this._link);
+      this._clickImagePopup(this._name, this._link);
     });
-
 
     return this._view;
   }

@@ -1,19 +1,19 @@
-import { listContainer } from "./utils.js";
-
 export class Section {
-  constructor({ items, renderer }, selector) {
+  constructor({ items, renderItems }, listContainer) {
     this._items = items;
-    this._renderer = renderer;
-    this._selector = selector;
+    this._renderItems = renderItems;
+    this._listContainer = listContainer;
   }
   //создание карточек
   renderer() {
     this._items.forEach((item) => {
-      this.addCards(this._renderer(item));
+      this._renderItems(item);
+      // this.addCards(this._renderer(item));
     });
   }
   //функция добавляем карты в начало списка из массива
   addCards(element) {
-    listContainer.append(element);
+    // console.log(this._listContainer);
+    this._listContainer.append(element);
   }
 }

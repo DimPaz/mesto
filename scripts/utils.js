@@ -12,7 +12,7 @@ const config = {
 const imageCardPopup = document.querySelector(".popup__card-image"); // картинка в попапе
 const nameCardPopup = document.querySelector(".popup__card-name"); // имя карточки в попапе
 const imagePopup = document.querySelector(".popup_type_image"); // попап картинки
-const listContainer = document.querySelector(".elements"); // выбираем elements, куда будет вставляться template
+// const listContainer = document.querySelector(".elements"); // выбираем elements, куда будет вставляться template
 const onOverlayBtn = document.querySelectorAll(".popup__container"); // область overlay попап
 
 export {
@@ -20,6 +20,6 @@ export {
   imageCardPopup,
   nameCardPopup,
   imagePopup,
-  listContainer,
+  // listContainer,
   onOverlayBtn,
 };
