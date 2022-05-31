@@ -9,11 +9,11 @@ export class Section {
   //создание карточек
   renderer() {
     this._items.forEach((item) => {
-      this._addCards(this._renderer(item));
+      this.addCards(this._renderer(item));
     });
   }
   //функция добавляем карты в начало списка из массива
-  _addCards(element) {
+  addCards(element) {
     listContainer.append(element);
   }
 }

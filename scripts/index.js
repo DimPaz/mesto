@@ -44,7 +44,9 @@ const imageInput = cardForm.querySelector(".popup__text_input_image");
 //========================================
 
 const popupCard = new PopupWithForm(cardPopup, {
-  handleFormSubmit: () => {
+  handleFormSubmit: (newCard) => {
+    const card = new Card(newCard, elementCard);
+    listContainer.prepend(card.getView());
   },
 });
 

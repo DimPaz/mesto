@@ -9,11 +9,10 @@ export class PopupWithForm extends Popup {
 
   // приватный метод который собирает данные всех полей формы
   _getInputValues() {
-    this._inputList = this._popupSelector.querySelectorAll(".form__input");
     this._inputValues = {};
+    this._inputList = this._popupSelector.querySelectorAll(".form__input");
     this._inputList.forEach((input) => {
-      console.log(input.value);
-      this._inputValues = input.value;
+      this._inputValues[input.name] = input.value;
     });
     return this._inputValues;
   }
@@ -22,15 +21,15 @@ export class PopupWithForm extends Popup {
     super.setEventListeners();
     this._popupSelector.addEventListener("submit", (event) => {
       event.preventDefault();
-
-      console.log(this._getInputValues());
-      // this._handleFormSubmit();
+      this._handleFormSubmit(this._getInputValues());
+      this._formInput = this._popupSelector.querySelector(".form");
+      this._formInput.reset(); //обнуление значений в инпуте название и ссылка на картинку
       super.close();
     });
   }
 
   close() {
-    super.close();
     console.log("добавить сброс формы");
+    super.close();
   }
 }

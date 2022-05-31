@@ -40,7 +40,7 @@ export class Card {
     // удаление карточек, запуск слушателя
     this._view
       .querySelector(".element__trash")
-      .addEventListener("click", () => {
+      .addEventListener("click", () => { 
         this._deleteCard();
       });
     // like карточки, запуск слушателя
