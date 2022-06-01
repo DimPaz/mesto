@@ -1,21 +1,20 @@
-import { Popup } from "./Popup.js";
+// import { Popup } from "./Popup.js";
 
-export class UserInfo extends Popup {
-  constructor(popupSelector) {
-    super(popupSelector);
-    this._popupSelector = popupSelector;
+export class UserInfo {
+  constructor(nameProfile, professionProfile) {
+    this._nameProfile = nameProfile;
+    this._professionProfile = professionProfile;
   }
 
-  getUserInfo() {
-    console.log("возвращает объект с данными пользователя");
+  //публичный метод возвращает объект с данными пользователя
+  getUserInfo(nameInput, jobInput) {
+    nameInput.value = this._nameProfile.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
+    jobInput.value = this._professionProfile.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
   }
 
-  setUserInfo() {
-    console.log(
-      "принимает новые данные пользователя и добавляет их на страницу"
-    );
+  //публичный метод принимает новые данные пользователя и добавляет их на страницу
+  setUserInfo(nameInput, jobInput) {
+    this._nameProfile.textContent = nameInput.value;
+    this._professionProfile.textContent = jobInput.value;
   }
-  //   close() {
-  //     console.log("добавить сброс формы");
-  //   }
 }

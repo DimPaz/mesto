@@ -1,18 +1,11 @@
 import { Card } from "./Card.js";
 import { Section } from "./Section.js";
-// import { Popup } from "./Popup.js";
 import { PopupWithImage } from "./PopupWithImage.js";
 import { PopupWithForm } from "./PopupWithForm.js";
 import { UserInfo } from "./UserInfo.js";
 import { initialCards } from "./initialCards.js";
 import { FormValidator } from "./FormValidator.js";
-import {
-  config,
-  imagePopup,
-  // listContainer,
-  imageCardPopup,
-  nameCardPopup,
-} from "./utils.js";
+import { config, imagePopup, imageCardPopup, nameCardPopup } from "./utils.js";
 
 //добавление карт
 const templateCards = document.querySelector(".template-cards"); // выбираем нужный template
@@ -43,8 +36,21 @@ const signatureInput = cardForm.querySelector(".popup__text_input_signature");
 const imageInput = cardForm.querySelector(".popup__text_input_image");
 
 //========================================
+const popupProfile = new PopupWithForm(profilePopup, {
+  handleFormSubmit: () => {
+    controlUserInfo.setUserInfo(nameInput, jobInput);
+    popupProfile.close();
+  },
+});
 
-const popupProfile = new UserInfo(profilePopup);
+const controlUserInfo = new UserInfo(nameProfile, professionProfile);
+
+//открыть попап профиль
+profileEditBtn.addEventListener("click", () => {
+  controlUserInfo.getUserInfo(nameInput, jobInput);
+  editFormValidator.resetErrors();
+  popupProfile.open();
+});
 
 //========================================
 
@@ -96,22 +102,6 @@ cardEditBtn.addEventListener("click", () => {
   popupCard.open();
 });
 
-//функция ввод name и job
-function handleProfileFormSubmit(event) {
-  event.preventDefault();
-  nameProfile.textContent = nameInput.value;
-  professionProfile.textContent = jobInput.value;
-  popupProfile.close();
-}
-
-//открыть попап профиль
-profileEditBtn.addEventListener("click", () => {
-  nameInput.value = nameProfile.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
-  jobInput.value = professionProfile.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
-  editFormValidator.resetErrors();
-  popupProfile.open();
-});
-
 //валидация формы profile
 const editFormValidator = new FormValidator(config, editPopupForm);
 editFormValidator.enableValidation();
@@ -122,5 +112,5 @@ cardFormValidator.enableValidation();
 
 //слушатели
 
-profileForm.addEventListener("submit", handleProfileFormSubmit); //ввод name и job
+// profileForm.addEventListener("submit", handleProfileFormSubmit); //ввод name и job
 // cardForm.addEventListener("submit", handleCardFormSubmit); //ввод signature и link
