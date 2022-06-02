@@ -6,6 +6,7 @@ import { UserInfo } from "./UserInfo.js";
 import { initialCards } from "./initialCards.js";
 import { FormValidator } from "./FormValidator.js";
 import { config, imagePopup, imageCardPopup, nameCardPopup } from "./utils.js";
+import { Popup } from "./Popup.js";
 
 //добавление карт
 const templateCards = document.querySelector(".template-cards"); // выбираем нужный template
@@ -34,6 +35,7 @@ const cardForm = document.querySelector(".popup_type_card");
 const cardFormInput = document.getElementById("cardPopupForm");
 const signatureInput = cardForm.querySelector(".popup__text_input_signature");
 const imageInput = cardForm.querySelector(".popup__text_input_image");
+// const cardFormInput = document.querySelector(".popup__form");
 
 //========================================
 const popupProfile = new PopupWithForm(profilePopup, {
@@ -42,7 +44,6 @@ const popupProfile = new PopupWithForm(profilePopup, {
     popupProfile.close();
   },
 });
-
 const controlUserInfo = new UserInfo(nameProfile, professionProfile);
 
 //открыть попап профиль
@@ -72,6 +73,9 @@ const popupCard = new PopupWithForm(cardPopup, {
   },
 });
 
+popupCard.setEventListeners();
+popupImage.setEventListeners();
+popupProfile.setEventListeners();
 //========================================
 
 // отрисовка карт на странице
@@ -84,7 +88,7 @@ const cardList = new Section(
   },
   listContainer
 );
-cardList.renderer(); // потом разморозить!!!!!!!!!!!!!!!!!!!!!!!!
+cardList.renderer();
 
 //создание экземпляра карточки и генерация объекта
 function creatingCardInstance(item) {
@@ -96,6 +100,7 @@ function creatingCardInstance(item) {
 
 //открыть попап добавление карточек
 cardEditBtn.addEventListener("click", () => {
+  cardFormInput.reset(); //обнуление значений в инпуте название и ссылка на картинку
   cardFormValidator.resetErrors();
   popupCard.open();
 });

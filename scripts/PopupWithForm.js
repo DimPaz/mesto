@@ -22,11 +22,12 @@ export class PopupWithForm extends Popup {
     super.setEventListeners();
     this._popupSelector.addEventListener("submit", (event) => {
       event.preventDefault();
-      console.log(event);
+      // console.log(event);
       this._handleFormSubmit(this._getInputValues());
       this._formInput = this._popupSelector.querySelector(".form");
       super.close();
-      this._formInput.reset(); //обнуление значений в инпуте название и ссылка на картинку
+      // console.log(this._formInput)
+      // this._formInput.reset(); //обнуление значений в инпуте название и ссылка на картинку
     });
   }
 

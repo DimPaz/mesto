@@ -8,7 +8,7 @@ export class Popup {
     this._popupSelector.classList.add("popup_opened");
     document.addEventListener("keydown", this._handleEscClose);
     this._closeOnOverlay();
-    this.setEventListeners();
+    // this.setEventListeners();
   }
 
   //функция закрыть попапы
