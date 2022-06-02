@@ -14,6 +14,6 @@ export class Section {
   //функция добавляем карты в начало списка из массива
   addCards(element) {
     // console.log(this._listContainer);
-    this._listContainer.append(element);
+    this._listContainer.prepend(element);
   }
 }

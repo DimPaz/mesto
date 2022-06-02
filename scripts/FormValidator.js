@@ -89,7 +89,7 @@ export class FormValidator {
   };
 
   //приватный метод добавления обработчиков всем полям формы
-  _setEventListeners = () => {
+  _setEventListeners = () => { 
     this._toggleButtonState(this._inputList, this._buttonElement);
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {

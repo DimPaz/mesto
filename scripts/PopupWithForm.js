@@ -14,6 +14,7 @@ export class PopupWithForm extends Popup {
     this._inputList.forEach((input) => {
       this._inputValues[input.name] = input.value;
     });
+
     return this._inputValues;
   }
 
@@ -21,15 +22,15 @@ export class PopupWithForm extends Popup {
     super.setEventListeners();
     this._popupSelector.addEventListener("submit", (event) => {
       event.preventDefault();
+      console.log(event);
       this._handleFormSubmit(this._getInputValues());
       this._formInput = this._popupSelector.querySelector(".form");
-      this._formInput.reset(); //обнуление значений в инпуте название и ссылка на картинку
       super.close();
+      this._formInput.reset(); //обнуление значений в инпуте название и ссылка на картинку
     });
   }
 
   close() {
-    console.log("добавить сброс формы");
     super.close();
   }
 }

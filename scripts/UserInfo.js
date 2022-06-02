@@ -8,6 +8,7 @@ export class UserInfo {
 
   //публичный метод возвращает объект с данными пользователя
   getUserInfo(nameInput, jobInput) {
+    // console.log(this._nameProfile.textContent);
     nameInput.value = this._nameProfile.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
     jobInput.value = this._professionProfile.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
   }

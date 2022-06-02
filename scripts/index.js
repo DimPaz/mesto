@@ -68,9 +68,7 @@ function handleCardClick(name, link) {
 
 const popupCard = new PopupWithForm(cardPopup, {
   handleFormSubmit: (item) => {
-    const card = creatingCardInstance(item);
-    // const card = new Card(newCard, templateCards);
-    listContainer.prepend(card.getView());
+    creatingCardInstance(item);
   },
 });
 
@@ -81,17 +79,17 @@ const cardList = new Section(
   {
     items: initialCards,
     renderItems: (item) => {
-      const card = creatingCardInstance(item);
-      cardList.addCards(card.getView());
+      creatingCardInstance(item);
     },
   },
   listContainer
 );
-cardList.renderer();
+cardList.renderer(); // потом разморозить!!!!!!!!!!!!!!!!!!!!!!!!
 
 //создание экземпляра карточки и генерация объекта
 function creatingCardInstance(item) {
-  return new Card(item, templateCards, handleCardClick);
+  const card = new Card(item, templateCards, handleCardClick);
+  cardList.addCards(card.getView());
 }
 
 //========================================
