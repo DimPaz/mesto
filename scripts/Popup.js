@@ -7,8 +7,7 @@ export class Popup {
   open() {
     this._popupSelector.classList.add("popup_opened");
     document.addEventListener("keydown", this._handleEscClose);
-    this._closeOnOverlay();
-    // this.setEventListeners();
+    // this._closeOnOverlay();
   }
 
   //функция закрыть попапы
@@ -24,15 +23,7 @@ export class Popup {
       .addEventListener("click", () => {
         this.close();
       });
-  }
-  // закрыть попапы на esc
-  _handleEscClose(evt) {
-    if (evt.key === "Escape") {
-      this.close();
-    }
-  }
-  // закрыть попапы на overLay
-  _closeOnOverlay() {
+    // закрыть попапы на overLay
     this._popupSelector
       .querySelector(".popup__container")
       .addEventListener("mousedown", (event) => {
@@ -40,5 +31,11 @@ export class Popup {
           this.close();
         }
       });
+  }
+  // закрыть попапы на esc
+  _handleEscClose(evt) {
+    if (evt.key === "Escape") {
+      this.close();
+    }
   }
 }
