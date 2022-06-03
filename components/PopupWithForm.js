@@ -7,7 +7,10 @@ export class PopupWithForm extends Popup {
     this._handleFormSubmit = handleFormSubmit;
   }
 
-  // приватный метод который собирает данные всех полей формы
+  /**
+   * // приватный метод который собирает данные всех полей формы
+   * @returns this._inputValues
+   */
   _getInputValues() {
     this._inputValues = {};
     this._inputList = this._popupSelector.querySelectorAll(".form__input");
@@ -18,16 +21,17 @@ export class PopupWithForm extends Popup {
     return this._inputValues;
   }
 
+  /**
+   * добавляет слушатель клика иконке закрытия попапа и на оверлей
+   */
   setEventListeners() {
     super.setEventListeners();
     this._popupSelector.addEventListener("submit", (event) => {
       event.preventDefault();
-      // console.log(event);
       this._handleFormSubmit(this._getInputValues());
       this._formInput = this._popupSelector.querySelector(".form");
       super.close();
-      // console.log(this._formInput)
-      // this._formInput.reset(); //обнуление значений в инпуте название и ссылка на картинку
+      this._formInput.reset(); //обнуление значений в инпуте название и ссылка на картинку
     });
   }
 

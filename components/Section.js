@@ -4,16 +4,20 @@ export class Section {
     this._renderItems = renderItems;
     this._listContainer = listContainer;
   }
-  //создание карточек
+  /**
+   * создание карточек
+   */
   renderer() {
     this._items.forEach((item) => {
       this._renderItems(item);
-      // this.addCards(this._renderer(item));
     });
   }
-  //функция добавляем карты в начало списка из массива
+
+  /**
+   * функция добавляем карты в начало списка из массива
+   * @param {*} element
+   */
   addCards(element) {
-    // console.log(this._listContainer);
     this._listContainer.prepend(element);
   }
 }

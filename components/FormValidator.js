@@ -23,7 +23,9 @@ export class FormValidator {
     );
   }
 
-  //публичный метод сброс ошибок при открытии попапа
+  /**
+   * публичный метод сброс ошибок при открытии попапа
+   */
   resetErrors() {
     this._styleInputError.forEach((styleError) => {
       styleError.classList.remove(this._markErrorClass); // Скрываем красную линию ошибки при открытии
@@ -34,19 +36,30 @@ export class FormValidator {
     this._toggleButtonState(this._inputList, this._buttonElement);
   }
 
-  // приватный метод отмена стандартного поведения форм
+  /**
+   * приватный метод отмена стандартного поведения форм
+   * @param {*} evt
+   */
   _submitHandler = (evt) => {
     evt.preventDefault();
   };
 
-  //приватный метод проверка на валидность полей попапа
+  /**
+   * приватный метод проверка на валидность полей попапа
+   * @param {*} inputList
+   * @returns
+   */
   _hasInvalidInput = (inputList) => {
     return inputList.some((inputElement) => {
       return !inputElement.validity.valid;
     });
   };
 
-  // приватный метод переключения кнопки актив/неактив
+  /**
+   * приватный метод переключения кнопки актив/неактив
+   * @param {*} inputList
+   * @param {*} buttonElement
+   */
   _toggleButtonState(inputList, buttonElement) {
     if (this._hasInvalidInput(inputList)) {
       buttonElement.classList.add(this._inactiveButtonClass); // сделать кнопку неактивной
@@ -57,7 +70,11 @@ export class FormValidator {
     }
   }
 
-  // приватный метод проверяет валидность поля
+  /**
+   * приватный метод проверяет валидность поля
+   * @param {*} formElement
+   * @param {*} inputElement
+   */
   _isValid = (formElement, inputElement) => {
     // элемент формы, в которой находится проверяемое поле ввода & проверяемое поле ввода
     if (!inputElement.validity.valid) {
@@ -72,7 +89,12 @@ export class FormValidator {
     }
   };
 
-  // приватный метод добавляет класс с ошибкой
+  /**
+   * приватный метод добавляет класс с ошибкой
+   * @param {*} formElement
+   * @param {*} inputElement
+   * @param {*} errorMessage
+   */
   _showInputError = (formElement, inputElement, errorMessage) => {
     const errorElement = formElement.querySelector(`#${inputElement.id}-error`); // Находим элемент ошибки внутри самой функции
     inputElement.classList.add(this._markErrorClass); // Показываем красную линию ошибки
@@ -80,7 +102,11 @@ export class FormValidator {
     errorElement.classList.add(this._activeErrorClass); // Показываем сообщение об ошибке
   };
 
-  // приватный метод удаляет класс с ошибкой
+  /**
+   * приватный метод удаляет класс с ошибкой
+   * @param {*} formElement
+   * @param {*} inputElement
+   */
   _hideInputError = (formElement, inputElement) => {
     const errorElement = formElement.querySelector(`#${inputElement.id}-error`); // Находим элемент ошибки
     inputElement.classList.remove(this._markErrorClass); // Скрываем красную линию ошибки
@@ -88,8 +114,10 @@ export class FormValidator {
     errorElement.textContent = ""; // Очистим ошибку
   };
 
-  //приватный метод добавления обработчиков всем полям формы
-  _setEventListeners = () => { 
+  /**
+   * приватный метод добавления обработчиков всем полям формы
+   */
+  _setEventListeners = () => {
     this._toggleButtonState(this._inputList, this._buttonElement);
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
@@ -99,7 +127,9 @@ export class FormValidator {
     });
   };
 
-  //публичный метод включает валидацию формы
+  /**
+   * публичный метод включает валидацию формы
+   */
   enableValidation() {
     this._formElement.addEventListener("submit", this._submitHandler);
     this._setEventListeners();

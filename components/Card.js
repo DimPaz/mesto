@@ -6,19 +6,25 @@ export class Card {
     this._clickImagePopup = clickImagePopup;
   }
 
-  //приватный метод удаления карточки
+  /**
+   * приватный метод удаления карточки
+   */
   _deleteCard() {
     this._view.remove();
     this._view = null;
   }
-  //приватный метод like карточки
+  /**
+   * приватный метод like карточки
+   */
   _likeCard() {
     this._view
       .querySelector(".element__like")
       .classList.toggle("element__like_active");
   }
-
-  //публичный метод формируем template
+  /**
+   * публичный метод формируем template
+   * @returns this._view
+   */
   getView() {
     this._view = this._tamplate.content
       .cloneNode(true)
@@ -38,6 +44,7 @@ export class Card {
     this._view.querySelector(".element__like").addEventListener("click", () => {
       this._likeCard();
     });
+
     // открыть попап image, запуск слушателя
     this._picture.addEventListener("click", () => {
       this._clickImagePopup(this._name, this._link);

@@ -3,20 +3,26 @@ export class Popup {
     this._popupSelector = popupSelector;
     this._handleEscClose = this._handleEscClose.bind(this);
   }
-  //функция открыть попапы
+  /**
+   * функция открыть попапы
+   */
   open() {
     this._popupSelector.classList.add("popup_opened");
     document.addEventListener("keydown", this._handleEscClose);
     // this._closeOnOverlay();
   }
 
-  //функция закрыть попапы
+  /**
+   * функция закрыть попапы
+   */
   close() {
     this._popupSelector.classList.remove("popup_opened");
     document.removeEventListener("keydown", this._handleEscClose);
   }
 
-  // закрыть попапы на кнопку
+  /**
+   * закрыть попапы на кнопку
+   */
   setEventListeners() {
     this._popupSelector
       .querySelector(".popup__close-btn")
@@ -32,7 +38,10 @@ export class Popup {
         }
       });
   }
-  // закрыть попапы на esc
+  /**
+   * закрыть попапы на esc
+   * @param {*} evt
+   */
   _handleEscClose(evt) {
     if (evt.key === "Escape") {
       this.close();
