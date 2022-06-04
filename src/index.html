@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./pages/index.css" />
+    <!-- <link rel="stylesheet" href="./pages/index.css" /> -->
     <meta name="author" content="Дмитрий Пазухин" />
     <title>Mesto Russia</title>
   </head>
@@ -16,9 +16,14 @@
         <section class="profile">
           <img
             class="profile__avatar"
-            src="./images/avatar/avatar.jpg"
+            src="<%=require('./images/avatar/avatar.jpg')%>"
             alt="фото"
           />
+          <!-- <img
+            class="profile__avatar"
+            src="./images/avatar/avatar.jpg"
+            alt="фото"
+          /> -->
           <div class="profile__group">
             <div class="profile__info">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
