@@ -1,10 +1,10 @@
 import { Popup } from "./Popup.js";
 
 export class PopupWithImage extends Popup {
-  constructor(popupSelector, imageCardPopup, nameCardPopup) {
-    super(popupSelector);
-    this._imageCardPopup = imageCardPopup;
-    this._nameCardPopup = nameCardPopup;
+  constructor({ popupSelector, imageCardPopup, nameCardPopup }) {
+    super({ popupSelector });
+    this._imageCardPopup = document.querySelector(imageCardPopup);
+    this._nameCardPopup = document.querySelector(nameCardPopup);
   }
 
   /**

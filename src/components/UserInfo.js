@@ -1,9 +1,9 @@
 // import { Popup } from "./Popup.js";
 
 export class UserInfo {
-  constructor(nameProfile, professionProfile) {
-    this._nameProfile = nameProfile;
-    this._professionProfile = professionProfile;
+  constructor({ nameProfile, professionProfile }) {
+    this._nameProfile = document.querySelector(nameProfile);
+    this._professionProfile = document.querySelector(professionProfile);
   }
 
   /**
@@ -22,7 +22,7 @@ export class UserInfo {
    * @param {*} jobInput
    */
   setUserInfo(nameInput, jobInput) {
-    this._nameProfile.textContent = nameInput.value;
-    this._professionProfile.textContent = jobInput.value;
+    this._nameProfile.textContent = nameInput;
+    this._professionProfile.textContent = jobInput;
   }
 }

@@ -27,22 +27,11 @@ export class FormValidator {
    * публичный метод сброс ошибок при открытии попапа
    */
   resetErrors() {
-    this._styleInputError.forEach((styleError) => {
-      styleError.classList.remove(this._markErrorClass); // Скрываем красную линию ошибки при открытии
-    });
-    this._textInputError.forEach((textError) => {
-      textError.textContent = ""; // Скрываем текст ошибки при открытии
+    this._inputList.forEach((input) => {
+      this._hideInputError(this._formElement, input);
     });
     this._toggleButtonState(this._inputList, this._buttonElement);
   }
-
-  /**
-   * приватный метод отмена стандартного поведения форм
-   * @param {*} evt
-   */
-  _submitHandler = (evt) => {
-    evt.preventDefault();
-  };
 
   /**
    * приватный метод проверка на валидность полей попапа
@@ -131,7 +120,6 @@ export class FormValidator {
    * публичный метод включает валидацию формы
    */
   enableValidation() {
-    this._formElement.addEventListener("submit", this._submitHandler);
     this._setEventListeners();
   }
 }

@@ -1,8 +1,8 @@
 export class Card {
-  constructor(title, tamplate, clickImagePopup) {
+  constructor(title, { template }, clickImagePopup) {
     this._name = title.name;
     this._link = title.link;
-    this._tamplate = tamplate;
+    this._tamplate = document.querySelector(template);
     this._clickImagePopup = clickImagePopup;
   }
 
