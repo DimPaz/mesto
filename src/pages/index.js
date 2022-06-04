@@ -29,6 +29,7 @@ const jobInput = profileForm.querySelector(".popup__text_input_job");
 const nameProfile = document.querySelector(".profile__name");
 const professionProfile = document.querySelector(".profile__profession");
 
+console.log('Hello World');
 //==================================================
 //открыть попап профиль
 profileEditBtn.addEventListener("click", () => {
