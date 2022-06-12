@@ -1,18 +1,21 @@
 export class Card {
-  constructor(title, { template }, clickImagePopup) {
+  constructor(title, { template }, clickImagePopup, deleteClickHandler) {
     this._name = title.name;
     this._link = title.link;
+    this._id = title._id;
     this._tamplate = document.querySelector(template);
     this._clickImagePopup = clickImagePopup;
+    this._deleteClickHandler = deleteClickHandler;
   }
 
   /**
    * приватный метод удаления карточки
    */
-  _deleteCard() {
-    this._view.remove();
-    this._view = null;
-  }
+  // _deleteCard() {
+  //   this._view.remove();
+  //   this._view = null;
+  // }
+
   /**
    * приватный метод like карточки
    */
@@ -38,7 +41,7 @@ export class Card {
     this._view
       .querySelector(".element__trash")
       .addEventListener("click", () => {
-        this._deleteCard();
+        this._deleteClickHandler(this._id);
       });
     // like карточки, запуск слушателя
     this._view.querySelector(".element__like").addEventListener("click", () => {

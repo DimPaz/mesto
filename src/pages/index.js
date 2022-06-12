@@ -8,6 +8,7 @@ import { UserInfo } from "../components/UserInfo.js";
 import { initialCards } from "../utils/initialCards.js";
 import { FormValidator } from "../components/FormValidator.js";
 import { config } from "../utils/utils.js";
+import { Api } from "../components/Api.js";
 
 // открыть popup
 const profileEditBtn = document.querySelector(".profile__edit-btn"); // кнопка редактирования профиля
@@ -17,6 +18,10 @@ const cardPopupForm = document.querySelector("#cardPopupForm"); // форма к
 //переменные ддя сабмита profile
 const nameInput = document.querySelector(".popup__text_input_name");
 const jobInput = document.querySelector(".popup__text_input_job");
+//Authorization
+const token = "6f79ceb2-8103-4527-9a78-1a1299add319";
+
+//==================================================
 
 //==================================================
 //открыть попап профиль
@@ -46,30 +51,54 @@ cardEditBtn.addEventListener("click", () => {
   popupCard.open();
 });
 
+// отрисовка карт с сервера
+const api = new Api("https://mesto.nomoreparties.co/v1/cohort-43/cards", token);
+api
+  .getCards()
+  .then((cards) => {
+    //отрисовка карт на странице
+    const cardList = new Section({
+      items: cards,
+      renderItems: (item) => {
+        const cardElemnt = creatingCardInstance(item);
+        cardList.addCard(cardElemnt);
+      },
+      listContainer: ".elements",
+    });
+    cardList.renderer();
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
 //добавление новых карт
 const popupCard = new PopupWithForm({
   popupSelector: ".popup_type_card",
   handleFormSubmit: (item) => {
-    const newCardElemnt = creatingCardInstance(item);
-    cardList.addCard(newCardElemnt);
+    addCardHandler(item);
   },
 });
-
-// отрисовка карт на странице
-const cardList = new Section({
-  items: initialCards,
-  renderItems: (item) => {
-    const cardElemnt = creatingCardInstance(item);
-    cardList.addCard(cardElemnt);
-  },
-  listContainer: ".elements",
-});
-cardList.renderer();
+function addCardHandler(card) {
+  api.addCard(card);
+  // .then((res))
+  // .catch((err) => console.log('Ошибка'))
+}
 
 //создание экземпляра карточки и генерация объекта
 function creatingCardInstance(item) {
-  const card = new Card(item, { template: ".template-cards" }, handleCardClick);
+  const card = new Card(
+    item,
+    { template: ".template-cards" },
+    handleCardClick,
+    deleteCardHandler
+  );
   return card.getView();
+}
+
+function deleteCardHandler(cardId) {
+  api.deleteCard(cardId);
+  // .then((res))
+  // .catch((err) => console.log('Ошибка'))
 }
 
 //==================================================

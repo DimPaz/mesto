@@ -1,5 +1,3 @@
-// import { Popup } from "./Popup.js";
-
 export class UserInfo {
   constructor({ nameProfile, professionProfile }) {
     this._nameProfile = document.querySelector(nameProfile);
