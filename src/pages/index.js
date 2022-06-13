@@ -23,6 +23,7 @@ const jobInput = document.querySelector(".popup__text_input_job");
 const avatarInput = document.querySelector(".popup__text_input_avatar");
 const profileName = document.querySelector(".profile__name");
 const profileProfession = document.querySelector(".profile__profession");
+const profileAvatar = document.querySelector(".profile__avatar");
 
 //Authorization
 const token = "6f79ceb2-8103-4527-9a78-1a1299add319";
@@ -40,7 +41,17 @@ avatarEditBtn.addEventListener("click", () => {
 const popupAvatar = new PopupWithForm({
   popupSelector: ".popup_type_avatar",
   handleFormSubmit: (data) => {
-    controlUserInfo.setAvatar(data.link);
+    // console.log(data)
+    api
+      .addAvatar(data.link)
+      .then((data) => {
+        // console.log(data);
+        controlUserInfo.setAvatar(data.avatar);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
     popupAvatar.close();
   },
 });
@@ -58,6 +69,7 @@ profileEditBtn.addEventListener("click", () => {
 function userData(data) {
   profileName.textContent = data.name;
   profileProfession.textContent = data.about;
+  profileAvatar.src = data.avatar;
 }
 
 api

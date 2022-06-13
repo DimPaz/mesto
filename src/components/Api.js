@@ -50,20 +50,20 @@ export class Api {
     });
   }
 
-  // addAvatar(avatar) {
-  //   return fetch(`${this._url}/users/me/`, {
-  //     method: "PATCH",
-  //     headers: this._headers,
-  //     body: JSON.stringify({
-  //       avatar,
-  //     }),
-  //   }).then((res) => {
-  //     if (res.ok) {
-  //       return res.json();
-  //     }
-  //     return Promise.reject("Возникла ошибка");
-  //   });
-  // }
+  addAvatar(avatar) {
+    return fetch(`${this._url}/users/me/avatar`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar,
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject("Возникла ошибка");
+    });
+  }
 
   getCards() {
     return fetch(`${this._url}/cards/`, {
