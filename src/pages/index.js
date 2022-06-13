@@ -5,28 +5,56 @@ import { Section } from "../components/Section.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
-import { initialCards } from "../utils/initialCards.js";
+// import { initialCards } from "../utils/initialCards.js";
 import { FormValidator } from "../components/FormValidator.js";
 import { config } from "../utils/utils.js";
 import { Api } from "../components/Api.js";
 
 // открыть popup
 const profileEditBtn = document.querySelector(".profile__edit-btn"); // кнопка редактирования профиля
+const avatarEditBtn = document.querySelector(".profile__avatar-btn"); // кнопка редактирования профиля
 const cardEditBtn = document.querySelector(".profile__add-btn"); // кнопка добавления новой карточки
 const editPopupForm = document.querySelector("#editPopupForm"); // форма профиля
 const cardPopupForm = document.querySelector("#cardPopupForm"); // форма карт
+const avatarPopupForm = document.querySelector("#avatarPopupForm"); // форма карт
 //переменные ддя сабмита profile
 const nameInput = document.querySelector(".popup__text_input_name");
 const jobInput = document.querySelector(".popup__text_input_job");
+const avatarInput = document.querySelector(".popup__text_input_avatar");
 //Authorization
 const token = "6f79ceb2-8103-4527-9a78-1a1299add319";
 
+const api = new Api("https://mesto.nomoreparties.co/v1/cohort-43", token);
 //==================================================
+api
+  .getUser()
+  .then((data) => {
+    console.log(data);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+//открыть попап аватар
+avatarEditBtn.addEventListener("click", () => {
+  controlUserInfo.getUserInfo(nameInput, jobInput, avatarInput);
+  avatarFormValidator.resetErrors();
+  popupAvatar.open();
+});
+
+const popupAvatar = new PopupWithForm({
+  popupSelector: ".popup_type_avatar",
+  handleFormSubmit: (data) => {
+    controlUserInfo.setAvatar(data.link);
+    popupAvatar.close();
+  },
+});
 
 //==================================================
+
 //открыть попап профиль
 profileEditBtn.addEventListener("click", () => {
-  controlUserInfo.getUserInfo(nameInput, jobInput);
+  controlUserInfo.getUserInfo(nameInput, jobInput, avatarInput);
   editFormValidator.resetErrors();
   popupProfile.open();
 });
@@ -42,6 +70,7 @@ const popupProfile = new PopupWithForm({
 const controlUserInfo = new UserInfo({
   nameProfile: ".profile__name",
   professionProfile: ".profile__profession",
+  avatarProfile: ".profile__avatar",
 });
 
 //==================================================
@@ -52,10 +81,10 @@ cardEditBtn.addEventListener("click", () => {
 });
 
 // отрисовка карт с сервера
-const api = new Api("https://mesto.nomoreparties.co/v1/cohort-43/cards", token);
 api
   .getCards()
   .then((cards) => {
+    // console.log(cards)
     //отрисовка карт на странице
     const cardList = new Section({
       items: cards,
@@ -83,6 +112,8 @@ function addCardHandler(card) {
   // .then((res))
   // .catch((err) => console.log('Ошибка'))
 }
+
+// api.test() //Для проверки
 
 //создание экземпляра карточки и генерация объекта
 function creatingCardInstance(item) {
@@ -118,6 +149,7 @@ function handleCardClick(name, link) {
 popupProfile.setEventListeners();
 popupCard.setEventListeners();
 popupImage.setEventListeners();
+popupAvatar.setEventListeners();
 
 //==================================================
 //валидация формы profile
@@ -127,3 +159,7 @@ editFormValidator.enableValidation();
 //валидация формы card
 const cardFormValidator = new FormValidator(config, cardPopupForm);
 cardFormValidator.enableValidation();
+
+//валидация формы avatar
+const avatarFormValidator = new FormValidator(config, avatarPopupForm);
+avatarFormValidator.enableValidation();

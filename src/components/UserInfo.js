@@ -1,7 +1,8 @@
 export class UserInfo {
-  constructor({ nameProfile, professionProfile }) {
+  constructor({ nameProfile, professionProfile, avatarProfile }) {
     this._nameProfile = document.querySelector(nameProfile);
     this._professionProfile = document.querySelector(professionProfile);
+    this._avatarProfile = document.querySelector(avatarProfile);
   }
 
   /**
@@ -22,5 +23,13 @@ export class UserInfo {
   setUserInfo(nameInput, jobInput) {
     this._nameProfile.textContent = nameInput;
     this._professionProfile.textContent = jobInput;
+  }
+
+  getAvatar(avatarInput) {
+    avatarInput.value = this._avatarProfile.textContent;
+  }
+
+  setAvatar(avatarInput) {
+    this._avatarProfile.src = avatarInput;
   }
 }

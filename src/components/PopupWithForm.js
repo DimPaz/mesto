@@ -18,7 +18,6 @@ export class PopupWithForm extends Popup {
     this._inputList.forEach((input) => {
       this._inputValues[input.name] = input.value;
     });
-
     return this._inputValues;
   }
 
@@ -31,7 +30,6 @@ export class PopupWithForm extends Popup {
       event.preventDefault();
       this._handleFormSubmit(this._getInputValues());
       this.close();
-      // this._form.reset(); //обнуление значений в инпуте название и ссылка на картинку
     });
   }
 
