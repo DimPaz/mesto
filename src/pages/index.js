@@ -21,19 +21,14 @@ const avatarPopupForm = document.querySelector("#avatarPopupForm"); // форм�
 const nameInput = document.querySelector(".popup__text_input_name");
 const jobInput = document.querySelector(".popup__text_input_job");
 const avatarInput = document.querySelector(".popup__text_input_avatar");
+const profileName = document.querySelector(".profile__name");
+const profileProfession = document.querySelector(".profile__profession");
+
 //Authorization
 const token = "6f79ceb2-8103-4527-9a78-1a1299add319";
 
 const api = new Api("https://mesto.nomoreparties.co/v1/cohort-43", token);
 //==================================================
-api
-  .getUser()
-  .then((data) => {
-    console.log(data);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
 
 //открыть попап аватар
 avatarEditBtn.addEventListener("click", () => {
@@ -59,18 +54,42 @@ profileEditBtn.addEventListener("click", () => {
   popupProfile.open();
 });
 
-const popupProfile = new PopupWithForm({
-  popupSelector: ".popup_type_profile",
-  handleFormSubmit: (data) => {
-    controlUserInfo.setUserInfo(data["name"], data["job"]);
-    popupProfile.close();
-  },
-});
+//имя и профессия с сервера
+function userData(data) {
+  profileName.textContent = data.name;
+  profileProfession.textContent = data.about;
+}
+
+api
+  .getUser()
+  .then((data) => {
+    // console.log(data);
+    userData(data);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 const controlUserInfo = new UserInfo({
   nameProfile: ".profile__name",
   professionProfile: ".profile__profession",
   avatarProfile: ".profile__avatar",
+});
+
+const popupProfile = new PopupWithForm({
+  popupSelector: ".popup_type_profile",
+  handleFormSubmit: (data) => {
+    api
+      .addUserInfo(data.name, data.job)
+      .then((data) => {
+        controlUserInfo.setUserInfo(data.name, data.about);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    popupProfile.close();
+  },
 });
 
 //==================================================
