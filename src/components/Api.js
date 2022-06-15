@@ -8,32 +8,34 @@ export class Api {
     };
   }
 
-  //Для проверки
-  // test() {
-  //   fetch(`${this._url}/cards/`, {
-  //     method: "GET",
-  //     headers: this._headers,
-  //   })
-  //   .then((res)=> {
-  //     return res.json();
-  //   })
-  //     .then((data) => {
-  //         console.log(data);
-  //       });
-  //   }
+  _requestVerification(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject("Возникла ошибка");
+  }
 
+  getAllData() {
+    return Promise.all([this.getCards(), this.getUser()]);
+  }
+
+
+
+  // данные пользователя имя проф и аватар
   getUser() {
     return fetch(`${this._url}/users/me/`, {
       method: "GET",
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject("Возникла ошибка");
-    });
+    }).then(this._requestVerification);
+    // .then((res) => {
+    // if (res.ok) {
+    //   return res.json();
+    // }
+    // return Promise.reject("Возникла ошибка");
+    // });
   }
 
+  //запрос патч для замены имя и проф
   addUserInfo(name, about) {
     return fetch(`${this._url}/users/me/`, {
       method: "PATCH",
@@ -42,14 +44,10 @@ export class Api {
         name,
         about,
       }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject("Возникла ошибка");
-    });
+    }).then(this._requestVerification);
   }
 
+  //запрос патч для замены аватара
   addAvatar(avatar) {
     return fetch(`${this._url}/users/me/avatar`, {
       method: "PATCH",
@@ -57,26 +55,18 @@ export class Api {
       body: JSON.stringify({
         avatar,
       }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject("Возникла ошибка");
-    });
+    }).then(this._requestVerification);
   }
 
+  // данные карточки
   getCards() {
     return fetch(`${this._url}/cards/`, {
       method: "GET",
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject("Возникла ошибка");
-    });
+    }).then(this._requestVerification);
   }
 
+  //запрос пост для создания карточки
   addCard(card) {
     const newCard = {
       name: card.name,
@@ -86,22 +76,14 @@ export class Api {
       method: "POST",
       body: JSON.stringify(newCard),
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject("Возникла ошибка");
-    });
+    }).then(this._requestVerification);
   }
+
+  //запрос делит для создания карточки
   deleteCard(cardId) {
     return fetch(`${this._url}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject("Возникла ошибка");
-    });
+    }).then(this._requestVerification);
   }
 }

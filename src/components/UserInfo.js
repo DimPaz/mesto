@@ -25,10 +25,6 @@ export class UserInfo {
     this._professionProfile.textContent = jobInput;
   }
 
-  getAvatar(avatarInput) {
-    avatarInput.value = this._avatarProfile.textContent;
-  }
-
   setAvatar(avatarInput) {
     this._avatarProfile.src = avatarInput;
   }

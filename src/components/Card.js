@@ -1,11 +1,12 @@
 export class Card {
-  constructor(title, { template }, clickImagePopup, deleteClickHandler) {
+  constructor(title, { template }, clickImagePopup, deleteClickHandler, userId) {
     this._name = title.name;
     this._link = title.link;
     this._id = title._id;
     this._tamplate = document.querySelector(template);
     this._clickImagePopup = clickImagePopup;
     this._deleteClickHandler = deleteClickHandler;
+    this._userId = userId;
   }
 
   /**
@@ -36,6 +37,9 @@ export class Card {
     this._picture.src = this._link; // добавляем картинку для карточки
     this._picture.alt = this._name; // добавляем alt для карточки
     this._view.querySelector(".element__text").textContent = this._name; // добавляем имя карточки
+
+  
+
 
     // удаление карточек, запуск слушателя
     this._view

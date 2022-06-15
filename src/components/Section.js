@@ -17,7 +17,14 @@ export class Section {
    * функция добавляем карты в начало списка из массива
    * @param {*} element
    */
-  addCard(element) {
+  addCard(element) {    
     this._listContainer.prepend(element);
+  }
+  /**
+   * функция добавляем карты в начало списка из массива
+   * @param {*} element
+   */
+  addCardServer(element) {    
+    this._listContainer.append(element);
   }
 }

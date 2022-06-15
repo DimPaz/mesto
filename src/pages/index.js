@@ -31,6 +31,25 @@ const token = "6f79ceb2-8103-4527-9a78-1a1299add319";
 const api = new Api("https://mesto.nomoreparties.co/v1/cohort-43", token);
 //==================================================
 
+let userId;
+
+api.getAllData().then(([data, user]) => {
+  //добавление данных пользователя с сервера
+  // console.log(user)
+  profileName.textContent = user.name;
+  profileProfession.textContent = user.about;
+  profileAvatar.src = user.avatar;
+  userId = user._Id;
+
+  //добавление карт с сервера
+  // console.log(data);
+  data.forEach((item) => {
+    // console.log(item);
+    const cardElemnt = creatingCardInstance(item);
+    cardList.addCardServer(cardElemnt);
+  });
+});
+
 //открыть попап аватар
 avatarEditBtn.addEventListener("click", () => {
   controlUserInfo.getUserInfo(nameInput, jobInput, avatarInput);
@@ -41,11 +60,9 @@ avatarEditBtn.addEventListener("click", () => {
 const popupAvatar = new PopupWithForm({
   popupSelector: ".popup_type_avatar",
   handleFormSubmit: (data) => {
-    // console.log(data)
     api
       .addAvatar(data.link)
       .then((data) => {
-        // console.log(data);
         controlUserInfo.setAvatar(data.avatar);
       })
       .catch((err) => {
@@ -65,22 +82,13 @@ profileEditBtn.addEventListener("click", () => {
   popupProfile.open();
 });
 
-//имя и профессия с сервера
-function userData(data) {
-  profileName.textContent = data.name;
-  profileProfession.textContent = data.about;
-  profileAvatar.src = data.avatar;
-}
-
-api
-  .getUser()
-  .then((data) => {
-    // console.log(data);
-    userData(data);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+//
+const popupProfile = new PopupWithForm({
+  popupSelector: ".popup_type_profile",
+  handleFormSubmit: (data) => {
+    handleProfileFormSubmit(data);
+  },
+});
 
 const controlUserInfo = new UserInfo({
   nameProfile: ".profile__name",
@@ -88,48 +96,37 @@ const controlUserInfo = new UserInfo({
   avatarProfile: ".profile__avatar",
 });
 
-const popupProfile = new PopupWithForm({
-  popupSelector: ".popup_type_profile",
-  handleFormSubmit: (data) => {
-    api
-      .addUserInfo(data.name, data.job)
-      .then((data) => {
-        controlUserInfo.setUserInfo(data.name, data.about);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    popupProfile.close();
-  },
-});
+// обрабатыватываем отправку формы профиля
+function handleProfileFormSubmit(data) {
+  api
+    .addUserInfo(data.name, data.job)
+    .then((data) => {
+      controlUserInfo.setUserInfo(data.name, data.about);
+      popupProfile.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
 
 //==================================================
+
+//отрисовка карт на странице
+const cardList = new Section({
+  items: [],
+  renderItems: (item) => {
+    console.log(item);
+    const cardElemnt = creatingCardInstance(item);
+    cardList.addCard(cardElemnt);
+  },
+  listContainer: ".elements",
+});
+
 //открыть попап добавление карточек
 cardEditBtn.addEventListener("click", () => {
   cardFormValidator.resetErrors();
   popupCard.open();
 });
-
-// отрисовка карт с сервера
-api
-  .getCards()
-  .then((cards) => {
-    // console.log(cards)
-    //отрисовка карт на странице
-    const cardList = new Section({
-      items: cards,
-      renderItems: (item) => {
-        const cardElemnt = creatingCardInstance(item);
-        cardList.addCard(cardElemnt);
-      },
-      listContainer: ".elements",
-    });
-    cardList.renderer();
-  })
-  .catch((err) => {
-    console.log(err);
-  });
 
 //добавление новых карт
 const popupCard = new PopupWithForm({
@@ -138,13 +135,10 @@ const popupCard = new PopupWithForm({
     addCardHandler(item);
   },
 });
+
 function addCardHandler(card) {
   api.addCard(card);
-  // .then((res))
-  // .catch((err) => console.log('Ошибка'))
 }
-
-// api.test() //Для проверки
 
 //создание экземпляра карточки и генерация объекта
 function creatingCardInstance(item) {
@@ -152,15 +146,14 @@ function creatingCardInstance(item) {
     item,
     { template: ".template-cards" },
     handleCardClick,
-    deleteCardHandler
+    deleteCardHandler,
+    userId
   );
   return card.getView();
 }
 
 function deleteCardHandler(cardId) {
   api.deleteCard(cardId);
-  // .then((res))
-  // .catch((err) => console.log('Ошибка'))
 }
 
 //==================================================
