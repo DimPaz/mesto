@@ -156,7 +156,9 @@ function creatingCardInstance(item) {
 //открытие попапа delete
 function openPopupDeleteCard(cardId) {
   popupDelete.open();
-  console.log(cardId);
+  popupDelete.setSubmitAction(() => {
+    deleteCardHandler(cardId);
+  });
 }
 
 const popupDelete = new PopupWithConfirmation({
@@ -165,6 +167,7 @@ const popupDelete = new PopupWithConfirmation({
 
 function deleteCardHandler(cardId) {
   api.deleteCard(cardId);
+  popupDelete.close()
 }
 
 //==================================================
