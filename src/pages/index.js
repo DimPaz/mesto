@@ -4,6 +4,7 @@ import { Card } from "../components/Card.js";
 import { Section } from "../components/Section.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
+import { PopupWithConfirmation } from "../components/PopupWithConfirmation.js";
 import { UserInfo } from "../components/UserInfo.js";
 // import { initialCards } from "../utils/initialCards.js";
 import { FormValidator } from "../components/FormValidator.js";
@@ -39,10 +40,10 @@ api.getAllData().then(([data, user]) => {
   profileName.textContent = user.name;
   profileProfession.textContent = user.about;
   profileAvatar.src = user.avatar;
-  userId = user._Id;
+  userId = user._id;
 
   //добавление карт с сервера
-  // console.log(data);
+  console.log(data);
   data.forEach((item) => {
     // console.log(item);
     const cardElemnt = creatingCardInstance(item);
@@ -147,10 +148,20 @@ function creatingCardInstance(item) {
     { template: ".template-cards" },
     handleCardClick,
     deleteCardHandler,
+    openPopupDeleteCard,
     userId
   );
   return card.getView();
 }
+//открытие попапа delete
+function openPopupDeleteCard(cardId) {
+  popupDelete.open();
+  console.log(cardId);
+}
+
+const popupDelete = new PopupWithConfirmation({
+  popupSelector: ".popup_type_delete",
+});
 
 function deleteCardHandler(cardId) {
   api.deleteCard(cardId);
@@ -174,6 +185,7 @@ popupProfile.setEventListeners();
 popupCard.setEventListeners();
 popupImage.setEventListeners();
 popupAvatar.setEventListeners();
+popupDelete.setEventListenersDelete();
 
 //==================================================
 //валидация формы profile

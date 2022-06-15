@@ -1,11 +1,20 @@
 export class Card {
-  constructor(title, { template }, clickImagePopup, deleteClickHandler, userId) {
+  constructor(
+    title,
+    { template },
+    clickImagePopup,
+    deleteClickHandler,
+    openPopupDeleteCard,
+    userId
+  ) {
     this._name = title.name;
     this._link = title.link;
-    this._id = title._id;
+    this._cardId = title._id;
+    this.userCard_id = title.owner._id;
     this._tamplate = document.querySelector(template);
     this._clickImagePopup = clickImagePopup;
     this._deleteClickHandler = deleteClickHandler;
+    this._openPopupDeleteCard = openPopupDeleteCard;
     this._userId = userId;
   }
 
@@ -38,14 +47,18 @@ export class Card {
     this._picture.alt = this._name; // добавляем alt для карточки
     this._view.querySelector(".element__text").textContent = this._name; // добавляем имя карточки
 
-  
-
+    //добавление корзинки на мои карточки
+    this._cardDelete = this._view.querySelector(".element__trash");
+    if (this.userCard_id === this._userId) {
+      this._cardDelete.classList.add("element__trash_visible");
+    }
 
     // удаление карточек, запуск слушателя
     this._view
       .querySelector(".element__trash")
       .addEventListener("click", () => {
-        this._deleteClickHandler(this._id);
+        this._openPopupDeleteCard(this._cardId);
+        // this._deleteClickHandler(this._cardId); // удаление карты
       });
     // like карточки, запуск слушателя
     this._view.querySelector(".element__like").addEventListener("click", () => {
