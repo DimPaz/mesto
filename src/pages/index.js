@@ -36,20 +36,19 @@ let userId;
 
 api.getAllData().then(([data, user]) => {
   //добавление данных пользователя с сервера
-  // console.log(user)
   profileName.textContent = user.name;
   profileProfession.textContent = user.about;
   profileAvatar.src = user.avatar;
   userId = user._id;
 
   //добавление карт с сервера
-  console.log(data);
   data.forEach((item) => {
-    // console.log(item);
     const cardElemnt = creatingCardInstance(item);
     cardList.addCardServer(cardElemnt);
   });
 });
+
+//==================================================
 
 //открыть попап аватар
 avatarEditBtn.addEventListener("click", () => {
@@ -116,7 +115,6 @@ function handleProfileFormSubmit(data) {
 const cardList = new Section({
   items: [],
   renderItems: (item) => {
-    console.log(item);
     const cardElemnt = creatingCardInstance(item);
     cardList.addCard(cardElemnt);
   },
@@ -149,10 +147,34 @@ function creatingCardInstance(item) {
     handleCardClick,
     deleteCardHandler,
     openPopupDeleteCard,
+    handelLikeClick,
     userId
   );
+
+  function handelLikeClick(likeId) {
+    if (card.isLiked()) {
+      api
+        .deleteLike(likeId)
+        .then((res) => {
+          card.setLikes(res.likes);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      api
+        .addLike(likeId)
+        .then((res) => {
+          card.setLikes(res.likes);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }
   return card.getView();
 }
+
 //открытие попапа delete
 function openPopupDeleteCard(cardId) {
   popupDelete.open();
@@ -167,7 +189,7 @@ const popupDelete = new PopupWithConfirmation({
 
 function deleteCardHandler(cardId) {
   api.deleteCard(cardId);
-  popupDelete.close()
+  popupDelete.close();
 }
 
 //==================================================

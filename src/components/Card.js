@@ -5,16 +5,19 @@ export class Card {
     clickImagePopup,
     deleteClickHandler,
     openPopupDeleteCard,
+    handelLikeClick,
     userId
   ) {
     this._name = title.name;
     this._link = title.link;
     this._cardId = title._id;
     this.userCard_id = title.owner._id;
+    this.userLike = title.likes;
     this._tamplate = document.querySelector(template);
     this._clickImagePopup = clickImagePopup;
     this._deleteClickHandler = deleteClickHandler;
     this._openPopupDeleteCard = openPopupDeleteCard;
+    this._handelLikeClick = handelLikeClick;
     this._userId = userId;
   }
 
@@ -27,13 +30,28 @@ export class Card {
   // }
 
   /**
-   * приватный метод like карточки
+   * проверка наличия лайка
    */
-  _likeCard() {
-    this._view
-      .querySelector(".element__like")
-      .classList.toggle("element__like_active");
+  isLiked() {
+    return this.userLike.find((user) => user._id === this._userId);
   }
+  setLikes(arrayLike) {
+    this.userLike = arrayLike;
+    //like карточки
+    if (this.isLiked()) {
+      this._view
+        .querySelector(".element__like")
+        .classList.add("element__like_active");
+    } else {
+      this._view
+        .querySelector(".element__like")
+        .classList.remove("element__like_active");
+    }
+    // счетчик лайков
+    this._countLike = this._view.querySelector(".element__count");
+    this._countLike.textContent = this.userLike.length;
+  }
+
   /**
    * публичный метод формируем template
    * @returns this._view
@@ -58,12 +76,14 @@ export class Card {
       .querySelector(".element__trash")
       .addEventListener("click", () => {
         this._openPopupDeleteCard(this._cardId);
-        // this._deleteClickHandler(this._cardId); // удаление карты
       });
+
     // like карточки, запуск слушателя
     this._view.querySelector(".element__like").addEventListener("click", () => {
-      this._likeCard();
+      this._handelLikeClick(this._cardId);
+      // this._likeCard();
     });
+    this.setLikes(this.userLike);
 
     // открыть попап image, запуск слушателя
     this._picture.addEventListener("click", () => {

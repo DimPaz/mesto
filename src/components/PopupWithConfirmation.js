@@ -9,12 +9,13 @@ export class PopupWithConfirmation extends Popup {
 
   setEventListenersDelete() {
     super.setEventListeners();
-  }
-  //метод для передачи колбека удаления карточки
-  setSubmitAction(deleteCardHandler) {
     this._form.addEventListener("submit", (event) => {
       event.preventDefault();
-      deleteCardHandler();
+      this._сardHandler();
     });
+  }
+  //метод для передачи колбека удаления карточки
+  setSubmitAction(сardHandler) {
+    this._сardHandler = сardHandler;
   }
 }

@@ -19,8 +19,6 @@ export class Api {
     return Promise.all([this.getCards(), this.getUser()]);
   }
 
-
-
   // данные пользователя имя проф и аватар
   getUser() {
     return fetch(`${this._url}/users/me/`, {
@@ -82,6 +80,22 @@ export class Api {
   //запрос делит для создания карточки
   deleteCard(cardId) {
     return fetch(`${this._url}/cards/${cardId}`, {
+      method: "DELETE",
+      headers: this._headers,
+    }).then(this._requestVerification);
+  }
+
+  //отправить PUT-запрос лайка
+  addLike(likeId) {
+    return fetch(`${this._url}/cards/${likeId}/likes`, {
+      method: "PUT",
+      headers: this._headers,
+    }).then(this._requestVerification);
+  }
+
+  //отправить DELETE-запрос лайка
+  deleteLike(likeId) {
+    return fetch(`${this._url}/cards/${likeId}/likes`, {
       method: "DELETE",
       headers: this._headers,
     }).then(this._requestVerification);
