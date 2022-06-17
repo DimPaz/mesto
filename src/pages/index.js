@@ -156,7 +156,7 @@ function creatingCardInstance(item) {
       api
         .deleteLike(likeId)
         .then((res) => {
-          card.setLikes(res.likes);          
+          card.setLikes(res.likes);
         })
         .catch((err) => {
           console.log(err);
@@ -172,34 +172,30 @@ function creatingCardInstance(item) {
         });
     }
   }
-  
+
   //открытие попапа delete
   function openPopupDeleteCard(cardId) {
     popupDelete.open();
     popupDelete.setSubmitAction(() => {
-      api.deleteCard(cardId)
-      .then(( )=> {
-        card.deleteCard();
-        popupDelete.close();        
-      }) 
-      .catch((err) => {
-        console.log(err);
-      });
+      api
+        .deleteCard(cardId)
+        .then(() => {
+          card.deleteCard();
+          popupDelete.close();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     });
   }
 
-  // function deleteCardHandler() {
-  //   card.deleteCard();
-  //   popupDelete.close();
-  // }
-  
-  const popupDelete = new PopupWithConfirmation({
-    popupSelector: ".popup_type_delete",
-  });
-  
-  popupDelete.setEventListenersDelete();
-  return card.getView();  
+  return card.getView();
 }
+
+const popupDelete = new PopupWithConfirmation({
+  popupSelector: ".popup_type_delete",
+});
+popupDelete.setEventListenersDelete();
 
 //==================================================
 // попап image
