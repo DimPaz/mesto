@@ -8,7 +8,6 @@ export class Popup {
    * функция открыть попапы
    */
   open() {
-    console.log(this._popupSelector)
     this._popupSelector.classList.add("popup_opened");
     document.addEventListener("keydown", this._handleEscClose);
   }

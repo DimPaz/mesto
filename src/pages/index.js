@@ -145,7 +145,7 @@ function creatingCardInstance(item) {
     item,
     { template: ".template-cards" },
     handleCardClick,
-    deleteCardHandler,
+    // deleteCardHandler,
     openPopupDeleteCard,
     handelLikeClick,
     userId
@@ -156,7 +156,7 @@ function creatingCardInstance(item) {
       api
         .deleteLike(likeId)
         .then((res) => {
-          card.setLikes(res.likes);
+          card.setLikes(res.likes);          
         })
         .catch((err) => {
           console.log(err);
@@ -172,24 +172,33 @@ function creatingCardInstance(item) {
         });
     }
   }
-  return card.getView();
-}
+  
+  //открытие попапа delete
+  function openPopupDeleteCard(cardId) {
+    popupDelete.open();
+    popupDelete.setSubmitAction(() => {
+      api.deleteCard(cardId)
+      .then(( )=> {
+        card.deleteCard();
+        popupDelete.close();        
+      }) 
+      .catch((err) => {
+        console.log(err);
+      });
+    });
+  }
 
-//открытие попапа delete
-function openPopupDeleteCard(cardId) {
-  popupDelete.open();
-  popupDelete.setSubmitAction(() => {
-    deleteCardHandler(cardId);
+  // function deleteCardHandler() {
+  //   card.deleteCard();
+  //   popupDelete.close();
+  // }
+  
+  const popupDelete = new PopupWithConfirmation({
+    popupSelector: ".popup_type_delete",
   });
-}
-
-const popupDelete = new PopupWithConfirmation({
-  popupSelector: ".popup_type_delete",
-});
-
-function deleteCardHandler(cardId) {
-  api.deleteCard(cardId);
-  popupDelete.close();
+  
+  popupDelete.setEventListenersDelete();
+  return card.getView();  
 }
 
 //==================================================
@@ -210,7 +219,6 @@ popupProfile.setEventListeners();
 popupCard.setEventListeners();
 popupImage.setEventListeners();
 popupAvatar.setEventListeners();
-popupDelete.setEventListenersDelete();
 
 //==================================================
 //валидация формы profile

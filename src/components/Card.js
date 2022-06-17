@@ -3,7 +3,7 @@ export class Card {
     title,
     { template },
     clickImagePopup,
-    deleteClickHandler,
+    // deleteClickHandler,
     openPopupDeleteCard,
     handelLikeClick,
     userId
@@ -15,7 +15,7 @@ export class Card {
     this.userLike = title.likes;
     this._tamplate = document.querySelector(template);
     this._clickImagePopup = clickImagePopup;
-    this._deleteClickHandler = deleteClickHandler;
+    // this._deleteClickHandler = deleteClickHandler;
     this._openPopupDeleteCard = openPopupDeleteCard;
     this._handelLikeClick = handelLikeClick;
     this._userId = userId;
@@ -24,10 +24,10 @@ export class Card {
   /**
    * приватный метод удаления карточки
    */
-  // _deleteCard() {
-  //   this._view.remove();
-  //   this._view = null;
-  // }
+  deleteCard() {
+    this._view.remove();
+    this._view = null;
+  }
 
   /**
    * проверка наличия лайка

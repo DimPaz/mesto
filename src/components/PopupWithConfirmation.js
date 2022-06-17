@@ -7,15 +7,17 @@ export class PopupWithConfirmation extends Popup {
     this._form = this._popupSelector.querySelector(".form");
   }
 
+  //метод для передачи колбека удаления карточки
+  setSubmitAction(сardHandler) {
+    // console.log(сardHandler);
+    this._сardHandler = сardHandler;
+  }
+
   setEventListenersDelete() {
     super.setEventListeners();
     this._form.addEventListener("submit", (event) => {
       event.preventDefault();
       this._сardHandler();
     });
-  }
-  //метод для передачи колбека удаления карточки
-  setSubmitAction(сardHandler) {
-    this._сardHandler = сardHandler;
   }
 }
