@@ -9,7 +9,6 @@ export class PopupWithConfirmation extends Popup {
 
   //метод для передачи колбека удаления карточки
   setSubmitAction(сardHandler) {
-    // console.log(сardHandler);
     this._сardHandler = сardHandler;
   }
 
