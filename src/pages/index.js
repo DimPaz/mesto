@@ -6,7 +6,6 @@ import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { PopupWithConfirmation } from "../components/PopupWithConfirmation.js";
 import { UserInfo } from "../components/UserInfo.js";
-// import { initialCards } from "../utils/initialCards.js";
 import { FormValidator } from "../components/FormValidator.js";
 import { config } from "../utils/utils.js";
 import { Api } from "../components/Api.js";
@@ -28,7 +27,6 @@ const profileAvatar = document.querySelector(".profile__avatar");
 
 //Authorization
 const token = "6f79ceb2-8103-4527-9a78-1a1299add319";
-
 const api = new Api("https://mesto.nomoreparties.co/v1/cohort-43", token);
 //==================================================
 
@@ -82,7 +80,6 @@ profileEditBtn.addEventListener("click", () => {
   popupProfile.open();
 });
 
-//
 const popupProfile = new PopupWithForm({
   popupSelector: ".popup_type_profile",
   handleFormSubmit: (data) => {
@@ -114,10 +111,6 @@ function handleProfileFormSubmit(data) {
 //отрисовка карт на странице
 const cardList = new Section({
   items: [],
-  renderItems: (item) => {
-    const cardElemnt = creatingCardInstance(item);
-    cardList.addCard(cardElemnt);
-  },
   listContainer: ".elements",
 });
 
@@ -136,7 +129,14 @@ const popupCard = new PopupWithForm({
 });
 
 function addCardHandler(card) {
-  api.addCard(card);
+  api
+    .addCard(card)
+    .then((card) => {
+      cardList.addCard(creatingCardInstance(card));
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 //создание экземпляра карточки и генерация объекта
@@ -145,7 +145,6 @@ function creatingCardInstance(item) {
     item,
     { template: ".template-cards" },
     handleCardClick,
-    // deleteCardHandler,
     openPopupDeleteCard,
     handelLikeClick,
     userId
@@ -188,14 +187,13 @@ function creatingCardInstance(item) {
         });
     });
   }
-
   return card.getView();
 }
 
+// попап delete
 const popupDelete = new PopupWithConfirmation({
   popupSelector: ".popup_type_delete",
 });
-popupDelete.setEventListenersDelete();
 
 //==================================================
 // попап image
@@ -215,6 +213,7 @@ popupProfile.setEventListeners();
 popupCard.setEventListeners();
 popupImage.setEventListeners();
 popupAvatar.setEventListeners();
+popupDelete.setEventListenersDelete();
 
 //==================================================
 //валидация формы profile

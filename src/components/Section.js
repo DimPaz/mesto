@@ -1,7 +1,6 @@
 export class Section {
-  constructor({ items, renderItems, listContainer }) {
+  constructor({ items, listContainer }) {
     this._items = items;
-    this._renderItems = renderItems;
     this._listContainer = document.querySelector(listContainer);
   }
   /**
@@ -17,14 +16,14 @@ export class Section {
    * функция добавляем карты в начало списка из массива
    * @param {*} element
    */
-  addCard(element) {    
+  addCard(element) {
     this._listContainer.prepend(element);
   }
   /**
-   * функция добавляем карты в начало списка из массива
+   * функция добавляем карты с сервера
    * @param {*} element
    */
-  addCardServer(element) {    
+  addCardServer(element) {
     this._listContainer.append(element);
   }
 }
