@@ -7,25 +7,25 @@ export class UserInfo {
 
   /**
    * публичный метод возвращает объект с данными пользователя
-   * @param {*} nameInput
-   * @param {*} jobInput
+   * @param {*} name
+   * @param {*} about
    */
-  getUserInfo(nameInput, jobInput) {
-    nameInput.value = this._nameProfile.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
-    jobInput.value = this._professionProfile.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
+  getUserInfo(name, about) {
+    name.value = this._nameProfile.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
+    about.value = this._professionProfile.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
   }
 
   /**
    * публичный метод принимает новые данные пользователя и добавляет их на страницу
-   * @param {*} nameInput
-   * @param {*} jobInput
+   * @param {*} name
+   * @param {*} about
    */
-  setUserInfo(nameInput, jobInput) {
-    this._nameProfile.textContent = nameInput;
-    this._professionProfile.textContent = jobInput;
+  setUserInfo(name, about) {
+    this._nameProfile.textContent = name;
+    this._professionProfile.textContent = about;
   }
 
-  setAvatar(avatarInput) {
-    this._avatarProfile.src = avatarInput;
+  setAvatar(avatar) {
+    this._avatarProfile.src = avatar;
   }
 }

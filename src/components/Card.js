@@ -37,49 +37,30 @@ export class Card {
     this.userLike = arrayLike;
     //like карточки
     if (this.isLiked()) {
-      this._view
-        .querySelector(".element__like")
-        .classList.add("element__like_active");
+      this._likeButton.classList.add("element__like_active");
     } else {
-      this._view
-        .querySelector(".element__like")
-        .classList.remove("element__like_active");
+      this._likeButton.classList.remove("element__like_active");
     }
     // счетчик лайков
-    this._countLike = this._view.querySelector(".element__count");
     this._countLike.textContent = this.userLike.length;
   }
 
-  /**
-   * публичный метод формируем template
-   * @returns this._view
-   */
-  getView() {
-    this._view = this._tamplate.content
-      .cloneNode(true)
-      .querySelector(".element"); // клонируем template со всем содержимым
-    this._picture = this._view.querySelector(".element__picture");
-    this._picture.src = this._link; // добавляем картинку для карточки
-    this._picture.alt = this._name; // добавляем alt для карточки
-    this._view.querySelector(".element__text").textContent = this._name; // добавляем имя карточки
-
-    //добавление корзинки на мои карточки
-    this._cardDelete = this._view.querySelector(".element__trash");
+  //добавление корзинки на мои карточки
+  _addDeleteButton() {
     if (this.userCard_id === this._userId) {
-      this._cardDelete.classList.add("element__trash_visible");
+      this._deleteButton.classList.add("element__trash_visible");
     }
+  }
 
+  _setEventListeners() {
     // удаление карточек, запуск слушателя
-    this._view
-      .querySelector(".element__trash")
-      .addEventListener("click", () => {
-        this._openPopupDeleteCard(this._cardId);
-      });
+    this._deleteButton.addEventListener("click", () => {
+      this._openPopupDeleteCard(this._cardId);
+    });
 
     // like карточки, запуск слушателя
-    this._view.querySelector(".element__like").addEventListener("click", () => {
+    this._likeButton.addEventListener("click", () => {
       this._handelLikeClick(this._cardId);
-      // this._likeCard();
     });
     this.setLikes(this.userLike);
 
@@ -87,7 +68,28 @@ export class Card {
     this._picture.addEventListener("click", () => {
       this._clickImagePopup(this._name, this._link);
     });
+  }
 
+  /**
+   * публичный метод формируем template
+   * @returns this._view
+   */
+  generateCard() {
+    this._view = this._tamplate.content
+      .cloneNode(true)
+      .querySelector(".element"); // клонируем template со всем содержимым
+    this._picture = this._view.querySelector(".element__picture");
+    this._inputList = this._view.querySelector(".element__text");
+    this._likeButton = this._view.querySelector(".element__like");
+    this._deleteButton = this._view.querySelector(".element__trash");
+    this._countLike = this._view.querySelector(".element__count");
+
+    this._picture.src = this._link; // добавляем картинку для карточки
+    this._picture.alt = this._name; // добавляем alt для карточки
+    this._inputList.textContent = this._name; // добавляем имя карточки
+
+    this._addDeleteButton();
+    this._setEventListeners();
     return this._view;
   }
 }

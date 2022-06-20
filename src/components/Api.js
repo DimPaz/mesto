@@ -8,7 +8,7 @@ export class Api {
     };
   }
 
-  _requestVerification(res) {
+  _checkResponse(res) {
     if (res.ok) {
       return res.json();
     }
@@ -24,13 +24,7 @@ export class Api {
     return fetch(`${this._url}/users/me/`, {
       method: "GET",
       headers: this._headers,
-    }).then(this._requestVerification);
-    // .then((res) => {
-    // if (res.ok) {
-    //   return res.json();
-    // }
-    // return Promise.reject("Возникла ошибка");
-    // });
+    }).then(this._checkResponse);
   }
 
   //запрос патч для замены имя и проф
@@ -42,7 +36,7 @@ export class Api {
         name,
         about,
       }),
-    }).then(this._requestVerification);
+    }).then(this._checkResponse);
   }
 
   //запрос патч для замены аватара
@@ -53,7 +47,7 @@ export class Api {
       body: JSON.stringify({
         avatar,
       }),
-    }).then(this._requestVerification);
+    }).then(this._checkResponse);
   }
 
   // данные карточки
@@ -61,7 +55,7 @@ export class Api {
     return fetch(`${this._url}/cards/`, {
       method: "GET",
       headers: this._headers,
-    }).then(this._requestVerification);
+    }).then(this._checkResponse);
   }
 
   //запрос пост для создания карточки
@@ -74,7 +68,7 @@ export class Api {
       method: "POST",
       body: JSON.stringify(newCard),
       headers: this._headers,
-    }).then(this._requestVerification);
+    }).then(this._checkResponse);
   }
 
   //запрос делит для создания карточки
@@ -82,7 +76,7 @@ export class Api {
     return fetch(`${this._url}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then(this._requestVerification);
+    }).then(this._checkResponse);
   }
 
   //отправить PUT-запрос лайка
@@ -90,7 +84,7 @@ export class Api {
     return fetch(`${this._url}/cards/${likeId}/likes`, {
       method: "PUT",
       headers: this._headers,
-    }).then(this._requestVerification);
+    }).then(this._checkResponse);
   }
 
   //отправить DELETE-запрос лайка
@@ -98,6 +92,6 @@ export class Api {
     return fetch(`${this._url}/cards/${likeId}/likes`, {
       method: "DELETE",
       headers: this._headers,
-    }).then(this._requestVerification);
+    }).then(this._checkResponse);
   }
 }

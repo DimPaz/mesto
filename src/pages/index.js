@@ -32,20 +32,20 @@ const api = new Api("https://mesto.nomoreparties.co/v1/cohort-43", token);
 
 let userId;
 
-api.getAllData().then(([data, user]) => {
-  //добавление данных пользователя с сервера
-  profileName.textContent = user.name;
-  profileProfession.textContent = user.about;
-  profileAvatar.src = user.avatar;
-  userId = user._id;
+api
+  .getAllData()
+  .then(([data, user]) => {
+    //добавление данных пользователя с сервера
+    controlUserInfo.setUserInfo(user.name, user.about);
+    controlUserInfo.setAvatar(user.avatar);
+    userId = user._id;
 
-  //добавление карт с сервера
-  data.forEach((item) => {
-    const cardElemnt = creatingCardInstance(item);
-    cardList.addCardServer(cardElemnt);
+    //добавление карт с сервера
+    cardList.renderer(data);
+  })
+  .catch((err) => {
+    console.log(err);
   });
-});
-
 //==================================================
 
 //открыть попап аватар
@@ -62,12 +62,11 @@ const popupAvatar = new PopupWithForm({
       .addAvatar(data.link)
       .then((data) => {
         controlUserInfo.setAvatar(data.avatar);
+        popupAvatar.close();
       })
       .catch((err) => {
         console.log(err);
       });
-
-    popupAvatar.close();
   },
 });
 
@@ -75,6 +74,7 @@ const popupAvatar = new PopupWithForm({
 
 //открыть попап профиль
 profileEditBtn.addEventListener("click", () => {
+  console.log();
   controlUserInfo.getUserInfo(nameInput, jobInput, avatarInput);
   editFormValidator.resetErrors();
   popupProfile.open();
@@ -112,6 +112,10 @@ function handleProfileFormSubmit(data) {
 const cardList = new Section({
   items: [],
   listContainer: ".elements",
+  renderItems: (item) => {
+    const cardElemnt = creatCardInstance(item);
+    cardList.addCardServer(cardElemnt);
+  },
 });
 
 //открыть попап добавление карточек
@@ -124,15 +128,15 @@ cardEditBtn.addEventListener("click", () => {
 const popupCard = new PopupWithForm({
   popupSelector: ".popup_type_card",
   handleFormSubmit: (item) => {
-    addCardHandler(item);
+    handleCardFormSubmit(item);
   },
 });
 
-function addCardHandler(card) {
+function handleCardFormSubmit(card) {
   api
     .addCard(card)
     .then((card) => {
-      cardList.addCard(creatingCardInstance(card));
+      cardList.addCard(creatCardInstance(card));
     })
     .catch((err) => {
       console.log(err);
@@ -140,17 +144,17 @@ function addCardHandler(card) {
 }
 
 //создание экземпляра карточки и генерация объекта
-function creatingCardInstance(item) {
+function creatCardInstance(item) {
   const card = new Card(
     item,
     { template: ".template-cards" },
     handleCardClick,
     openPopupDeleteCard,
-    handelLikeClick,
+    handleLikeClick,
     userId
   );
 
-  function handelLikeClick(likeId) {
+  function handleLikeClick(likeId) {
     if (card.isLiked()) {
       api
         .deleteLike(likeId)
@@ -187,7 +191,7 @@ function creatingCardInstance(item) {
         });
     });
   }
-  return card.getView();
+  return card.generateCard();
 }
 
 // попап delete
@@ -216,6 +220,9 @@ popupAvatar.setEventListeners();
 popupDelete.setEventListenersDelete();
 
 //==================================================
+
+//обязательно посмотрю, интересно. Сейчас катастрофически не хватает времени. Спсибо большое))
+
 //валидация формы profile
 const editFormValidator = new FormValidator(config, editPopupForm);
 editFormValidator.enableValidation();

@@ -9,12 +9,6 @@ export class FormValidator {
     this._markErrorClass = config.markErrorClass;
     this._activeErrorClass = config.activeErrorClass;
     this._formElement = formElement;
-    this._styleInputError = Array.from(
-      this._formElement.querySelectorAll(this._inputSelector)
-    );
-    this._textInputError = Array.from(
-      this._formElement.querySelectorAll(this._errorInputSelector)
-    );
     this._inputList = Array.from(
       this._formElement.querySelectorAll(this._inputSelector)
     );
@@ -28,9 +22,9 @@ export class FormValidator {
    */
   resetErrors() {
     this._inputList.forEach((input) => {
-      this._hideInputError(this._formElement, input);
+      this._hideInputError(input);
     });
-    this._toggleButtonState(this._inputList, this._buttonElement);
+    this._toggleButtonState();
   }
 
   /**
@@ -49,13 +43,13 @@ export class FormValidator {
    * @param {*} inputList
    * @param {*} buttonElement
    */
-  _toggleButtonState(inputList, buttonElement) {
-    if (this._hasInvalidInput(inputList)) {
-      buttonElement.classList.add(this._inactiveButtonClass); // сделать кнопку неактивной
-      buttonElement.disabled = true;
+  _toggleButtonState() {
+    if (this._hasInvalidInput(this._inputList)) {
+      this._buttonElement.classList.add(this._inactiveButtonClass); // сделать кнопку неактивной
+      this._buttonElement.disabled = true;
     } else {
-      buttonElement.classList.remove(this._inactiveButtonClass); // сделать кнопку активной
-      buttonElement.disabled = false;
+      this._buttonElement.classList.remove(this._inactiveButtonClass); // сделать кнопку активной
+      this._buttonElement.disabled = false;
     }
   }
 
@@ -74,7 +68,7 @@ export class FormValidator {
         inputElement.validationMessage
       ); // Если поле не проходит валидацию, покажем ошибку
     } else {
-      this._hideInputError(this._formElement, inputElement); // Если проходит, скроем
+      this._hideInputError(inputElement); // Если проходит, скроем
     }
   };
 
@@ -93,11 +87,12 @@ export class FormValidator {
 
   /**
    * приватный метод удаляет класс с ошибкой
-   * @param {*} formElement
    * @param {*} inputElement
    */
-  _hideInputError = (formElement, inputElement) => {
-    const errorElement = formElement.querySelector(`#${inputElement.id}-error`); // Находим элемент ошибки
+  _hideInputError = (inputElement) => {
+    const errorElement = this._formElement.querySelector(
+      `#${inputElement.id}-error`
+    ); // Находим элемент ошибки
     inputElement.classList.remove(this._markErrorClass); // Скрываем красную линию ошибки
     errorElement.classList.remove(this._activeErrorClass); // Скрываем сообщение об ошибке
     errorElement.textContent = ""; // Очистим ошибку
@@ -107,11 +102,11 @@ export class FormValidator {
    * приватный метод добавления обработчиков всем полям формы
    */
   _setEventListeners = () => {
-    this._toggleButtonState(this._inputList, this._buttonElement);
+    this._toggleButtonState();
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
         this._isValid(this._formElement, inputElement); // передаем форму и проверяемый элемент
-        this._toggleButtonState(this._inputList, this._buttonElement);
+        this._toggleButtonState();
       });
     });
   };
