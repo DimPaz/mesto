@@ -2,9 +2,8 @@ import { Popup } from "./Popup.js";
 
 export class PopupWithConfirmation extends Popup {
   constructor({ popupSelector }) {
-    super(popupSelector);
-    this._popupSelector = document.querySelector(popupSelector);
-    this._form = this._popupSelector.querySelector(".form");
+    super({ popupSelector });
+    this._popupWindow = this._popup.querySelector(".form");
   }
 
   //метод для передачи колбека удаления карточки
@@ -14,7 +13,7 @@ export class PopupWithConfirmation extends Popup {
 
   setEventListenersDelete() {
     super.setEventListeners();
-    this._form.addEventListener("submit", (event) => {
+    this._popupWindow.addEventListener("submit", (event) => {
       event.preventDefault();
       this._сardHandler();
     });

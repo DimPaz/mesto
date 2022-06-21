@@ -10,9 +10,12 @@ export class UserInfo {
    * @param {*} name
    * @param {*} about
    */
-  getUserInfo(name, about) {
-    name.value = this._nameProfile.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
-    about.value = this._professionProfile.textContent; //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
+  getUserInfo() {
+    const dataProfile = {
+      name: this._nameProfile.textContent, //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
+      about: this._professionProfile.textContent, //Если пользователь закрывает попап нажав на крестик, то введённые значения не сохраняются
+    };
+    return dataProfile;
   }
 
   /**

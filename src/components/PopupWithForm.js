@@ -2,18 +2,19 @@ import { Popup } from "./Popup.js";
 
 export class PopupWithForm extends Popup {
   constructor({ popupSelector, handleFormSubmit }) {
-    super(popupSelector);
-    this._popupSelector = document.querySelector(popupSelector);
+    super({ popupSelector });
+    this._popup = document.querySelector(popupSelector);
     this._handleFormSubmit = handleFormSubmit;
-    this._inputList = this._popupSelector.querySelectorAll(".form__input");
-    this._form = this._popupSelector.querySelector(".form");
-    this._textBtn = this._popupSelector.querySelector(".popup__save-btn");
+    this._inputList = this._popup.querySelectorAll(".form__input");
+    this._form = this._popup.querySelector(".form");
+    this._submitButton = this._popup.querySelector(".popup__save-btn");
   }
 
   /**
    * // приватный метод который собирает данные всех полей формы
    * @returns this._inputValues
    */
+
   _getInputValues() {
     this._inputValues = {};
     this._inputList.forEach((input) => {
@@ -23,27 +24,20 @@ export class PopupWithForm extends Popup {
   }
 
   /**
-   * уведомление о загрузке
-   */
-  _renderLoading(isLoading) {
-    if (isLoading) {
-      this._textBtn.textContent = "Сохранение...";
-    } else {
-      this._textBtn.textContent = this._textBtn.name;
-    }
-  }
-
-  /**
    * добавляет слушатель клика иконке закрытия попапа и на оверлей
    */
   setEventListeners() {
     super.setEventListeners();
     this._form.addEventListener("submit", (event) => {
       event.preventDefault();
-      this._renderLoading(true);
-      this._handleFormSubmit(this._getInputValues());
-      this._renderLoading(false);
-      this.close();
+      // как я до этого не додумася, конекретно про сохранение изначального текста)))
+      const initialText = this._submitButton.textContent; // сохраняем изначальный текст кнопки
+      this._submitButton.textContent = "Сохранение...";
+      this._handleFormSubmit(this._getInputValues()) //
+        .then(() => this.close()) // закрывается попап
+        .finally(() => {
+          this._submitButton.textContent = initialText; //возвращаем изначальный текст сабмита
+        });
     });
   }
 

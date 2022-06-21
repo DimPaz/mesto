@@ -3,7 +3,6 @@ export class Section {
     this._items = items;
     this._renderItems = renderItems;
     this._listContainer = document.querySelector(listContainer);
-  
   }
   /**
    * создание карточек

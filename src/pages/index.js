@@ -50,7 +50,6 @@ api
 
 //открыть попап аватар
 avatarEditBtn.addEventListener("click", () => {
-  controlUserInfo.getUserInfo(nameInput, jobInput, avatarInput);
   avatarFormValidator.resetErrors();
   popupAvatar.open();
 });
@@ -58,11 +57,10 @@ avatarEditBtn.addEventListener("click", () => {
 const popupAvatar = new PopupWithForm({
   popupSelector: ".popup_type_avatar",
   handleFormSubmit: (data) => {
-    api
+    return api
       .addAvatar(data.link)
       .then((data) => {
         controlUserInfo.setAvatar(data.avatar);
-        popupAvatar.close();
       })
       .catch((err) => {
         console.log(err);
@@ -75,7 +73,9 @@ const popupAvatar = new PopupWithForm({
 //открыть попап профиль
 profileEditBtn.addEventListener("click", () => {
   console.log();
-  controlUserInfo.getUserInfo(nameInput, jobInput, avatarInput);
+  const dataProfile = controlUserInfo.getUserInfo();
+  nameInput.value = dataProfile.name;
+  jobInput.value = dataProfile.about;
   editFormValidator.resetErrors();
   popupProfile.open();
 });
@@ -83,7 +83,14 @@ profileEditBtn.addEventListener("click", () => {
 const popupProfile = new PopupWithForm({
   popupSelector: ".popup_type_profile",
   handleFormSubmit: (data) => {
-    handleProfileFormSubmit(data);
+    return api
+      .addUserInfo(data.name, data.job)
+      .then((data) => {
+        controlUserInfo.setUserInfo(data.name, data.about);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
 });
 
@@ -92,19 +99,6 @@ const controlUserInfo = new UserInfo({
   professionProfile: ".profile__profession",
   avatarProfile: ".profile__avatar",
 });
-
-// обрабатыватываем отправку формы профиля
-function handleProfileFormSubmit(data) {
-  api
-    .addUserInfo(data.name, data.job)
-    .then((data) => {
-      controlUserInfo.setUserInfo(data.name, data.about);
-      popupProfile.close();
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
 
 //==================================================
 
@@ -128,20 +122,16 @@ cardEditBtn.addEventListener("click", () => {
 const popupCard = new PopupWithForm({
   popupSelector: ".popup_type_card",
   handleFormSubmit: (item) => {
-    handleCardFormSubmit(item);
+    return api
+      .addCard(item)
+      .then((card) => {
+        cardList.addCard(creatCardInstance(card));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
 });
-
-function handleCardFormSubmit(card) {
-  api
-    .addCard(card)
-    .then((card) => {
-      cardList.addCard(creatCardInstance(card));
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
 
 //создание экземпляра карточки и генерация объекта
 function creatCardInstance(item) {
